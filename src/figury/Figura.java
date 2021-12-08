@@ -17,7 +17,7 @@ import java.util.Random;
  * @author tb
  *
  */
-public abstract class Figura implements Runnable, ActionListener, Shape {
+public abstract class Figura implements Runnable, ActionListener {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
@@ -38,7 +38,7 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 	private int height;
 	private Color clr;
 
-	protected static final Random rand = new Random();
+	protected static  Random rand = new Random();
 
 	public Figura(Graphics2D buf, int del, int w, int h) {
 		delay = del;
@@ -46,9 +46,9 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		width = w;
 		height = h;
 
-		dx = 1 + rand.nextInt(5);
-		dy = 1 + rand.nextInt(5);
-		sf = 1 + 0.05 * rand.nextDouble();
+		dx = 2 * (rand.nextInt(5) - 1) + rand.nextInt(10) - 5;
+		dy = 2 * (rand.nextInt(5) - 1) + rand.nextInt(10) - 5;
+		sf = 1.01 + 0.05 * rand.nextDouble();
 		an = 0.1 * rand.nextDouble();
 
 		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
