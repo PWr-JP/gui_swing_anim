@@ -76,7 +76,9 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
-		
+
+		//Tutaj dodaje przykładowy komentarz
+
 	}
 
 }
