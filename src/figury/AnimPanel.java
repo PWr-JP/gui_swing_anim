@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -22,6 +23,8 @@ public class AnimPanel extends JPanel implements ActionListener {
     Graphics2D device;
     // wykreslacz bufora
     Graphics2D buffer;
+
+    private ArrayList<Figura> shapeList = new ArrayList<Figura>();
 
     private int delay = 70;
 
@@ -50,14 +53,26 @@ public class AnimPanel extends JPanel implements ActionListener {
         Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
                 : new Elipsa(buffer, delay, getWidth(), getHeight());
         timer.addActionListener(fig);
+        shapeList.add(fig);
+        if(timer.isRunning()){
+            fig.resumeAnimation();
+        }else if(!timer.isRunning()){
+            fig.stopAnimation();
+        }
         new Thread(fig).start();
     }
 
     void animate() {
         if (timer.isRunning()) {
             timer.stop();
+            for (Figura shape : shapeList) {
+                shape.stopAnimation();
+            }
         } else {
             timer.start();
+            for (Figura shape : shapeList) {
+                shape.resumeAnimation();
+            }
         }
     }
 

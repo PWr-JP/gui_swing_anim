@@ -25,7 +25,7 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
     protected Shape shape;
     // przeksztalcenie obiektu
     protected AffineTransform aft;
-    private boolean stopped = false;
+    private boolean stopped = true;
     // przesuniecie
     private int dx, dy;
     // rozciaganie
@@ -67,7 +67,7 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 
         while (true) {
             // przygotowanie nastepnego kadru
-            if (stopped) {
+            if (!stopped) {
                 shape = nextFrame();
             }
             try {
@@ -80,7 +80,7 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
     protected Shape nextFrame() {
         // zapamietanie na zmiennej tymczasowej
         // aby nie przeszkadzalo w wykreslaniu
-//        area = new Area(area);
+        area = new Area(area);
         aft = new AffineTransform();
         Rectangle bounds = area.getBounds();
         int cx = bounds.x + bounds.width / 2;
@@ -115,8 +115,8 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
     }
 
 
-    protected void stopAnimation(){stopped = true;}
-    protected void resumeAnimation(){stopped = false;}
+    public void stopAnimation(){stopped = true;}
+    public void resumeAnimation(){stopped = false;}
 
     public Rectangle getBounds() {
         return area.getBounds();
