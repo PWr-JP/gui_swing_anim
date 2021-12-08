@@ -35,10 +35,7 @@ public class AnimatorApp extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @param delay 
-	 */
+
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
