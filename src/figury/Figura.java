@@ -51,7 +51,7 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		sf = 1 + 0.05 * rand.nextDouble();
 		an = 0.1 * rand.nextDouble();
 
-		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+		clr = losujKolor();
 		// reszta musi być zawarta w realizacji klasy Figure
 		// (tworzenie figury i przygotowanie transformacji)
 
@@ -83,10 +83,15 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		int cx = bounds.x + bounds.width / 2;
 		int cy = bounds.y + bounds.height / 2;
 		// odbicie
-		if (cx < 0 || cx > width)
+		int mnoznik;
+		if (cx < 0 || cx > width) {
 			dx = -dx;
-		if (cy < 0 || cy > height)
+			clr = losujKolor();
+		}
+		if (cy < 0 || cy > height) {
 			dy = -dy;
+			clr = losujKolor();
+		}
 		// zwiekszenie lub zmniejszenie
 		if (bounds.height > height / 3 || bounds.height < 10)
 			sf = 1 / sf;
@@ -109,6 +114,10 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		// wykreslenie ramki
 		buffer.setColor(clr.darker());
 		buffer.draw(shape);
+	}
+
+	private Color losujKolor(){
+		return new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 	}
 
 }

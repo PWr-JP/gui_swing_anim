@@ -37,7 +37,7 @@ public class AnimatorApp extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param delay 
+//	 * @param delay
 	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,10 +59,12 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 
+
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kanwa.addFig();
+
 			}
 		});
 		btnAdd.setBounds(10, 239, 80, 23);
@@ -76,9 +78,7 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
-
-		//Tutaj dodaje przykładowy komentarz
-
+		
 	}
 
 }

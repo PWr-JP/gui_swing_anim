@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -29,6 +30,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private static int numer = 0;
 
+
 	public AnimPanel() {
 		super();
 		setBackground(Color.WHITE);
@@ -47,10 +49,19 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+
+		Figura fig;
+		Random random = new Random();
+		int losowana = random.nextInt(5);
+
+		if(losowana==0)fig= new Kwadrat(buffer, delay, getWidth(), getHeight());
+		else if(losowana==1) fig= new Prostokat(buffer, delay, getWidth(), getHeight());
+		else if(losowana==2) fig= new Koło(buffer, delay, getWidth(), getHeight());
+		else fig= new Elipsa(buffer, delay, getWidth(), getHeight());
+
 		timer.addActionListener(fig);
 		new Thread(fig).start();
+
 	}
 
 	void animate() {
