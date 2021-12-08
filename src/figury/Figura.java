@@ -17,7 +17,7 @@ import java.util.Random;
  * @author tb
  *
  */
-public abstract class Figura implements Runnable, ActionListener, Shape {
+public abstract class Figura implements Runnable, ActionListener {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
@@ -82,11 +82,15 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		Rectangle bounds = area.getBounds();
 		int cx = bounds.x + bounds.width / 2;
 		int cy = bounds.y + bounds.height / 2;
-		// odbicie
-		if (cx < 0 || cx > width)
+
+		// odbicie - zmiana warunku - podczas odbijania figury nie wychodzą poza granice ramki
+		int xx= bounds.x + dx;
+		int yy= bounds.y + dy;
+		if (xx <= 0 || xx >= width - bounds.width)
 			dx = -dx;
-		if (cy < 0 || cy > height)
+		if (yy <= 0 || yy >= height- bounds.height)
 			dy = -dy;
+
 		// zwiekszenie lub zmniejszenie
 		if (bounds.height > height / 3 || bounds.height < 10)
 			sf = 1 / sf;
@@ -99,6 +103,7 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		// przeksztalcenie obiektu
 		area.transform(aft);
 		return area;
+
 	}
 
 	@Override

@@ -1,14 +1,10 @@
 package figury;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import java.util.Random;
+import javax.swing.*;
 
 public class AnimPanel extends JPanel implements ActionListener {
 	/**
@@ -47,10 +43,20 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+		Random rand = new Random();
+		int r = rand.nextInt(3); //losowanie liczby od 0,1,2
+		if (r == 0) {Figura fig = new Kwadrat(buffer, delay, getWidth(), getHeight());//jesli r=0 zostanie dodany kwadrat
+			timer.addActionListener(fig);
+			new Thread(fig).start();}
+
+		if (r == 1) {Figura fig = new Elipsa(buffer, delay, getWidth(), getHeight());//jesli r=1 zostanie dodana elipsa
+			timer.addActionListener(fig);
+			new Thread(fig).start();}
+
+		if (r == 2) {Figura fig = new Trojkat(buffer, delay, getWidth(), getHeight());//jesli r=2 zostanie dodany trojkat
+			timer.addActionListener(fig);
+			new Thread(fig).start();}
+
 	}
 
 	void animate() {
