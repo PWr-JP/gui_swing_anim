@@ -37,7 +37,6 @@ public class AnimatorApp extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param delay 
 	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,6 +71,7 @@ public class AnimatorApp extends JFrame {
 		btnAnimate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kanwa.animate();
+
 			}
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);

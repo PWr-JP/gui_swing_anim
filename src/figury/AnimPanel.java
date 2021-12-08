@@ -61,6 +61,10 @@ public class AnimPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	void freeze(){
+		timer.start();
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		device.drawImage(image, 0, 0, null);

@@ -26,6 +26,7 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 	protected Shape shape;
 	// przeksztalcenie obiektu
 	protected AffineTransform aft;
+	protected int del;
 
 	// przesuniecie
 	private int dx, dy;
