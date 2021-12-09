@@ -17,7 +17,7 @@ import java.util.Random;
  * @author tb
  *
  */
-public abstract class Figura implements Runnable, ActionListener, Shape {
+public abstract class Figura implements Runnable, ActionListener {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
