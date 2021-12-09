@@ -1,5 +1,6 @@
 # gui_swing_anim
-Repozytorium startowe do animacji\n
+Repozytorium startowe do animacji
+
 /////////////////////////////////
 
 Autor: Marcin Lenkiewicz 259221
