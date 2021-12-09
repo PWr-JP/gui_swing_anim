@@ -12,12 +12,13 @@ import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.Random;
+import java.util.Timer;
 
 /**
  * @author tb
  *
  */
-public abstract class Figura implements Runnable, ActionListener, Shape {
+public abstract class Figura implements Runnable, ActionListener {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
@@ -26,6 +27,7 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 	protected Shape shape;
 	// przeksztalcenie obiektu
 	protected AffineTransform aft;
+	protected int przypadek;
 
 	// przesuniecie
 	private int dx, dy;
@@ -38,13 +40,16 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 	private int height;
 	private Color clr;
 
+	private AnimPanel panel;
+
 	protected static final Random rand = new Random();
 
-	public Figura(Graphics2D buf, int del, int w, int h) {
+	public Figura(Graphics2D buf, int del, int w, int h, int przypadek) { //0 - rect, 1 - elipse, 2 - RoundedRect, 3 - Curve
 		delay = del;
 		buffer = buf;
 		width = w;
 		height = h;
+		this.przypadek = przypadek;
 
 		dx = 1 + rand.nextInt(5);
 		dy = 1 + rand.nextInt(5);
@@ -54,27 +59,33 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 		// reszta musi być zawarta w realizacji klasy Figure
 		// (tworzenie figury i przygotowanie transformacji)
+	}
 
+	public void setPanel(AnimPanel panel) {
+		this.panel = panel;
 	}
 
 	@Override
 	public void run() {
 		// przesuniecie na srodek
-		aft.translate(100, 100);
+		aft.translate(0, 100);
 		area.transform(aft);
 		shape = area;
 
+		//startujemy animacje tylko kiedy timer okna Kanwy jest aktywny
 		while (true) {
-			// przygotowanie nastepnego kadru
-			shape = nextFrame();
-			try {
-				Thread.sleep(delay);
-			} catch (InterruptedException e) {
+			if(Figura.this.panel.getTimer().isRunning()) {
+				// przygotowanie nastepnego kadru
+				shape = nextFrame(przypadek);
+				try {
+					Thread.sleep(delay);
+				} catch (InterruptedException e) {
+				}
 			}
 		}
 	}
 
-	protected Shape nextFrame() {
+	protected Shape nextFrame(int przypadek) {
 		// zapamietanie na zmiennej tymczasowej
 		// aby nie przeszkadzalo w wykreslaniu
 		area = new Area(area);
@@ -93,9 +104,17 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		// konstrukcja przeksztalcenia
 		aft.translate(cx, cy);
 		aft.scale(sf, sf);
-		aft.rotate(an);
+
+		//Rotacje w zaleznosci od ksztaltu
+		if(przypadek ==0||przypadek==1)
+			aft.rotate(an);
+		if(przypadek==3)
+			aft.rotate(-an);
+
+
 		aft.translate(-cx, -cy);
 		aft.translate(dx, dy);
+
 		// przeksztalcenie obiektu
 		area.transform(aft);
 		return area;

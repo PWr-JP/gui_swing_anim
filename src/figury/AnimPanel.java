@@ -6,6 +6,10 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.locks.Lock;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -22,12 +26,12 @@ public class AnimPanel extends JPanel implements ActionListener {
 	Graphics2D device;
 	// wykreslacz bufora
 	Graphics2D buffer;
+	Figura figure;
 
 	private int delay = 70;
 
 	private Timer timer;
 
-	private static int numer = 0;
 
 	public AnimPanel() {
 		super();
@@ -46,11 +50,22 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+	void addFig(){
+		//Figura figure;
+		Random random = new Random();
+		int determinedFifure = random.nextInt(4);
+		if(determinedFifure==0)
+			figure = new Kwadrat(buffer,delay,getWidth(),getHeight());
+		else if(determinedFifure==1)
+			figure = new Elipsa(buffer,delay,getWidth(),getHeight());
+		else if(determinedFifure==2)
+			figure = new EnquaddedCurve(buffer,delay,getWidth(),getHeight());
+		else
+			figure = new RoundedRect(buffer,delay,getWidth(),getHeight());
+		figure.setPanel(this);
+		timer.addActionListener(figure);
+		new Thread(figure).start();
+
 	}
 
 	void animate() {
@@ -59,6 +74,10 @@ public class AnimPanel extends JPanel implements ActionListener {
 		} else {
 			timer.start();
 		}
+	}
+
+	public Timer getTimer() {
+		return timer;
 	}
 
 	@Override
