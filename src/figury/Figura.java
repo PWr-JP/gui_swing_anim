@@ -17,15 +17,12 @@ import java.util.Random;
  * @author tb
  *
  */
-public abstract class Figura implements Runnable, ActionListener, Shape {
+public abstract class Figura implements Runnable, ActionListener {
 
-	// wspolny bufor
-	protected Graphics2D buffer;
-	protected Area area;
-	// do wykreslania
-	protected Shape shape;
-	// przeksztalcenie obiektu
-	protected AffineTransform aft;
+	private final Graphics2D sharedBuffer;
+	private Area area;
+	private Shape shape;
+	private AffineTransform affineTransform;
 
 	// przesuniecie
 	private int dx, dy;
@@ -36,13 +33,13 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 	private int delay;
 	private int width;
 	private int height;
-	private Color clr;
+	private Color color;
 
 	protected static final Random rand = new Random();
 
 	public Figura(Graphics2D buf, int del, int w, int h) {
 		delay = del;
-		buffer = buf;
+		sharedBuffer = buf;
 		width = w;
 		height = h;
 
@@ -51,18 +48,45 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		sf = 1 + 0.05 * rand.nextDouble();
 		an = 0.1 * rand.nextDouble();
 
-		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
-		// reszta musi być zawarta w realizacji klasy Figure
-		// (tworzenie figury i przygotowanie transformacji)
+		color = new Color(rand.nextInt(255), rand.nextInt(255),
+				rand.nextInt(255), rand.nextInt(255));
+		affineTransform = sharedBuffer.getTransform();
+	}
 
+	public void setArea(Area area) {
+		this.area = area;
+	}
+
+	public void setShape(Shape shape) {
+		this.shape = shape;
+	}
+
+	public void setAffineTransform(AffineTransform affineTransform) {
+		this.affineTransform = affineTransform;
+	}
+
+	public Shape getShape() {
+		return shape;
+	}
+
+	public Graphics2D getSharedBuffer() {
+		return sharedBuffer;
+	}
+
+	public Area getArea() {
+		return area;
+	}
+
+	public AffineTransform getAffineTransform() {
+		return affineTransform;
 	}
 
 	@Override
 	public void run() {
 		// przesuniecie na srodek
-		aft.translate(100, 100);
-		area.transform(aft);
-		shape = area;
+		affineTransform.translate(100, 100);
+		area.transform(affineTransform);
+		 shape = area;
 
 		while (true) {
 			// przygotowanie nastepnego kadru
@@ -78,7 +102,7 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		// zapamietanie na zmiennej tymczasowej
 		// aby nie przeszkadzalo w wykreslaniu
 		area = new Area(area);
-		aft = new AffineTransform();
+		affineTransform = new AffineTransform();
 		Rectangle bounds = area.getBounds();
 		int cx = bounds.x + bounds.width / 2;
 		int cy = bounds.y + bounds.height / 2;
@@ -91,24 +115,22 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		if (bounds.height > height / 3 || bounds.height < 10)
 			sf = 1 / sf;
 		// konstrukcja przeksztalcenia
-		aft.translate(cx, cy);
-		aft.scale(sf, sf);
-		aft.rotate(an);
-		aft.translate(-cx, -cy);
-		aft.translate(dx, dy);
+		affineTransform.translate(cx, cy);
+		affineTransform.scale(sf, sf);
+		affineTransform.rotate(an);
+		affineTransform.translate(-cx, -cy);
+		affineTransform.translate(dx, dy);
 		// przeksztalcenie obiektu
-		area.transform(aft);
+		area.transform(affineTransform);
 		return area;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		// wypelnienie obiektu
-		buffer.setColor(clr.brighter());
-		buffer.fill(shape);
-		// wykreslenie ramki
-		buffer.setColor(clr.darker());
-		buffer.draw(shape);
+		sharedBuffer.setColor(color.brighter());
+		sharedBuffer.fill(shape);
+		sharedBuffer.setColor(color.darker());
+		sharedBuffer.draw(shape);
 	}
 
 }
