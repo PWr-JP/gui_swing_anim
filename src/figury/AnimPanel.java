@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -15,7 +16,8 @@ public class AnimPanel extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	ArrayList<Figura> figury=new ArrayList<Figura>();
+	ArrayList<Thread> watki=new ArrayList<Thread>();
 	// bufor
 	Image image;
 	// wykreslacz ekranowy
@@ -45,12 +47,31 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device = (Graphics2D) getGraphics();
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
+	public void clear(){
+		image=null;
+		buffer=null;
+		device=null;
+		for (Figura fig : figury){
+			fig=null;
+		}
+		figury.clear();
 
+		for (Thread watek:watki){
+			watek.stop();
+			watek=null;
+		}
+		watki.clear();
+		initialize();
+	}
 	void addFig() {
 		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
 				: new Elipsa(buffer, delay, getWidth(), getHeight());
+
+		figury.add(fig);
 		timer.addActionListener(fig);
-		new Thread(fig).start();
+		Thread boi=new Thread(fig);
+		watki.add(boi);
+		boi.start();
 	}
 
 	void animate() {
