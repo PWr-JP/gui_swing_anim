@@ -1,37 +1,26 @@
 package figury;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class AnimPanel extends JPanel implements ActionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-
-	// bufor
-	Image image;
-	// wykreslacz ekranowy
-	Graphics2D device;
-	// wykreslacz bufora
-	Graphics2D buffer;
-
-	private int delay = 70;
-
+	private Image image; // bufor
+	private Graphics2D device; // wykreslacz ekranowy
+	private Graphics2D buffer; // wykreslacz bufora
+	private int delay = 25;
 	private Timer timer;
-
 	private static int numer = 0;
 
-	public AnimPanel() {
+	public AnimPanel(int width, int height) {
 		super();
-		setBackground(Color.WHITE);
+		this.setBackground(Color.WHITE);
+		this.setOpaque(true);
+		this.setPreferredSize(new Dimension(width, height));
 		timer = new Timer(delay, this);
 	}
 
@@ -46,19 +35,38 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+	public void addFig() {
+		Figura fig;
+		if(numer % 3 == 0) {
+			fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+			timer.addActionListener(fig);
+			new Thread(fig).start();
+			numer++;
+		}
+		else if(numer % 3 == 1) {
+			fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+			timer.addActionListener(fig);
+			new Thread(fig).start();
+			numer++;
+		}
+		else if(numer % 3 == 2) {
+			fig = new MojaFigura(buffer, delay, getWidth(), getHeight());
+			timer.addActionListener(fig);
+			new Thread(fig).start();
+			numer++;
+		}
 	}
 
-	void animate() {
+	public void animate() {
 		if (timer.isRunning()) {
 			timer.stop();
 		} else {
 			timer.start();
 		}
+	}
+
+	public void changeDelay(int delay) {
+		this.delay = delay;
 	}
 
 	@Override
