@@ -59,14 +59,23 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
+		JButton btnAddR = new JButton("Add R");
+		btnAddR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
+				kanwa.addFigR();
 			}
 		});
-		btnAdd.setBounds(10, 239, 80, 23);
-		contentPane.add(btnAdd);
+		btnAddR.setBounds(10, 239, 80, 23);
+		contentPane.add(btnAddR);
+
+		JButton btnAddE = new JButton("Add E");
+		btnAddE.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.addFigE();
+			}
+		});
+		btnAddE.setBounds(100, 239, 80, 23);
+		contentPane.add(btnAddE);
 		
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
@@ -74,7 +83,7 @@ public class AnimatorApp extends JFrame {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(190, 239, 80, 23);
 		contentPane.add(btnAnimate);
 		
 	}
