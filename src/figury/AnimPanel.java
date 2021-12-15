@@ -47,8 +47,23 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		Figura fig = null;
+		numer++;
+		if(numer % 5 == 0)
+			fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+
+		else if(numer % 5 == 1)
+			fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+
+		else if(numer % 5 == 2)
+			fig = new Prostokat(buffer, delay, getWidth(), getHeight());
+
+		else if(numer % 5 == 3)
+			fig = new Kolo(buffer, delay, getWidth(), getHeight());
+
+		else if(numer % 5 == 4)
+			fig = new Luk(buffer, delay, getWidth(), getHeight());
+
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
@@ -58,6 +73,12 @@ public class AnimPanel extends JPanel implements ActionListener {
 			timer.stop();
 		} else {
 			timer.start();
+		}
+	}
+
+	void speedPlus() {
+		if (delay < 200 && delay > 10) {
+			delay -= 10;
 		}
 	}
 

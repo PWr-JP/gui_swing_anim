@@ -76,6 +76,15 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
+
+		JButton chSpeed = new JButton("Speed +");
+		chSpeed.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.speedPlus();
+			}
+		});
+		chSpeed.setBounds(200, 239, 80, 23);
+		contentPane.add(chSpeed);
 		
 	}
 
