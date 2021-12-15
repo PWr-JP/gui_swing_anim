@@ -7,12 +7,11 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class AnimPanel extends JPanel implements ActionListener {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +22,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	// wykreslacz bufora
 	Graphics2D buffer;
 
-	private int delay = 70;
+	private int delay = 60;
 
 	private Timer timer;
 
@@ -33,6 +32,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 		super();
 		setBackground(Color.WHITE);
 		timer = new Timer(delay, this);
+
 	}
 
 	public void initialize() {
@@ -48,10 +48,29 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	void addFig() {
 		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+				: new Kolo(buffer, delay, getWidth(), getHeight());
+		fig = (numer % 3 == 0) ? new Elipsa(buffer, delay, getWidth(), getHeight()) :
+				fig;
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
+	void addKolo(){
+			Figura figureKo =  new Kolo(buffer, delay, getWidth(), getHeight());
+			timer.addActionListener(figureKo);
+			new Thread(figureKo).start();
+		}
+
+	void addElipsa(){
+		Figura figureE =  new Elipsa(buffer, delay, getWidth(), getHeight());
+		timer.addActionListener(figureE);
+		new Thread(figureE).start();
+	}
+	void addKwadrat(){
+		Figura figureKw =  new Kwadrat(buffer, delay, getWidth(), getHeight());
+		timer.addActionListener(figureKw);
+		new Thread(figureKw).start();
+	}
+
 
 	void animate() {
 		if (timer.isRunning()) {

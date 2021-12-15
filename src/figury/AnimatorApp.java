@@ -42,7 +42,7 @@ public class AnimatorApp extends JFrame {
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		int ww = 450, wh = 300;
+		int ww = 512, wh = 418;
 		setBounds((screen.width-ww)/2, (screen.height-wh)/2, ww, wh);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
@@ -59,7 +59,7 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 
-		JButton btnAdd = new JButton("Add");
+		JButton btnAdd = new JButton("Losowy");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kanwa.addFig();
@@ -76,6 +76,38 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
+
+		JButton btnKolo = new JButton("Kolo");
+		btnKolo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				kanwa.addKolo();
+
+			}
+		});
+		btnKolo.setBounds(280, 239, 80, 23);
+		contentPane.add(btnKolo);
+		JButton btnKwadrat = new JButton("Kwadrat");
+		btnKwadrat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				kanwa.addKwadrat();
+
+			}
+		});
+		btnKwadrat.setBounds(190, 239, 80, 23);
+		contentPane.add(btnKwadrat);
+
+		JButton btnElipsa = new JButton("Elipsa");
+		btnElipsa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				kanwa.addElipsa();
+
+			}
+		});
+		btnElipsa.setBounds(370, 239, 80, 23);
+		contentPane.add(btnElipsa);
 		
 	}
 
