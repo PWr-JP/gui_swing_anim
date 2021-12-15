@@ -12,6 +12,5 @@ public class Elipsa extends Figura{
         shape=new Ellipse2D.Float(0,0,20,10);
         aft=new AffineTransform();
         area=new Area(shape);
-
     }
 }

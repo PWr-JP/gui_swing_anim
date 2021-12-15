@@ -51,7 +51,7 @@ public class AnimatorApp extends JFrame {
 		contentPane.setLayout(null);
 
 		AnimPanel kanwa = new AnimPanel();
-		kanwa.setBounds(10, 11, 422, 219);
+		kanwa.setBounds(10, 10, ww-28, wh-27-50);
 		contentPane.add(kanwa);
 		SwingUtilities.invokeLater(new Runnable() {
 			
@@ -67,7 +67,7 @@ public class AnimatorApp extends JFrame {
 				kanwa.addFig();
 			}
 		});
-		btnAdd.setBounds(10, 239, 80, 23);
+		btnAdd.setBounds(10, wh-27-30, 80, 23);
 		contentPane.add(btnAdd);
 		
 		JButton btnAnimate = new JButton("Animate");
@@ -76,20 +76,21 @@ public class AnimatorApp extends JFrame {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(100, wh-30-27, 80, 23);
 		contentPane.add(btnAnimate);
-/*
+
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				//super.componentResized(e);
 				int w= contentPane.getWidth();
 				int h= contentPane.getHeight();
-				btnAdd.setBounds(10,10,90,20);
-				btnAnimate.setBounds(100,30,90,20);
+				btnAdd.setBounds(10,h-30,80,23);
+				btnAnimate.setBounds(w-100,h-30,80,23);
+				//kanwa.setBounds(10,10,w-28,h-27-50);kanwa.animate();
 			}
 		});
-*/
+
 	}
 
 }

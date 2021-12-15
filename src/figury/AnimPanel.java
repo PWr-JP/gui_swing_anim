@@ -47,8 +47,26 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		Figura fig = null;
+		if(numer%2==0){
+			if(numer%4==0){
+				 fig = new Wycinek(buffer, delay, getWidth(), getHeight());
+			}
+			else{
+				 fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+			}
+		}
+		else{
+			if(numer%3==0){
+				fig = new zaokrProstokad(buffer, delay, getWidth(), getHeight());
+			}
+			else{
+				fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+			}
+		}
+		numer++;
+		//Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
+		//		: new Elipsa(buffer, delay, getWidth(), getHeight());
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
