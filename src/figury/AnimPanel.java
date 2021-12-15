@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -23,7 +24,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	// wykreslacz bufora
 	Graphics2D buffer;
 
-	private int delay = 70;
+	int delay = 70;
 
 	private Timer timer;
 
@@ -47,6 +48,8 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
+		Random generator = new Random();
+		numer = generator.nextInt(4)+1;
 		Figura fig = null;
 		if(numer%2==0){
 			if(numer%4==0){
@@ -64,9 +67,6 @@ public class AnimPanel extends JPanel implements ActionListener {
 				fig = new Elipsa(buffer, delay, getWidth(), getHeight());
 			}
 		}
-		numer++;
-		//Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-		//		: new Elipsa(buffer, delay, getWidth(), getHeight());
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}

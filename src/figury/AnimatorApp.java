@@ -39,7 +39,7 @@ public class AnimatorApp extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param delay
+	 * @param //delay
 	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,6 +53,7 @@ public class AnimatorApp extends JFrame {
 		AnimPanel kanwa = new AnimPanel();
 		kanwa.setBounds(10, 10, ww-28, wh-27-50);
 		contentPane.add(kanwa);
+
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override
@@ -69,6 +70,32 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAdd.setBounds(10, wh-27-30, 80, 23);
 		contentPane.add(btnAdd);
+		//kanwa.delay= kanwa.delay;
+
+
+		JButton btnUp = new JButton("Speed!");
+		btnUp.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(kanwa.delay>10){
+					kanwa.delay=kanwa.delay-20;
+				}
+			}
+		});
+		btnUp.setBounds(100,wh-27-30,80,23);
+		contentPane.add(btnUp);
+
+		JButton btnDown = new JButton("Slow!");
+		btnDown.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(kanwa.delay<130){
+					kanwa.delay=kanwa.delay+20;
+				}
+			}
+		});
+		btnDown.setBounds(180,wh-27-30,80,23);
+		contentPane.add(btnDown);
 		
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
@@ -82,12 +109,12 @@ public class AnimatorApp extends JFrame {
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
-				//super.componentResized(e);
 				int w= contentPane.getWidth();
 				int h= contentPane.getHeight();
 				btnAdd.setBounds(10,h-30,80,23);
 				btnAnimate.setBounds(w-100,h-30,80,23);
-				//kanwa.setBounds(10,10,w-28,h-27-50);kanwa.animate();
+				btnUp.setBounds(100,h-30,80,23);
+				btnDown.setBounds(180,h-30,80,23);
 			}
 		});
 
