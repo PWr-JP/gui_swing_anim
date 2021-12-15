@@ -10,8 +10,6 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class AnimatorApp extends JFrame {
 
@@ -71,19 +69,26 @@ public class AnimatorApp extends JFrame {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(100, 239, 100, 23);
 		contentPane.add(btnAnimate);
 
-		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				super.keyPressed(e);
-				if(e.getKeyChar()==43)
-					kanwa.fpsincrease();
-				if(e.getKeyChar()==45)
-					kanwa.fpsdecrease();
+		JButton btnIncrease = new JButton("Delay-");
+		btnIncrease.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.delayDecrease();
 			}
 		});
+		btnIncrease.setBounds(210, 239, 80, 23);
+		contentPane.add(btnIncrease);
+
+		JButton btnDecrease = new JButton("Delay+");
+		btnDecrease.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.delayIncrease();
+			}
+		});
+		btnDecrease.setBounds(300, 239, 80, 23);
+		contentPane.add(btnDecrease);
 	}
 
 }

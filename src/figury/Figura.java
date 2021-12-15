@@ -30,14 +30,14 @@ public abstract class Figura implements Runnable, ActionListener {
 	private double sf;
 	// kat obrotu
 	private final double an;
-	private final int delay;
+	private Delay delay;
 	private final int width;
 	private final int height;
 	private final Color clr;
 
 	protected static final Random rand = new Random();
 
-	public Figura(Graphics2D buf, int del, int w, int h) {
+	public Figura(Graphics2D buf, Delay del, int w, int h) {
 		delay = del;
 		buffer = buf;
 		width = w;
@@ -65,7 +65,7 @@ public abstract class Figura implements Runnable, ActionListener {
 			// przygotowanie nastepnego kadru
 			shape = nextFrame();
 			try {
-				Thread.sleep(delay);
+				Thread.sleep(delay.getDelay());
 			} catch (InterruptedException e) {
 			}
 		}

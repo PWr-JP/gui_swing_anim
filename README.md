@@ -1,2 +1,2 @@
 # gui_swing_anim
-Repozytorium startowe do animacji
+Jedyną funkcją dodatkową jest zmienianie wartości opóźnienia za pomocą przycisków w gui.

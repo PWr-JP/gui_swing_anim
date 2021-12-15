@@ -23,7 +23,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	// wykreslacz bufora
 	Graphics2D buffer;
 
-	private int delay = 30;
+	private Delay delay;
 
 	private final Timer timer;
 
@@ -31,8 +31,9 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	public AnimPanel() {
 		super();
+		delay = new Delay();
 		setBackground(Color.WHITE);
-		timer = new Timer(delay, this);
+		timer = new Timer(delay.getDelay(), this);
 	}
 
 	public void initialize() {
@@ -66,15 +67,17 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
 	}
-	public void fpsincrease(){
-		if(delay<10)
-			delay=1;
+
+	public void delayDecrease(){
+		int del = delay.getDelay();
+		if(del <= 5)
+			delay.setDelay(1);
 		else
-			delay=delay-10;
+			delay.setDelay(del-5);
 	}
 
-	public void fpsdecrease(){
-		delay=delay+10;
+	public void delayIncrease(){
+		delay.setDelay(delay.getDelay()+5);
 	}
 
 }
