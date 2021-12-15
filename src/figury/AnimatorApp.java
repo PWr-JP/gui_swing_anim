@@ -3,10 +3,7 @@ package figury;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -59,14 +56,23 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 
-		JButton btnAdd = new JButton("Add");
+		JButton btnAdd = new JButton("Add Elipse");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
+				kanwa.addFig(1);
 			}
 		});
 		btnAdd.setBounds(10, 239, 80, 23);
 		contentPane.add(btnAdd);
+
+		JButton btnAddRec = new JButton("Add Rectangle");
+		btnAddRec.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.addFig(2);
+			}
+		});
+		btnAddRec.setBounds(200, 239, 80, 23);
+		contentPane.add(btnAddRec);
 		
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
