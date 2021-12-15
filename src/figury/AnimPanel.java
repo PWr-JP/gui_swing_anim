@@ -46,23 +46,36 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
-		Figura fig = null;
-		numer++;
-		if(numer % 5 == 0)
-			fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+	void addElipsa() {
+		Figura fig = new Elipsa(buffer, delay, getWidth(), getHeight());
 
-		else if(numer % 5 == 1)
-			fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+		timer.addActionListener(fig);
+		new Thread(fig).start();
+	}
 
-		else if(numer % 5 == 2)
-			fig = new Prostokat(buffer, delay, getWidth(), getHeight());
+	void addKwadrat() {
+		Figura fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
 
-		else if(numer % 5 == 3)
-			fig = new Kolo(buffer, delay, getWidth(), getHeight());
+		timer.addActionListener(fig);
+		new Thread(fig).start();
+	}
 
-		else if(numer % 5 == 4)
-			fig = new Luk(buffer, delay, getWidth(), getHeight());
+	void addKolo() {
+		Figura fig = new Kolo(buffer, delay, getWidth(), getHeight());
+
+		timer.addActionListener(fig);
+		new Thread(fig).start();
+	}
+
+	void addProstokat() {
+		Figura fig = new Prostokat(buffer, delay, getWidth(), getHeight());
+
+		timer.addActionListener(fig);
+		new Thread(fig).start();
+	}
+
+	void addLuk() {
+		Figura fig = new Luk(buffer, delay, getWidth(), getHeight());
 
 		timer.addActionListener(fig);
 		new Thread(fig).start();
@@ -73,12 +86,6 @@ public class AnimPanel extends JPanel implements ActionListener {
 			timer.stop();
 		} else {
 			timer.start();
-		}
-	}
-
-	void speedPlus() {
-		if (delay < 200 && delay > 10) {
-			delay -= 10;
 		}
 	}
 

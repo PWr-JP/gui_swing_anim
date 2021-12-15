@@ -3,10 +3,7 @@ package figury;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -58,15 +55,6 @@ public class AnimatorApp extends JFrame {
 				kanwa.initialize();
 			}
 		});
-
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
-			}
-		});
-		btnAdd.setBounds(10, 239, 80, 23);
-		contentPane.add(btnAdd);
 		
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
@@ -74,18 +62,34 @@ public class AnimatorApp extends JFrame {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(120, 239, 100, 23);
 		contentPane.add(btnAnimate);
 
-		JButton chSpeed = new JButton("Speed +");
-		chSpeed.addActionListener(new ActionListener() {
+		JComboBox choice = new JComboBox();
+		choice.addItem("Wybor figur");
+		choice.addItem("Elipsa");
+		choice.addItem("Kwadrat");
+		choice.addItem("Kolo");
+		choice.addItem("Prostokat");
+		choice.addItem("Luk");
+
+		choice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.speedPlus();
+				String wybor = choice.getSelectedItem().toString();
+				if(wybor.equals("Elipsa"))
+					kanwa.addElipsa();
+				if(wybor.equals("Kwadrat"))
+					kanwa.addKwadrat();
+				if(wybor.equals("Kolo"))
+					kanwa.addKolo();
+				if(wybor.equals("Prostokat"))
+					kanwa.addProstokat();
+				if(wybor.equals("Luk"))
+					kanwa.addLuk();
 			}
 		});
-		chSpeed.setBounds(200, 239, 80, 23);
-		contentPane.add(chSpeed);
-		
+		choice.setBounds(10, 239, 100, 23);
+		contentPane.add(choice);
 	}
 
 }
