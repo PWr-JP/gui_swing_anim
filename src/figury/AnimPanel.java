@@ -23,6 +23,10 @@ public class AnimPanel extends JPanel implements ActionListener {
 	// wykreslacz bufora
 	Graphics2D buffer;
 
+	//public int dispWidth;
+	//public int dispHeight;
+	//Image dispImage;
+
 	private int delay = 70;
 
 	private Timer timer;
@@ -38,6 +42,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	public void initialize() {
 		int width = getWidth();
 		int height = getHeight();
+		//dispImage = createImage(dispWidth, dispHeight);
 
 		image = createImage(width, height);
 		buffer = (Graphics2D) image.getGraphics();
