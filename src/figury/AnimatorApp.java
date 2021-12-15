@@ -3,10 +3,9 @@ package figury;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -59,24 +58,44 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
+		JButton btnAddElip = new JButton("Add Elipse");
+		btnAddElip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
+				kanwa.addElip();
 			}
 		});
-		btnAdd.setBounds(10, 239, 80, 23);
-		contentPane.add(btnAdd);
-		
+		btnAddElip.setBounds(10, 239, 80, 23);
+		contentPane.add(btnAddElip);
+
+		JButton btnAddRect = new JButton("Add Rectangle");
+		btnAddRect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.addRect();
+			}
+		});
+		btnAddRect.setBounds(100, 239, 80, 23);
+		contentPane.add(btnAddRect);
+
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(190, 239, 80, 23);
 		contentPane.add(btnAnimate);
-		
+
+		JSlider slider = new JSlider(JSlider.HORIZONTAL, 10, 50, 20);
+		slider.setBounds(280, 239, 150, 23);
+		slider.setMinorTickSpacing(2);
+		slider.setMajorTickSpacing(10);
+		slider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				kanwa.setDelay(slider.getValue());
+			}
+		});
+		contentPane.add(slider);
 	}
 
 }
