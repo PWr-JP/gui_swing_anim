@@ -47,10 +47,22 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+		if(numer % 3 == 0) {
+			Figura fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+			timer.addActionListener(fig);
+			new Thread(fig).start();
+		}
+		else if (numer % 3 == 1){
+			Figura fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+			timer.addActionListener(fig);
+			new Thread(fig).start();
+		}
+		else{
+			Figura fig = new Luk(buffer, delay, getWidth(), getHeight());
+			timer.addActionListener(fig);
+			new Thread(fig).start();
+		}
+		numer++;
 	}
 
 	void animate() {
