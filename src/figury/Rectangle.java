@@ -5,8 +5,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 
-public class Kwadrat extends Figure {
-    public Kwadrat(Graphics2D buf, int del, int w, int h) {
+public class Rectangle extends Figure {
+    public Rectangle(Graphics2D buf, int del, int w, int h) {
         super(buf, del, w, h);
         shape = new Rectangle2D.Float(0, 0, 10, 10);
         aft = new AffineTransform();

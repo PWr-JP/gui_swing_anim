@@ -23,9 +23,9 @@ public class AnimPanel extends JPanel implements ActionListener {
 	// wykreslacz bufora
 	Graphics2D buffer;
 
-	private int delay = 70;
+	private final int delay = 70;
 
-	private Timer timer;
+	private final Timer timer;
 
 	private static int numer = 0;
 
@@ -47,8 +47,17 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		Figure fig;
+		numer ++;
+		if (numer % 3 == 0){
+			fig = new Rectangle(buffer, delay, getWidth(), getHeight());
+		}
+		else if(numer % 3 == 1) {
+			fig = new Ellipse(buffer, delay, getWidth(), getHeight());
+		}
+		else {
+			fig = new RoundRectangle(buffer, delay, getWidth(), getHeight());
+		}
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}

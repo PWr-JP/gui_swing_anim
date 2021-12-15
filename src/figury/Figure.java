@@ -17,7 +17,7 @@ import java.util.Random;
  * @author tb
  *
  */
-public abstract class Figura implements Runnable, ActionListener {
+public abstract class Figure implements Runnable, ActionListener {
 
     // wspolny bufor
     protected Graphics2D buffer;
@@ -36,12 +36,13 @@ public abstract class Figura implements Runnable, ActionListener {
     private final int delay;
     private final int width;
     private final int height;
-    private Color clr;
-    long start;
-    long finish;
+    private Color color;
+    protected long start;
+    protected long finish;
     protected static final Random rand = new Random();
+    protected static int timeToRemove;
 
-    public Figura(Graphics2D buf, int del, int w, int h) {
+    public Figure(Graphics2D buf, int del, int w, int h) {
         delay = del;
         buffer = buf;
         width = w;
@@ -54,9 +55,10 @@ public abstract class Figura implements Runnable, ActionListener {
         sf = 1 + 0.05 * rand.nextDouble();
         an = 0.1 * rand.nextDouble();
 
-        clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+        color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
         // reszta musi być zawarta w realizacji klasy Figure
         // (tworzenie figury i przygotowanie transformacji)
+        timeToRemove = 5000;
 
     }
 
@@ -73,11 +75,11 @@ public abstract class Figura implements Runnable, ActionListener {
             try {
                 Thread.sleep(delay);
             } catch (InterruptedException e) {
-                clr = new Color(0,0,0,0);
+                color = new Color(0,0,0,0);
                 break;
             }
             finish = System.currentTimeMillis();
-            if (finish - start > 5000) {
+            if (finish - start > timeToRemove) {
                 Thread.currentThread().interrupt();
             }
         }
@@ -105,7 +107,7 @@ public abstract class Figura implements Runnable, ActionListener {
         aft.rotate(an);
         aft.translate(-cx, -cy);
         aft.translate(dx, dy);
-        clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+        color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
         // przeksztalcenie obiektu
         area.transform(aft);
         return area;
@@ -114,10 +116,10 @@ public abstract class Figura implements Runnable, ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         // wypelnienie obiektu
-        buffer.setColor(clr.brighter());
+        buffer.setColor(color.brighter());
         buffer.fill(shape);
         // wykreslenie ramki
-        buffer.setColor(clr.darker());
+        buffer.setColor(color.darker());
         buffer.draw(shape);
     }
 

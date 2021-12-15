@@ -11,7 +11,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AnimatorApp extends JFrame {
+public class AnimationApp extends JFrame {
 
 	/**
 	 * 
@@ -26,7 +26,7 @@ public class AnimatorApp extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					final AnimatorApp frame = new AnimatorApp();
+					final AnimationApp frame = new AnimationApp();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +39,7 @@ public class AnimatorApp extends JFrame {
 	 * Create the frame.
 
 	 */
-	public AnimatorApp() {
+	public AnimationApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int ww = 450, wh = 300;
@@ -48,21 +48,21 @@ public class AnimatorApp extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		AnimPanel kanwa = new AnimPanel();
-		kanwa.setBounds(10, 11, 422, 219);
-		contentPane.add(kanwa);
+		AnimPanel canva = new AnimPanel();
+		canva.setBounds(10, 11, 422, 219);
+		contentPane.add(canva);
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override
 			public void run() {
-				kanwa.initialize();
+				canva.initialize();
 			}
 		});
 
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
+				canva.addFig();
 			}
 		});
 		btnAdd.setBounds(10, 239, 80, 23);
@@ -71,7 +71,7 @@ public class AnimatorApp extends JFrame {
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.animate();
+				canva.animate();
 			}
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
