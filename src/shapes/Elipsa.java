@@ -1,9 +1,9 @@
-package figury;
+package shapes;
 
 import java.awt.*;
 import java.awt.geom.*;
 
-public class Elipsa extends Figura {
+public class Elipsa extends CanvasFigure {
 
     public Elipsa(Graphics2D buffer, int delay, int width, int height) {
         super(buffer, delay, width, height);

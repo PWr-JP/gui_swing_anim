@@ -1,9 +1,9 @@
-package figury;
+package shapes;
 
 import java.awt.*;
 import java.awt.geom.*;
 
-public class Kwadrat extends Figura {
+public class Kwadrat extends CanvasFigure {
 
     public Kwadrat(Graphics2D buffer, int delay, int width, int height) {
         super(buffer, delay, width, height);

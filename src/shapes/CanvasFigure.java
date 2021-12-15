@@ -1,10 +1,15 @@
-/**
- * 
+
+/*
+ * Original author : tb
+ * Fork: koxx4
  */
-package figury;
+
+package shapes;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+
+
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
@@ -13,11 +18,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.Random;
 
-/**
- * @author tb
- *
- */
-public abstract class Figura implements Runnable, ActionListener {
+public abstract class CanvasFigure implements Runnable, ActionListener {
 
 	private final Graphics2D sharedBuffer;
 	private Area area;
@@ -37,7 +38,7 @@ public abstract class Figura implements Runnable, ActionListener {
 
 	protected static final Random rand = new Random();
 
-	public Figura(Graphics2D buf, int del, int w, int h) {
+	public CanvasFigure(Graphics2D buf, int del, int w, int h) {
 		delay = del;
 		sharedBuffer = buf;
 		width = w;
