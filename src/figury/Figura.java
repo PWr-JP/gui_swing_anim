@@ -1,6 +1,3 @@
-/**
- * 
- */
 package figury;
 
 import java.awt.Color;
@@ -17,7 +14,7 @@ import java.util.Random;
  * @author tb
  *
  */
-public abstract class Figura implements Runnable, ActionListener, Shape {
+public abstract class Figura implements Runnable, ActionListener {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
@@ -32,11 +29,11 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 	// rozciaganie
 	private double sf;
 	// kat obrotu
-	private double an;
-	private int delay;
-	private int width;
-	private int height;
-	private Color clr;
+	private final double an;
+	private final int delay;
+	private final int width;
+	private final int height;
+	private final Color clr;
 
 	protected static final Random rand = new Random();
 

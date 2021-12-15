@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class AnimatorApp extends JFrame {
 
@@ -17,7 +19,6 @@ public class AnimatorApp extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
@@ -35,16 +36,12 @@ public class AnimatorApp extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @param delay 
-	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int ww = 450, wh = 300;
 		setBounds((screen.width-ww)/2, (screen.height-wh)/2, ww, wh);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
@@ -76,7 +73,17 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
-		
+
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				super.keyPressed(e);
+				if(e.getKeyChar()==43)
+					kanwa.fpsincrease();
+				if(e.getKeyChar()==45)
+					kanwa.fpsdecrease();
+			}
+		});
 	}
 
 }
