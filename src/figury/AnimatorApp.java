@@ -1,13 +1,8 @@
 package figury;
 
-import java.awt.EventQueue;
-import java.awt.Toolkit;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
-import java.awt.Dimension;
+import javax.swing.*;
 import java.awt.event.*;
 
 
@@ -17,9 +12,10 @@ public class AnimatorApp extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private int speedLvl=0;
 	private JPanel contentPane;
 
+	private boolean animationState=true;
 	/**
 	 * Launch the application.
 	 */
@@ -36,10 +32,6 @@ public class AnimatorApp extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @param delay 
-	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -70,13 +62,37 @@ public class AnimatorApp extends JFrame {
 		contentPane.add(btnAdd);
 		
 		JButton btnAnimate = new JButton("Animate");
+		btnAnimate.setBackground(Color.RED);
 		btnAnimate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kanwa.animate();
+				if(animationState){
+					btnAnimate.setBackground(Color.GREEN);
+				}else{
+					btnAnimate.setBackground(Color.RED);
+				}
+				animationState=(!animationState);
 			}
 		});
 		btnAnimate.setBounds(110, wh-57, 90, 20);
 		contentPane.add(btnAnimate);
+
+		JButton btnSpeed= new JButton("Prędkość: "+(speedLvl+1));
+		btnSpeed.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				speedLvl=(speedLvl+1)%3;
+
+				kanwa.delay= (int)(kanwa.startDelay/(speedLvl+1));
+				btnSpeed.setText("Prędkość: "+(speedLvl+1));
+
+
+			}
+		});
+		btnSpeed.setBounds(60, wh-57, 90, 20);
+		contentPane.add(btnSpeed);
+
+
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
@@ -85,6 +101,7 @@ public class AnimatorApp extends JFrame {
 				kanwa.setBounds(10,10,w-20,h-50);
 				kanwa.clear();
 				btnAdd.setBounds(10, h-30,90,20);
+				btnSpeed.setBounds((w/2)-63, h-30,125,20);
 				btnAnimate.setBounds(w-100,h-30,90,20);
 			}
 		});
