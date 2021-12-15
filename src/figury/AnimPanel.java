@@ -29,6 +29,9 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private static int numer = 0;
 
+	int width, height;
+
+
 	public AnimPanel() {
 		super();
 		setBackground(Color.WHITE);
@@ -36,8 +39,8 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	public void initialize() {
-		int width = getWidth();
-		int height = getHeight();
+		width = getWidth();
+		height = getHeight();
 
 		image = createImage(width, height);
 		buffer = (Graphics2D) image.getGraphics();
@@ -52,6 +55,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
+
 
 	void animate() {
 		if (timer.isRunning()) {
