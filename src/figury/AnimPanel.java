@@ -47,8 +47,11 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		Figura fig;
+		if(numer++ % 3 == 0)  fig =  new Kwadrat(buffer, delay, getWidth(), getHeight());
+		else if(numer++ % 3 == 1) fig =  new Elipsa(buffer, delay, getWidth(), getHeight());
+		else fig = new Trojkat(buffer, delay, getWidth(), getHeight());
+
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
