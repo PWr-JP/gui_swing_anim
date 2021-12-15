@@ -27,7 +27,6 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private Timer timer;
 
-	private static int numer = 0;
 
 	public AnimPanel() {
 		super();
@@ -41,6 +40,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 		image = createImage(width, height);
 		buffer = (Graphics2D) image.getGraphics();
+		buffer.setBackground(Color.WHITE);
 		buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		device = (Graphics2D) getGraphics();
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -59,6 +59,14 @@ public class AnimPanel extends JPanel implements ActionListener {
 		new Thread(fig).start();
 	}
 
+	void reset()
+	{
+		image.flush();
+		buffer.dispose();
+		device.dispose();
+		initialize();
+	}
+
 	void animate() {
 		if (timer.isRunning()) {
 			timer.stop();
@@ -67,9 +75,11 @@ public class AnimPanel extends JPanel implements ActionListener {
 		}
 	}
 
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
+
 	}
 }
