@@ -7,8 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class AnimPanel extends JPanel implements ActionListener {
 
@@ -22,15 +21,12 @@ public class AnimPanel extends JPanel implements ActionListener {
 	Graphics2D buffer;
 
 	private int delay = 50;
-
 	private Timer timer;
-
 	private static int numer = 0;
 
 	public AnimPanel() {
 		super();
 		setBackground(Color.WHITE);
-		setBounds(10, 11, 422, 219);
 		timer = new Timer(delay, this);
 	}
 
@@ -66,7 +62,12 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		device.drawImage(image, 0, 0, null);
-		buffer.clearRect(0, 0, getWidth(), getHeight());
+		SwingUtilities.invokeLater(new Runnable(){
+			@Override
+			public void run(){
+				device.drawImage(image, 0, 0, null);
+				buffer.clearRect(0, 0, getWidth(), getHeight());
+			}
+		});
 	}
 }

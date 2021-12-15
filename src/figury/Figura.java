@@ -59,8 +59,7 @@ public abstract class Figura implements Runnable, ActionListener{
 
 	@Override
 	public void run() {
-		// przesuniecie na srodek
-		aft.translate(100, 100);
+		aft.translate(5, 5);
 		area.transform(aft);
 		shape = area;
 

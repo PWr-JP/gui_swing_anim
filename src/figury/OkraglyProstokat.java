@@ -1,9 +1,7 @@
 package figury;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
-import java.awt.geom.RoundRectangle2D;
+import java.awt.geom.*;
 import java.util.Random;
 
 public class OkraglyProstokat extends Figura{
