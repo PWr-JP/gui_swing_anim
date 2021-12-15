@@ -11,9 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class AnimPanel extends JPanel implements ActionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	// bufor
@@ -23,7 +21,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	// wykreslacz bufora
 	Graphics2D buffer;
 
-	private int delay = 70;
+	private int delay = 50;
 
 	private Timer timer;
 
@@ -32,6 +30,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	public AnimPanel() {
 		super();
 		setBackground(Color.WHITE);
+		setBounds(10, 11, 422, 219);
 		timer = new Timer(delay, this);
 	}
 
@@ -47,8 +46,12 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		numer++;
+		Figura fig = null;
+		if (numer %3 == 0) fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+		if (numer %3 == 1) fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+		if (numer %3 == 2) fig = new OkraglyProstokat(buffer, delay, getWidth(), getHeight());
+
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}

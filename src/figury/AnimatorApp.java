@@ -1,27 +1,19 @@
 package figury;
 
-import java.awt.EventQueue;
-import java.awt.Toolkit;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class AnimatorApp extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -35,11 +27,8 @@ public class AnimatorApp extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @param delay 
-	 */
 	public AnimatorApp() {
+		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int ww = 450, wh = 300;
@@ -49,7 +38,6 @@ public class AnimatorApp extends JFrame {
 		contentPane.setLayout(null);
 
 		AnimPanel kanwa = new AnimPanel();
-		kanwa.setBounds(10, 11, 422, 219);
 		contentPane.add(kanwa);
 		SwingUtilities.invokeLater(new Runnable() {
 			
