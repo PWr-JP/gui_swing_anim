@@ -5,9 +5,7 @@
 
 package gui;
 
-import shapes.Elipsa;
 import shapes.CanvasFigure;
-import shapes.Kwadrat;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,6 +23,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
 	private Graphics2D bufferGraphics;
 	private final Timer timer;
 	private static int numer = 0;
+	private final int delay = 60;
 
 	public AnimationPanel(int initialWidth, int initialHeight) {
 		super();
@@ -39,14 +38,21 @@ public class AnimationPanel extends JPanel implements ActionListener {
 			}
 		});
 
-		timer = new Timer(60, this);
+		timer = new Timer(delay, this);
 	}
 
-	public void addFig() {
-		CanvasFigure fig = (numer++ % 2 == 0) ? new Kwadrat(bufferGraphics, 60, getWidth(), getHeight())
-				: new Elipsa(bufferGraphics, 60, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+	public void addFigure(Class<? extends CanvasFigure> figureClass) {
+
+		CanvasFigure figureToDraw = null;
+		try {
+			figureToDraw = figureClass.getDeclaredConstructor(Graphics2D.class, int.class, int.class, int.class)
+					.newInstance(bufferGraphics, delay, getWidth(), getHeight());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		timer.addActionListener(figureToDraw);
+		new Thread(figureToDraw).start();
 	}
 
 	public void toggleAnimation() {
