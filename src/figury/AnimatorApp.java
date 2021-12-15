@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class AnimatorApp extends JFrame {
 
@@ -37,7 +39,7 @@ public class AnimatorApp extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param delay 
+	 * @param delay
 	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,7 +78,18 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
-		
+/*
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				//super.componentResized(e);
+				int w= contentPane.getWidth();
+				int h= contentPane.getHeight();
+				btnAdd.setBounds(10,10,90,20);
+				btnAnimate.setBounds(100,30,90,20);
+			}
+		});
+*/
 	}
 
 }
