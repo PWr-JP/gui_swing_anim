@@ -18,6 +18,8 @@ import java.util.Random;
  *
  */
 public abstract class Figura implements Runnable, ActionListener {
+	final int colorOffset = 10;
+	final int alphaOffset = 25;
 
 	// wspolny bufor
 	protected Graphics2D buffer;
@@ -51,7 +53,8 @@ public abstract class Figura implements Runnable, ActionListener {
 		sf = 1 + 0.05 * rand.nextDouble();
 		an = 0.1 * rand.nextDouble();
 
-		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+		clr = new Color(colorOffset + rand.nextInt(255 - colorOffset), colorOffset + rand.nextInt(255 - colorOffset),
+			colorOffset + rand.nextInt(255 - colorOffset), alphaOffset + rand.nextInt(255-alphaOffset));
 		// reszta musi być zawarta w realizacji klasy Figure
 		// (tworzenie figury i przygotowanie transformacji)
 
