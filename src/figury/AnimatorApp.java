@@ -1,20 +1,16 @@
 package figury;
 
-import java.awt.EventQueue;
-import java.awt.Toolkit;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class AnimatorApp extends JFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -28,6 +24,7 @@ public class AnimatorApp extends JFrame {
 				try {
 					final AnimatorApp frame = new AnimatorApp();
 					frame.setVisible(true);
+					frame.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -35,48 +32,43 @@ public class AnimatorApp extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @param delay 
-	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		int ww = 450, wh = 300;
-		setBounds((screen.width-ww)/2, (screen.height-wh)/2, ww, wh);
+		int ww = 650, wh =550;
+		setBounds((screen.width - ww) / 2, (screen.height - wh) / 2, ww, wh);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		contentPane.setOpaque(false);
 
 		AnimPanel kanwa = new AnimPanel();
-		kanwa.setBounds(10, 11, 422, 219);
+		kanwa.setBounds(10,10,615,400);
 		contentPane.add(kanwa);
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				kanwa.initialize();
-			}
-		});
+		SwingUtilities.invokeLater(() -> kanwa.initialize());
 
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
-			}
-		});
-		btnAdd.setBounds(10, 239, 80, 23);
-		contentPane.add(btnAdd);
-		
+		JButton btnAddSquere = new JButton("Add squere");
+		btnAddSquere.addActionListener(e -> kanwa.addFigSquere());
+
+		btnAddSquere.setBounds(40, 430, 140, 30);
+		contentPane.add(btnAddSquere);
+
+		JButton btnAddEllipsa = new JButton("Add Ellipse");
+		btnAddEllipsa.addActionListener(e -> kanwa.addFigEllipse());
+
+		btnAddEllipsa.setBounds(240, 430, 140, 30);
+		contentPane.add(btnAddEllipsa);
+
+		JButton btnAddRandom = new JButton("Add Random Fig");
+		btnAddRandom.addActionListener(e -> kanwa.addRandom());
+
+		btnAddRandom.setBounds(440, 430, 140, 30);
+		contentPane.add(btnAddRandom);
+
 		JButton btnAnimate = new JButton("Animate");
-		btnAnimate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				kanwa.animate();
-			}
-		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.addActionListener(e -> kanwa.animate());
+		btnAnimate.setBounds(240, 470, 140, 30);
 		contentPane.add(btnAnimate);
-		
-	}
 
+	}
 }

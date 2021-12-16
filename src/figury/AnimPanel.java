@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -27,11 +28,11 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private Timer timer;
 
-	private static int numer = 0;
+	Random random = new Random();
 
 	public AnimPanel() {
 		super();
-		setBackground(Color.WHITE);
+		setBackground(Color.blue);
 		timer = new Timer(delay, this);
 	}
 
@@ -46,12 +47,39 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+	void addFigSquere(){
+		Figura fig1 = new Kwadrat(buffer,delay,getWidth(), getHeight());
+		timer.addActionListener(fig1);
+		new Thread(fig1).start();//każda figura jest osobnym wątkiem
 	}
+
+	void addFigEllipse(){
+		Figura fig2 = new Elipsa(buffer,delay,getWidth(), getHeight());
+		timer.addActionListener(fig2);
+		new Thread(fig2).start();//każda figura jest osobnym wątkiem
+	}
+
+	void addRandom(){
+		Figura fig1 = new Kwadrat(buffer,delay,getWidth(), getHeight());
+		Figura fig2 = new Elipsa(buffer,delay,getWidth(), getHeight());
+		Figura fig3 = new Inne(buffer,delay,getWidth(), getHeight());
+
+		switch (random.nextInt(3)%3){
+			case 0:
+				timer.addActionListener(fig1);
+				new Thread(fig1).start();
+				break;
+			case 1:
+				timer.addActionListener(fig2);
+				new Thread(fig2).start();
+				break;
+			case 2:
+				timer.addActionListener(fig3);
+				new Thread(fig3).start();
+				break;
+		}
+	}
+
 
 	void animate() {
 		if (timer.isRunning()) {
