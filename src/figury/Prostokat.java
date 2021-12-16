@@ -4,11 +4,11 @@ package figury;
 import java.awt.*;
 import java.awt.geom.*;
 
-public class Trojkat extends Figura {
+public class Prostokat extends Figura {
 
-    public Trojkat(Graphics2D buffer, int delay, int width, int height) {
+    public Prostokat(Graphics2D buffer, int delay, int width, int height) {
         super(buffer,delay,width,height);
-        shape = new Polygon
+        shape = new Rectangle2D.Float(0,0,50,10);
         aft = new AffineTransform();
         area = new Area(shape);
     }

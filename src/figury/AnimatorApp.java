@@ -59,22 +59,40 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
+		JButton square = new JButton("Square");
+		square.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
+				kanwa.addSquare();
 			}
 		});
-		btnAdd.setBounds(10, 239, 80, 23);
-		contentPane.add(btnAdd);
-		
+		square.setBounds(30, 239, 80, 23);
+		contentPane.add(square);
+
+		JButton elipsa = new JButton("Ellipse");
+		elipsa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.addElipsa();
+			}
+		});
+		elipsa.setBounds(130, 239, 80, 23);
+		contentPane.add(elipsa);
+
+		JButton prostokat = new JButton("Rectangle");
+		prostokat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.addProstokat();
+			}
+		});
+		prostokat.setBounds(230, 239, 80, 23);
+		contentPane.add(prostokat);
+
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(330, 239, 80, 23);
 		contentPane.add(btnAnimate);
 		
 	}
