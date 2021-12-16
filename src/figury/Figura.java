@@ -17,7 +17,7 @@ import java.util.Random;
  * @author tb
  *
  */
-public abstract class Figura implements Runnable, ActionListener, Shape {
+public abstract class Figura implements Runnable, ActionListener {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
@@ -56,10 +56,11 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		// (tworzenie figury i przygotowanie transformacji)
 
 	}
-
+	private Random random = new Random();
 	@Override
 	public void run() {
 		// przesuniecie na srodek
+		//aft.translate(random.nextInt(), random.nextInt());
 		aft.translate(100, 100);
 		area.transform(aft);
 		shape = area;

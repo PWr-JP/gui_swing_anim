@@ -31,7 +31,6 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	public AnimPanel() {
 		super();
-		setBackground(Color.WHITE);
 		timer = new Timer(delay, this);
 	}
 
@@ -47,10 +46,16 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+		if (AnimatorApp.selection == 1){
+			Figura fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+			timer.addActionListener(fig);
+			new Thread(fig).start();
+		}
+		if (AnimatorApp.selection == 2){
+			Figura fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+			timer.addActionListener(fig);
+			new Thread(fig).start();
+		}
 	}
 
 	void animate() {
