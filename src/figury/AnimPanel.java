@@ -50,8 +50,15 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		Figura fig;
+
+		int modNumer = numer % 3;
+		switch (modNumer) {
+			case 1: fig = new Elipsa(buffer, delay, getWidth(), getHeight()); break;
+			case 2: fig = new ZaokraglonyKwadrat(buffer, delay, getWidth(), getHeight()); break;
+			default: fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+		}
+		numer++;
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
