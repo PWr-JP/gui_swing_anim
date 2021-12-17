@@ -18,7 +18,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.Random;
 
-public abstract class CanvasFigure implements Runnable, ActionListener {
+public abstract class CanvasFigure implements ActionListener {
 
 	private final Graphics2D sharedBuffer;
 	private Area area;
@@ -47,7 +47,7 @@ public abstract class CanvasFigure implements Runnable, ActionListener {
 		dx = 1 + rand.nextInt(5);
 		dy = 1 + rand.nextInt(5);
 		sf = 1 + 0.05 * rand.nextDouble();
-		an = 0.1 * rand.nextDouble();
+		an = 0.5 * rand.nextDouble();
 
 		color = new Color(rand.nextInt(255), rand.nextInt(255),
 				rand.nextInt(255), rand.nextInt(255));
@@ -82,28 +82,13 @@ public abstract class CanvasFigure implements Runnable, ActionListener {
 		return affineTransform;
 	}
 
-	@Override
 	public void run() {
 		// przesuniecie na srodek
-		affineTransform.translate(100, 100);
+		affineTransform.translate(20, 20);
 		area.transform(affineTransform);
-		 shape = area;
-
-		while (true) {
-			// przygotowanie nastepnego kadru
-			shape = nextFrame();
-			try {
-				Thread.sleep(delay);
-			} catch (InterruptedException e) {
-			}
-		}
 	}
 
-	protected Shape nextFrame() {
-		// zapamietanie na zmiennej tymczasowej
-		// aby nie przeszkadzalo w wykreslaniu
-		area = new Area(area);
-		affineTransform = new AffineTransform();
+	protected void nextFrame() {
 		Rectangle bounds = area.getBounds();
 		int cx = bounds.x + bounds.width / 2;
 		int cy = bounds.y + bounds.height / 2;
@@ -115,23 +100,23 @@ public abstract class CanvasFigure implements Runnable, ActionListener {
 		// zwiekszenie lub zmniejszenie
 		if (bounds.height > height / 3 || bounds.height < 10)
 			sf = 1 / sf;
-		// konstrukcja przeksztalcenia
-		affineTransform.translate(cx, cy);
-		affineTransform.scale(sf, sf);
-		affineTransform.rotate(an);
-		affineTransform.translate(-cx, -cy);
-		affineTransform.translate(dx, dy);
+
+		//affineTransform.translate(cx, cy);
+		//affineTransform.scale(sf, sf);
+		area.transform(AffineTransform.getRotateInstance(an, cx, cy));
+		//affineTransform.translate(-cx, -cy);
+		area.transform(AffineTransform.getTranslateInstance(dx, dy));
 		// przeksztalcenie obiektu
-		area.transform(affineTransform);
-		return area;
+		//area.transform(affineT);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
+		nextFrame();
 		sharedBuffer.setColor(color.brighter());
-		sharedBuffer.fill(shape);
+		sharedBuffer.fill(area);
 		sharedBuffer.setColor(color.darker());
-		sharedBuffer.draw(shape);
+		sharedBuffer.draw(area);
 	}
 
 }
