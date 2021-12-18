@@ -18,7 +18,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.Random;
 
-public abstract class CanvasFigure implements ActionListener {
+public abstract class CanvasFigure {
 
 	private final Graphics2D sharedBuffer;
 	private Area area;
@@ -44,10 +44,10 @@ public abstract class CanvasFigure implements ActionListener {
 		width = w;
 		height = h;
 
-		dx = 1 + rand.nextInt(5);
-		dy = 1 + rand.nextInt(5);
+		dx = 10 ;
+		dy = 10 ;
 		sf = 1 + 0.05 * rand.nextDouble();
-		an = 0.5 * rand.nextDouble();
+		an = 1;
 
 		color = new Color(rand.nextInt(255), rand.nextInt(255),
 				rand.nextInt(255), rand.nextInt(255));
@@ -88,7 +88,7 @@ public abstract class CanvasFigure implements ActionListener {
 		area.transform(affineTransform);
 	}
 
-	protected void nextFrame() {
+	public void nextFrame(double delay) {
 		Rectangle bounds = area.getBounds();
 		int cx = bounds.x + bounds.width / 2;
 		int cy = bounds.y + bounds.height / 2;
@@ -101,22 +101,14 @@ public abstract class CanvasFigure implements ActionListener {
 		if (bounds.height > height / 3 || bounds.height < 10)
 			sf = 1 / sf;
 
+		area.transform(AffineTransform.getTranslateInstance(dx * delay, dy * delay));
 		//affineTransform.translate(cx, cy);
 		//affineTransform.scale(sf, sf);
-		area.transform(AffineTransform.getRotateInstance(an, cx, cy));
+		area.transform(AffineTransform.getRotateInstance(an * delay, cx, cy));
 		//affineTransform.translate(-cx, -cy);
-		area.transform(AffineTransform.getTranslateInstance(dx, dy));
+
 		// przeksztalcenie obiektu
 		//area.transform(affineT);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent evt) {
-		nextFrame();
-		sharedBuffer.setColor(color.brighter());
-		sharedBuffer.fill(area);
-		sharedBuffer.setColor(color.darker());
-		sharedBuffer.draw(area);
 	}
 
 }

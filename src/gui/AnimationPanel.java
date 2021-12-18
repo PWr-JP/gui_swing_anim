@@ -24,7 +24,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
 	private Graphics2D screenGraphics;
 	private Graphics2D bufferGraphics;
 	private final Timer timer;
-	private final int delay = 60;
+	private final int delay = 16;
 	private final List<CanvasFigure> figures;
 
 	public AnimationPanel(int initialWidth, int initialHeight) {
@@ -54,8 +54,8 @@ public class AnimationPanel extends JPanel implements ActionListener {
 			e.printStackTrace();
 		}
 
-		timer.addActionListener(figureToDraw);
 		figures.add(figureToDraw);
+		figureToDraw.run();
 	}
 
 	public void toggleAnimation() {
@@ -74,6 +74,14 @@ public class AnimationPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		for (var figure : figures){
+			figure.nextFrame(delay * 0.001);
+			bufferGraphics.setColor(Color.RED);
+			bufferGraphics.fill(figure.getArea());
+			bufferGraphics.draw(figure.getArea());
+		}
+
+
 		screenGraphics.drawImage(backBuffer, 0, 0, null);
 		bufferGraphics.clearRect(0, 0,
 				backBuffer.getWidth(null),
