@@ -1,13 +1,11 @@
 package figury;
 
-import java.awt.EventQueue;
-import java.awt.Toolkit;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -37,7 +35,7 @@ public class AnimatorApp extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param delay 
+	 * @param delay
 	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,6 +45,8 @@ public class AnimatorApp extends JFrame {
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		contentPane.setBackground(Color.GRAY);
+		contentPane.setForeground(Color.lightGray);
 
 		AnimPanel kanwa = new AnimPanel();
 		kanwa.setBounds(10, 11, 422, 219);
@@ -74,7 +74,7 @@ public class AnimatorApp extends JFrame {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(335, 239, 90, 23);
 		contentPane.add(btnAnimate);
 		
 	}
