@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.Dimension;
@@ -17,7 +16,7 @@ public class AnimatorApp extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private ContentPanel contentPane;
 
 	/**
 	 * Launch the application.
@@ -44,13 +43,13 @@ public class AnimatorApp extends JFrame {
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int ww = 450, wh = 300;
 		setBounds((screen.width-ww)/2, (screen.height-wh)/2, ww, wh);
-		contentPane = new JPanel();
+		contentPane = new ContentPanel();
+		contentPane.addComponentListener(new ResizeListener());
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
 		AnimPanel kanwa = new AnimPanel();
 		kanwa.setBounds(10, 11, 422, 219);
-		contentPane.add(kanwa);
+		contentPane.setAnimPanel(kanwa);
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override
@@ -66,7 +65,7 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 		btnAdd.setBounds(10, 239, 80, 23);
-		contentPane.add(btnAdd);
+		contentPane.setBtnAdd(btnAdd);
 		
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
@@ -75,7 +74,7 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
-		contentPane.add(btnAnimate);
+		contentPane.setBtnAnimate(btnAnimate);
 		
 	}
 
