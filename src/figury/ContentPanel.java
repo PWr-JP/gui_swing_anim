@@ -5,6 +5,8 @@ import javax.swing.*;
 public class ContentPanel extends JPanel {
     private JButton btnAdd;
     private JButton btnAnimate;
+    private JButton btnAccelerate;
+    private JButton btnSlow;
     private AnimPanel animPanel;
 
     public JButton getBtnAdd() {
@@ -32,5 +34,23 @@ public class ContentPanel extends JPanel {
     public void setAnimPanel(AnimPanel animPanel) {
         this.add(animPanel);
         this.animPanel = animPanel;
+    }
+
+    public JButton getBtnAccelerate() {
+        return btnAccelerate;
+    }
+
+    public void setBtnAccelerate(JButton btnAccelerate) {
+        this.add(btnAccelerate);
+        this.btnAccelerate = btnAccelerate;
+    }
+
+    public JButton getBtnSlow() {
+        return btnSlow;
+    }
+
+    public void setBtnSlow(JButton btnSlow) {
+        this.add(btnSlow);
+        this.btnSlow = btnSlow;
     }
 }

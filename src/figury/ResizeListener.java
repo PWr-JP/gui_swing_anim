@@ -19,6 +19,9 @@ public class ResizeListener extends ComponentAdapter {
 
         contentPanel.getBtnAdd().setBounds(10, contentPanel.getAnimPanel().getHeight()+13, 80, 25);
         contentPanel.getBtnAnimate().setBounds(contentPanel.getBtnAdd().getWidth()+20,contentPanel.getAnimPanel().getHeight()+13,80,25);
+        contentPanel.getBtnSlow().setBounds(contentPanel.getBtnAnimate().getX()+contentPanel.getBtnAnimate().getWidth()+20, contentPanel.getAnimPanel().getHeight()+13, 80 ,25);
+        contentPanel.getBtnAccelerate().setBounds(contentPanel.getBtnSlow().getX()+contentPanel.getBtnSlow().getWidth()+20, contentPanel.getAnimPanel().getHeight()+13, 80 ,25);
+
 
         SwingUtilities.invokeLater(new Runnable() {
 

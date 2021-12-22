@@ -121,4 +121,12 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	public boolean isRunning() {
 		return isRunning;
 	}
+
+	public int getDelay() {
+		return delay;
+	}
+
+	public void setDelay(int delay) {
+		this.delay = delay;
+	}
 }

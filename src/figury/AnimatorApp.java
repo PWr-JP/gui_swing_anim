@@ -34,14 +34,10 @@ public class AnimatorApp extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @param delay 
-	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		int ww = 450, wh = 300;
+		int ww = 600, wh = 500;
 		setBounds((screen.width-ww)/2, (screen.height-wh)/2, ww, wh);
 		contentPane = new ContentPanel();
 		contentPane.addComponentListener(new ResizeListener());
@@ -66,7 +62,7 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAdd.setBounds(10, 239, 80, 23);
 		contentPane.setBtnAdd(btnAdd);
-		
+
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -75,6 +71,26 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.setBtnAnimate(btnAnimate);
+
+		JButton btnSlow = new JButton("Zwolnij");
+		btnSlow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.slowAnimation();
+			}
+		});
+		btnSlow.setBounds(190,239,80,23);
+		contentPane.setBtnSlow(btnSlow);
+
+		JButton btnAccelerate = new JButton("Przyśpiesz");
+		btnAccelerate.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				kanwa.accelerateAnimation();
+			}
+		});
+		btnAccelerate.setBounds(280,239,80,23);
+		contentPane.setBtnAccelerate(btnAccelerate);
+
 		
 	}
 

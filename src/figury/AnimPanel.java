@@ -85,4 +85,18 @@ public class AnimPanel extends JPanel implements ActionListener {
 			fig.setRunning(true);
 		}
 	}
+
+	public void accelerateAnimation(){
+		for(Figura fig: figures){
+			if(fig.getDelay()-5 >= 0)
+			fig.setDelay(fig.getDelay()-5);
+		}
+	}
+
+	public void slowAnimation(){
+		for(Figura fig: figures){
+
+			fig.setDelay(fig.getDelay()+5);
+		}
+	}
 }
