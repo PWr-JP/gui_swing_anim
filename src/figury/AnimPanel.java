@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -15,6 +17,8 @@ public class AnimPanel extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	public static List<Figura> objectList = new ArrayList<>();
 
 	// bufor
 	Image image;
@@ -67,13 +71,20 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 		timer.addActionListener(fig);
 		new Thread(fig).start();
+		objectList.add(fig);
 	}
 
 	void animate() {
 		if (timer.isRunning()) {
 			timer.stop();
+			for(Figura f : objectList ){
+				f.isRunning=false;
+			}
 		} else {
 			timer.start();
+			for(Figura f : objectList ){
+				f.isRunning=true;
+			}
 		}
 	}
 
