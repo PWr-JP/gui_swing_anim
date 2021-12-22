@@ -21,7 +21,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
-	public Area area;
+	protected Area area;
 	// do wykreslania
 	protected Shape shape;
 	// przeksztalcenie obiektu
@@ -32,11 +32,14 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	// rozciaganie
 	private double sf;
 	// kat obrotu
-	private double an;
+	private final double an;
 	private int delay;
+
 	private int width;
+
 	private int height;
-	private Color clr;
+
+	private final Color clr;
 
 	protected static final Random rand = new Random();
 
@@ -66,7 +69,8 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 		while (true) {
 			// przygotowanie nastepnego kadru
-			shape = nextFrame();
+			if(AnimPanel.isRunning)
+				shape = nextFrame();
 			try {
 				Thread.sleep(delay);
 			} catch (InterruptedException e) {
@@ -112,4 +116,8 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		buffer.draw(shape);
 	}
 
+	public void changePanelSize(int width, int height){
+		this.width = width;
+		this.height = height;
+	}
 }

@@ -6,13 +6,17 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class AnimPanel extends JPanel implements ActionListener {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -26,13 +30,16 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private int delay = 70;
 
-	private Timer timer;
+	public void setDelay(int delay) {
+		this.delay = delay;
+	}
+
+	private final Timer timer;
 
 	private static int numer = 0;
 
 	public AnimPanel() {
 		super();
-		setBackground(Color.WHITE);
 		timer = new Timer(delay, this);
 	}
 
@@ -48,10 +55,28 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		Figura fig;
+		switch (numer++ % 3) {
+			case 0:
+				fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+				break;
+			case 1:
+				fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+				break;
+			case 2:
+				fig = new ZaokraglonyProstokat(buffer, delay, getWidth(), getHeight());
+				break;
+			default:
+				throw new IllegalStateException("Unexpected value: " + numer++ % 3);
+		}
 		timer.addActionListener(fig);
 		new Thread(fig).start();
+	}
+
+	public void resizeWindow(int width, int height) {
+		image = createImage(width, height);
+		buffer = (Graphics2D) image.getGraphics();
+		device = (Graphics2D) getGraphics();
 	}
 
 	void animate() {
@@ -69,4 +94,5 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
 	}
+
 }
