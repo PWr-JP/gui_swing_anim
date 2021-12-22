@@ -9,8 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
+import java.awt.geom.*;
 import java.util.Random;
 
 /**
@@ -111,4 +110,23 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		buffer.draw(shape);
 	}
 
+    public abstract Rectangle getBounds();
+
+	public abstract Rectangle2D getBounds2D();
+
+	public abstract boolean contains(double v, double v1);
+
+	public abstract boolean contains(Point2D point2D);
+
+	public abstract boolean intersects(double v, double v1, double v2, double v3);
+
+	public abstract boolean intersects(Rectangle2D rectangle2D);
+
+	public abstract boolean contains(double v, double v1, double v2, double v3);
+
+	public abstract boolean contains(Rectangle2D rectangle2D);
+
+	public abstract PathIterator getPathIterator(AffineTransform affineTransform);
+
+	public abstract PathIterator getPathIterator(AffineTransform affineTransform, double v);
 }
