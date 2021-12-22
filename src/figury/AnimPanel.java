@@ -46,9 +46,25 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+	void addFig(int s) {
+//		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
+//				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		Figura fig;
+		switch (s){
+			case 1:{
+				fig = new Kwadrat(buffer,delay,getWidth(),getHeight());
+				break;
+			}
+			case 2:{
+				fig = new Prostokat(buffer,delay,getWidth(),getHeight());
+				break;
+			}
+			default:{
+				fig = new Elipsa(buffer,delay,getWidth(),getHeight());
+				break;
+			}
+		}
+
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}

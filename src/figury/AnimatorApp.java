@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class AnimatorApp extends JFrame {
 
@@ -35,10 +37,10 @@ public class AnimatorApp extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @param delay 
-	 */
+//	/**
+//	 * Create the frame.
+//	 * @param delay
+//	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -59,14 +61,32 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
+		JButton btnAddSquare = new JButton("Square");
+		btnAddSquare.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
+				kanwa.addFig(1);
 			}
 		});
-		btnAdd.setBounds(10, 239, 80, 23);
-		contentPane.add(btnAdd);
+		btnAddSquare.setBounds(10, 239, 80, 23);
+		contentPane.add(btnAddSquare);
+
+		JButton btnAddRectengle = new JButton("Rectengle" );
+		btnAddRectengle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.addFig(2);
+			}
+		});
+		btnAddRectengle.setBounds(100, 239, 100, 23);
+		contentPane.add(btnAddRectengle);
+
+		JButton btnAddElipse = new JButton("Elipse");
+		btnAddElipse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.addFig(3);
+			}
+		});
+		btnAddElipse.setBounds(220, 239, 80, 23);
+		contentPane.add(btnAddElipse);
 		
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
@@ -74,9 +94,21 @@ public class AnimatorApp extends JFrame {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(300, 239, 80, 23);
 		contentPane.add(btnAnimate);
-		
+
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				int w = contentPane.getWidth();
+				int h = contentPane.getHeight();
+
+				btnAddSquare.setLocation(10, h-30);
+				btnAddRectengle.setLocation(btnAddSquare.getLocation().x+100, h-30);
+				btnAddElipse.setLocation(btnAddSquare.getLocation().x+220,h-30);
+				btnAnimate.setLocation(w-100, h-30);
+			}
+		});
 	}
 
 }
