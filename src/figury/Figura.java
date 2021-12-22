@@ -37,7 +37,7 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 	private int width;
 	private int height;
 	private Color clr;
-
+	boolean exit=false;
 	protected static final Random rand = new Random();
 
 	public Figura(Graphics2D buf, int del, int w, int h) {
@@ -59,12 +59,11 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 
 	@Override
 	public void run() {
-		// przesuniecie na srodek
 		aft.translate(100, 100);
 		area.transform(aft);
 		shape = area;
 
-		while (true) {
+		while (!exit) {
 			// przygotowanie nastepnego kadru
 			shape = nextFrame();
 			try {
@@ -74,9 +73,13 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		}
 	}
 
+	public void stopProcess(){
+		exit = true;
+	}
+
+	public void startProcess(){ exit = false; }
+
 	protected Shape nextFrame() {
-		// zapamietanie na zmiennej tymczasowej
-		// aby nie przeszkadzalo w wykreslaniu
 		area = new Area(area);
 		aft = new AffineTransform();
 		Rectangle bounds = area.getBounds();
@@ -101,12 +104,12 @@ public abstract class Figura implements Runnable, ActionListener, Shape {
 		return area;
 	}
 
+
+
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		// wypelnienie obiektu
 		buffer.setColor(clr.brighter());
 		buffer.fill(shape);
-		// wykreslenie ramki
 		buffer.setColor(clr.darker());
 		buffer.draw(shape);
 	}

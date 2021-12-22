@@ -1,14 +1,12 @@
 package figury;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Set;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class AnimPanel extends JPanel implements ActionListener {
 	/**
@@ -22,36 +20,80 @@ public class AnimPanel extends JPanel implements ActionListener {
 	Graphics2D device;
 	// wykreslacz bufora
 	Graphics2D buffer;
-
-	private int delay = 70;
+	ArrayList<Figura> figuresList = new ArrayList<Figura>();
+	int figuresListSize=-1;
+	private int delay = 20;
 
 	private Timer timer;
 
-	private static int numer = 0;
-
 	public AnimPanel() {
 		super();
-		setBackground(Color.WHITE);
 		timer = new Timer(delay, this);
 	}
 
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+
+	}
+
 	public void initialize() {
-		int width = getWidth();
-		int height = getHeight();
+		int width = getWidth()+700;
+		int height = getHeight()-100;
 
 		image = createImage(width, height);
+
 		buffer = (Graphics2D) image.getGraphics();
 		buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		device = (Graphics2D) getGraphics();
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+	void addSquare(int w, int h) {
+		Figura square = new Kwadrat(buffer, delay, w, h);
+		timer.addActionListener(square);
+		figuresListSize++;
+		figuresList.add(square);
+		new Thread(square).start();
 	}
+
+    void addCircle(int w, int h) {
+        Figura circle = new Elipsa(buffer, delay, w, h);
+        timer.addActionListener(circle);
+		figuresListSize++;
+		figuresList.add(circle);
+        new Thread(circle).start();
+    }
+
+	void addTriangle(int w, int h){
+		Figura triangle = new Trojkat(buffer, delay, w,h);
+		timer.addActionListener(triangle);
+		figuresListSize++;
+		figuresList.add(triangle);
+		new Thread(triangle).start();
+	}
+
+	void addPolygon(int w, int h){
+		Figura polygon = new Rownoleglobok(buffer, delay, w,h);
+		timer.addActionListener(polygon);
+		figuresListSize++;
+		figuresList.add(polygon);
+		new Thread(polygon).start();
+	}
+
+	void stopFigure(){
+
+		figuresList.get(figuresListSize).stopProcess();
+		figuresListSize--;
+
+	}
+
+	void startFigure(){
+		figuresListSize++;
+		figuresList.get(figuresListSize).startProcess();
+
+	}
+
 
 	void animate() {
 		if (timer.isRunning()) {
@@ -63,7 +105,14 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		device.drawImage(image, 0, 0, null);
-		buffer.clearRect(0, 0, getWidth(), getHeight());
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				device.drawImage(image, 0, 0, null);
+
+				buffer.clearRect(0, 0, getWidth(), getHeight()+40);
+			}
+		});
+		//repant();
 	}
 }
