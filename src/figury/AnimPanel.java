@@ -31,6 +31,8 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private static int numer = 0;
 
+	private List<Figura> figures = new ArrayList<>();
+
 	public AnimPanel() {
 		super();
 		setBackground(UIManager.getColor("Panel.background"));
@@ -52,14 +54,17 @@ public class AnimPanel extends JPanel implements ActionListener {
 		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
 				: new Elipsa(buffer, delay, getWidth(), getHeight());
 		timer.addActionListener(fig);
+		figures.add(fig);
 		new Thread(fig).start();
 	}
 
 	void animate() {
 		if (timer.isRunning()) {
 			timer.stop();
+			stopAnimation();
 		} else {
 			timer.start();
+			startAnimation();
 		}
 	}
 
@@ -67,5 +72,17 @@ public class AnimPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
+	}
+
+	private void stopAnimation(){
+		for(Figura fig: figures){
+			fig.setRunning(false);
+		}
+	}
+
+	private void startAnimation(){
+		for(Figura fig: figures){
+			fig.setRunning(true);
+		}
 	}
 }

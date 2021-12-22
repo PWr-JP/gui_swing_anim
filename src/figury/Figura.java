@@ -38,6 +38,8 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	private int height;
 	private Color clr;
 
+	private boolean isRunning = true;
+
 	protected static final Random rand = new Random();
 
 	public Figura(Graphics2D buf, int del, int w, int h) {
@@ -66,13 +68,14 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 		while (true) {
 			// przygotowanie nastepnego kadru
-			shape = nextFrame();
+			if(isRunning==true) shape = nextFrame();
 			try {
 				Thread.sleep(delay);
 			} catch (InterruptedException e) {
 			}
 		}
 	}
+
 
 	protected Shape nextFrame() {
 		// zapamietanie na zmiennej tymczasowej
@@ -111,4 +114,11 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		buffer.draw(shape);
 	}
 
+	public void setRunning(boolean running) {
+		isRunning = running;
+	}
+
+	public boolean isRunning() {
+		return isRunning;
+	}
 }
