@@ -6,11 +6,11 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class AnimPanel extends JPanel implements ActionListener {
 	/**
@@ -19,11 +19,11 @@ public class AnimPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	// bufor
-	Image image;
+	private Image image;
 	// wykreslacz ekranowy
-	Graphics2D device;
+	private Graphics2D device;
 	// wykreslacz bufora
-	Graphics2D buffer;
+	private Graphics2D buffer;
 
 	private int delay = 70;
 
@@ -33,7 +33,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	public AnimPanel() {
 		super();
-		setBackground(Color.WHITE);
+		setBackground(UIManager.getColor("Panel.background"));
 		timer = new Timer(delay, this);
 	}
 
