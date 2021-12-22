@@ -17,7 +17,7 @@ import java.util.Random;
  * @author tb
  *
  */
-public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
+public abstract class Figura extends AnimPanel implements Runnable, ActionListener/*, Shape*/ {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
@@ -75,29 +75,29 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	}
 
 	protected Shape nextFrame() {
-		// zapamietanie na zmiennej tymczasowej
-		// aby nie przeszkadzalo w wykreslaniu
-		area = new Area(area);
-		aft = new AffineTransform();
-		Rectangle bounds = area.getBounds();
-		int cx = bounds.x + bounds.width / 2;
-		int cy = bounds.y + bounds.height / 2;
-		// odbicie
-		if (cx < 0 || cx > width)
-			dx = -dx;
-		if (cy < 0 || cy > height)
-			dy = -dy;
-		// zwiekszenie lub zmniejszenie
-		if (bounds.height > height / 3 || bounds.height < 10)
-			sf = 1 / sf;
-		// konstrukcja przeksztalcenia
-		aft.translate(cx, cy);
-		aft.scale(sf, sf);
-		aft.rotate(an);
-		aft.translate(-cx, -cy);
-		aft.translate(dx, dy);
-		// przeksztalcenie obiektu
-		area.transform(aft);
+			// zapamietanie na zmiennej tymczasowej
+			// aby nie przeszkadzalo w wykreslaniu
+			area = new Area(area);
+			aft = new AffineTransform();
+			Rectangle bounds = area.getBounds();
+			int cx = bounds.x + bounds.width / 2;
+			int cy = bounds.y + bounds.height / 2;
+			// odbicie
+			if (cx < 0 || cx > width)
+				dx = -dx;
+			if (cy < 0 || cy > height)
+				dy = -dy;
+			// zwiekszenie lub zmniejszenie
+			if (bounds.height > height / 3 || bounds.height < 10)
+				sf = 1 / sf;
+			// konstrukcja przeksztalcenia
+			aft.translate(cx, cy);
+			aft.scale(sf, sf);
+			aft.rotate(an);
+			aft.translate(-cx, -cy);
+			aft.translate(dx, dy);
+			// przeksztalcenie obiektu
+			area.transform(aft);
 		return area;
 	}
 
