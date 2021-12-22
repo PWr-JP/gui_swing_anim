@@ -70,7 +70,7 @@ public class AnimatorApp extends JFrame {
 		});
 		contentPane.setBtnAnimate(btnAnimate);
 
-		JButton btnSlow = new JButton("Zwolnij");
+		JButton btnSlow = new JButton("Slow");
 		btnSlow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kanwa.slowAnimation();
@@ -78,7 +78,7 @@ public class AnimatorApp extends JFrame {
 		});
 		contentPane.setBtnSlow(btnSlow);
 
-		JButton btnAccelerate = new JButton("Przyśpiesz");
+		JButton btnAccelerate = new JButton("Accelerate");
 		btnAccelerate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -87,7 +87,7 @@ public class AnimatorApp extends JFrame {
 		});
 		contentPane.setBtnAccelerate(btnAccelerate);
 
-		JButton btnBlinking = new JButton("Mruganie");
+		JButton btnBlinking = new JButton("Blinking");
 		btnBlinking.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

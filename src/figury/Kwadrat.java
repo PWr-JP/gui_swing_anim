@@ -9,7 +9,7 @@ public class Kwadrat extends Figura{
 
     public Kwadrat(Graphics2D buff, int del, int w, int h){
         super(buff,del,w,h);
-        shape = new Ellipse2D.Float(0,0,20,10);
+        shape = new Rectangle.Float(0,0,10,10);
         aft = new AffineTransform();
         area = new Area(shape);
     }
