@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -15,7 +16,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	ArrayList<Figura> figury = new ArrayList<>();
 	// bufor
 	Image image;
 	// wykreslacz ekranowy
@@ -52,14 +53,20 @@ public class AnimPanel extends JPanel implements ActionListener {
 		else if(numer % 3 == 1) fig = new Elipsa(buffer, delay, getWidth(), getHeight());
 		else fig = new Barrel(buffer, delay, getWidth(), getHeight());
 		timer.addActionListener(fig);
+		figury.add(fig);
 		new Thread(fig).start();
 	}
 
 	void animate() {
 		if (timer.isRunning()) {
-
 			timer.stop();
+			for (Figura figura:figury) {
+				figura.setStop(true);
+			}
 		} else {
+			for (Figura figura:figury) {
+				figura.setStop(false);
+			}
 			timer.start();
 		}
 	}

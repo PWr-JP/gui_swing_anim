@@ -37,6 +37,15 @@ public abstract class Figura extends AnimPanel implements Runnable, ActionListen
 	private int width;
 	private int height;
 	private Color clr;
+	private boolean stop = false;
+
+	public boolean isStop() {
+		return stop;
+	}
+
+	public void setStop(boolean stop) {
+		this.stop = stop;
+	}
 
 	protected static final Random rand = new Random();
 
@@ -52,7 +61,7 @@ public abstract class Figura extends AnimPanel implements Runnable, ActionListen
 		an = 0.1 * rand.nextDouble();
 
 		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
-		// reszta musi być zawarta w realizacji klasy Figure
+		// reszta musi być x;zawarta w realizacji klasy Figure
 		// (tworzenie figury i przygotowanie transformacji)
 
 	}
@@ -66,6 +75,7 @@ public abstract class Figura extends AnimPanel implements Runnable, ActionListen
 
 		while (true) {
 			// przygotowanie nastepnego kadru
+
 			shape = nextFrame();
 			try {
 				Thread.sleep(delay);
@@ -75,6 +85,7 @@ public abstract class Figura extends AnimPanel implements Runnable, ActionListen
 	}
 
 	protected Shape nextFrame() {
+		if(!stop){
 			// zapamietanie na zmiennej tymczasowej
 			// aby nie przeszkadzalo w wykreslaniu
 			area = new Area(area);
@@ -98,6 +109,7 @@ public abstract class Figura extends AnimPanel implements Runnable, ActionListen
 			aft.translate(dx, dy);
 			// przeksztalcenie obiektu
 			area.transform(aft);
+		}
 		return area;
 	}
 
