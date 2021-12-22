@@ -16,6 +16,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	static boolean isRunning;
 	// bufor
 	Image image;
 	// wykreslacz ekranowy
@@ -55,8 +56,10 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	void animate() {
 		if (timer.isRunning()) {
+			isRunning = false;
 			timer.stop();
 		} else {
+			isRunning = true;
 			timer.start();
 		}
 	}

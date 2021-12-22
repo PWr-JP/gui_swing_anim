@@ -21,7 +21,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
-	protected Area area;
+	public Area area;
 	// do wykreslania
 	protected Shape shape;
 	// przeksztalcenie obiektu
@@ -70,6 +70,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 			try {
 				Thread.sleep(delay);
 			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}
