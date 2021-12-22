@@ -99,4 +99,15 @@ public class AnimPanel extends JPanel implements ActionListener {
 			fig.setDelay(fig.getDelay()+5);
 		}
 	}
+
+	public void blinking(){
+		for(Figura fig: figures){
+
+			if(fig.isBlinking()){
+				fig.setBlinking(false);
+			}else{
+				fig.setBlinking(true);
+			}
+		}
+	}
 }

@@ -60,7 +60,6 @@ public class AnimatorApp extends JFrame {
 				kanwa.addFig();
 			}
 		});
-		btnAdd.setBounds(10, 239, 80, 23);
 		contentPane.setBtnAdd(btnAdd);
 
 		JButton btnAnimate = new JButton("Animate");
@@ -69,7 +68,6 @@ public class AnimatorApp extends JFrame {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.setBtnAnimate(btnAnimate);
 
 		JButton btnSlow = new JButton("Zwolnij");
@@ -78,7 +76,6 @@ public class AnimatorApp extends JFrame {
 				kanwa.slowAnimation();
 			}
 		});
-		btnSlow.setBounds(190,239,80,23);
 		contentPane.setBtnSlow(btnSlow);
 
 		JButton btnAccelerate = new JButton("Przyśpiesz");
@@ -88,8 +85,16 @@ public class AnimatorApp extends JFrame {
 				kanwa.accelerateAnimation();
 			}
 		});
-		btnAccelerate.setBounds(280,239,80,23);
 		contentPane.setBtnAccelerate(btnAccelerate);
+
+		JButton btnBlinking = new JButton("Mruganie");
+		btnBlinking.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				kanwa.blinking();
+			}
+		});
+		contentPane.setBtnBlinking(btnBlinking);
 
 		
 	}

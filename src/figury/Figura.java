@@ -39,6 +39,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	private Color clr;
 
 	private boolean isRunning = true;
+	private boolean isBlinking = false;
 
 	protected static final Random rand = new Random();
 
@@ -68,7 +69,10 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 		while (true) {
 			// przygotowanie nastepnego kadru
-			if(isRunning==true) shape = nextFrame();
+			if(isRunning==true) {
+				if(isBlinking) blink();
+				shape = nextFrame();
+			}
 			try {
 				Thread.sleep(delay);
 			} catch (InterruptedException e) {
@@ -114,6 +118,14 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		buffer.draw(shape);
 	}
 
+	public void blink(){
+		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+		buffer.setColor(clr.brighter());
+		buffer.fill(shape);
+		buffer.setColor(clr.darker());
+		buffer.draw(shape);
+	}
+
 	public void setRunning(boolean running) {
 		isRunning = running;
 	}
@@ -128,5 +140,13 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 	public void setDelay(int delay) {
 		this.delay = delay;
+	}
+
+	public boolean isBlinking() {
+		return isBlinking;
+	}
+
+	public void setBlinking(boolean blinking) {
+		isBlinking = blinking;
 	}
 }

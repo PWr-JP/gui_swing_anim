@@ -7,6 +7,7 @@ public class ContentPanel extends JPanel {
     private JButton btnAnimate;
     private JButton btnAccelerate;
     private JButton btnSlow;
+    private JButton btnBlinking;
     private AnimPanel animPanel;
 
     public JButton getBtnAdd() {
@@ -52,5 +53,14 @@ public class ContentPanel extends JPanel {
     public void setBtnSlow(JButton btnSlow) {
         this.add(btnSlow);
         this.btnSlow = btnSlow;
+    }
+
+    public JButton getBtnBlinking() {
+        return btnBlinking;
+    }
+
+    public void setBtnBlinking(JButton btnBlinking) {
+        this.add(btnBlinking);
+        this.btnBlinking = btnBlinking;
     }
 }

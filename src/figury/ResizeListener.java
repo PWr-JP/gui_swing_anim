@@ -18,9 +18,10 @@ public class ResizeListener extends ComponentAdapter {
         contentPanel.getAnimPanel().setBounds(10,11,width,height-40);
 
         contentPanel.getBtnAdd().setBounds(10, contentPanel.getAnimPanel().getHeight()+13, 80, 25);
-        contentPanel.getBtnAnimate().setBounds(contentPanel.getBtnAdd().getWidth()+20,contentPanel.getAnimPanel().getHeight()+13,80,25);
+        contentPanel.getBtnAnimate().setBounds(contentPanel.getBtnAdd().getWidth()+20,contentPanel.getAnimPanel().getHeight()+13,90,25);
         contentPanel.getBtnSlow().setBounds(contentPanel.getBtnAnimate().getX()+contentPanel.getBtnAnimate().getWidth()+20, contentPanel.getAnimPanel().getHeight()+13, 80 ,25);
-        contentPanel.getBtnAccelerate().setBounds(contentPanel.getBtnSlow().getX()+contentPanel.getBtnSlow().getWidth()+20, contentPanel.getAnimPanel().getHeight()+13, 80 ,25);
+        contentPanel.getBtnAccelerate().setBounds(contentPanel.getBtnSlow().getX()+contentPanel.getBtnSlow().getWidth()+10, contentPanel.getAnimPanel().getHeight()+13, 100 ,25);
+        contentPanel.getBtnBlinking().setBounds(contentPanel.getBtnAccelerate().getX()+contentPanel.getBtnAccelerate().getWidth()+20,contentPanel.getAnimPanel().getHeight()+13, 90 ,25);
 
 
         SwingUtilities.invokeLater(new Runnable() {
