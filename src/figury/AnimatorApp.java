@@ -3,13 +3,8 @@ package figury;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class AnimatorApp extends JFrame {
 
@@ -60,22 +55,27 @@ public class AnimatorApp extends JFrame {
 		});
 
 		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
-			}
-		});
+		btnAdd.addActionListener(e -> kanwa.addOvalOrSquare());
+
+		JSpinner spinner = new JSpinner(new SpinnerNumberModel(3, 3, 100, 1));
+
+		JButton btnAddPolygon = new JButton("Add Polygon");
+		btnAddPolygon.addActionListener(e -> kanwa.addPolygon((Integer) spinner.getValue()));
+
 		btnAdd.setBounds(10, 239, 80, 23);
 		contentPane.add(btnAdd);
+
+		btnAddPolygon.setBounds(100, 239, 120, 23);
+		contentPane.add(btnAddPolygon);
+		spinner.setBounds(230, 239, 30, 23);
+		contentPane.add(spinner);
 		
 		JButton btnAnimate = new JButton("Animate");
-		btnAnimate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				kanwa.animate();
-			}
-		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.addActionListener(e -> kanwa.animate());
+		btnAnimate.setBounds(300, 239, 80, 23);
 		contentPane.add(btnAnimate);
+
+
 		
 	}
 

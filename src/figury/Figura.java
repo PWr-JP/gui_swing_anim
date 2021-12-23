@@ -74,6 +74,10 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		}
 	}
 
+	public void pause() {
+
+	}
+
 	protected Shape nextFrame() {
 		// zapamietanie na zmiennej tymczasowej
 		// aby nie przeszkadzalo w wykreslaniu

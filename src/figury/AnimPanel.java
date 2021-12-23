@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -46,11 +48,20 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
+	void addOvalOrSquare() {
 		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
 				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+		addFigure(fig);
+	}
+
+	void addPolygon(int numberOfSides) {
+		Figura fig = new RegularPolygon(buffer, delay, getWidth(), getHeight(), numberOfSides);
+		addFigure(fig);
+	}
+
+	void addFigure(Figura figure) {
+		timer.addActionListener(figure);
+		new Thread(figure).start();
 	}
 
 	void animate() {
@@ -64,6 +75,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		device.drawImage(image, 0, 0, null);
-		buffer.clearRect(0, 0, getWidth(), getHeight());
+		buffer.setColor(getBackground());
+		buffer.fillRect(0, 0, getWidth(), getHeight());
 	}
 }
