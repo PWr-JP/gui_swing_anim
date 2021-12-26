@@ -1,10 +1,8 @@
 package figury;
 
-import java.awt.EventQueue;
-import java.awt.Toolkit;
+import java.awt.*;
 
 import javax.swing.*;
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -64,11 +62,17 @@ public class AnimatorApp extends JFrame {
 		slide.setPaintLabels(true);
 		contentPane.add(slide);
 
+		JLabel label = new JLabel();
+		label.setBounds(400,239,40,50);
+		label.setForeground(Color.BLUE);
+		contentPane.add(label);
+
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for(int i = 0; i < slide.getValue(); i++){
 					kanwa.addFig();
+					label.setText(kanwa.getNumer());
 				}
 			}
 		});

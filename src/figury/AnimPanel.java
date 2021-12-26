@@ -1,6 +1,5 @@
 package figury;
 
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -66,5 +65,9 @@ public class AnimPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
+	}
+
+	public String getNumer(){
+		return String.valueOf(numer);
 	}
 }
