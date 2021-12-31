@@ -65,7 +65,7 @@ public class AnimatorApp extends JFrame {
 				kanwa.addFig();
 			}
 		});
-		btnAdd.setBounds(10, 239, 80, 23);
+		btnAdd.setBounds(10, 239, 90, 25);
 		contentPane.add(btnAdd);
 		
 		JButton btnAnimate = new JButton("Animate");
@@ -74,8 +74,17 @@ public class AnimatorApp extends JFrame {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(330, 239, 90, 25);
 		contentPane.add(btnAnimate);
+
+		JButton btnClear = new JButton("Reset");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.initialize();
+			}
+		});
+		btnClear.setBounds(170, 239, 90, 25);
+		contentPane.add(btnClear);
 		
 	}
 

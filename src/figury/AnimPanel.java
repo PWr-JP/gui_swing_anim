@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -15,6 +16,8 @@ public class AnimPanel extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	List<Thread> List = new ArrayList<Thread>();
+
 
 	// bufor
 	Image image;
@@ -47,10 +50,28 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
+		Thread okej;
+
 		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
 				: new Elipsa(buffer, delay, getWidth(), getHeight());
 		timer.addActionListener(fig);
-		new Thread(fig).start();
+		okej = new Thread(fig);
+		List.add(okej);
+		okej.start();
+
+
+
+
+	}
+	void clearFigs(){
+		Set<Thread> setOfThread = Thread.getAllStackTraces().keySet();
+		Thread okej;
+		okej = List.get(0);
+		for(Thread thread : setOfThread){
+			if(thread.getId()==okej.getId()){
+				thread.interrupt();
+			}
+		}
 	}
 
 	void animate() {
