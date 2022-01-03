@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
 /**
@@ -110,5 +111,4 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		buffer.setColor(clr.darker());
 		buffer.draw(shape);
 	}
-
 }

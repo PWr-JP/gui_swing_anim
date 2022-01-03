@@ -23,7 +23,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	// wykreslacz bufora
 	Graphics2D buffer;
 
-	private int delay = 70;
+	private final int delay = 70;
 
 	private Timer timer;
 
