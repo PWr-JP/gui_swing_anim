@@ -1,6 +1,8 @@
 package figury;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
@@ -9,7 +11,7 @@ import java.awt.geom.Ellipse2D;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
-public class Soul  implements KeyListener {
+public class Soul  implements KeyListener, ActionListener, Runnable {
 
     private int width, height;
 
@@ -43,6 +45,16 @@ public class Soul  implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void run() {
 
     }
 }

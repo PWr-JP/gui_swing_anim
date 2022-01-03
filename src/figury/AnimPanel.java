@@ -42,6 +42,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 		image = createImage(width, height); // na tym rysujemy
 		buffer = (Graphics2D) image.getGraphics(); //graphics to narzedzia za pomoca których rysujemy, buffer okreslia narzedzia
 		buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //antyaliasing zeby krawedzie lepiej wygladały
+		buffer.setColor(Color.WHITE);
 		device = (Graphics2D) getGraphics(); // narzedzia do rysowania po ekranie, ale my nie rysujemyy po ekranie, tylko rzutujemyna ekran
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
@@ -72,7 +73,8 @@ public class AnimPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) { // wydarzy sie gdy przyjdzie takt zegara
 		//System.out.println("takt zegara");
 		device.drawImage(image, 0, 0, null);
-		buffer.clearRect(0, 0, getWidth(), getHeight()); //czyscimy buffor - znika kolor tła
+		buffer.clearRect(0, 0, getWidth(), getHeight());//czyscimy buffor - znika kolor tła
+		buffer.setBackground(Color.white);
 		//rysowanie powinno odbywać sie asynchronicznie - gdy nie resetujemy bufora, w odstepach miedzy taktami zegara
 	}
 }
