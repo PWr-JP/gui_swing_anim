@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -29,6 +30,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private static int numer = 0;
 
+	private List<Thread> watki;
 
 	public AnimPanel() {
 		super();
@@ -54,12 +56,6 @@ public class AnimPanel extends JPanel implements ActionListener {
 		timer.addActionListener(fig);
 		new Thread(fig).start(); // start nowego watku
 		//System.out.println("dodano figure");
-	}
-
-	void addSoul() {
-		Soul fig = new Soul(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start(); // start nowego watku
 	}
 
 	void animate() {

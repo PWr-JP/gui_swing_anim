@@ -114,4 +114,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		buffer.draw(shape);
 	}
 
+	public void setClr(Color clr) {
+		this.clr = clr;
+	}
 }
