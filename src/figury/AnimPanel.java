@@ -54,6 +54,12 @@ public class AnimPanel extends JPanel implements ActionListener {
 		//System.out.println("dodano figure");
 	}
 
+	void addSoul() {
+		Soul fig = new Soul(buffer, delay, getWidth(), getHeight());
+		timer.addActionListener(fig);
+		new Thread(fig).start(); // start nowego watku
+	}
+
 	void animate() {
 		if (timer.isRunning()) {
 			timer.stop();
