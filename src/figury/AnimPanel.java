@@ -42,13 +42,23 @@ public class AnimPanel extends JPanel implements ActionListener {
 		image = createImage(width, height);
 		buffer = (Graphics2D) image.getGraphics();
 		buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		buffer.setBackground(Color.WHITE);
 		device = (Graphics2D) getGraphics();
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		Figura fig = null;
+		switch(numer++ % 3){
+			case 0: fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+			break;
+
+			case 1: fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+			break;
+
+			case 2: fig = new Trojkat(buffer, delay, getWidth(), getHeight());
+			break;
+		}
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
