@@ -1,13 +1,11 @@
 package figury;
 
-import java.awt.EventQueue;
-import java.awt.Toolkit;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -52,7 +50,6 @@ public class AnimatorApp extends JFrame {
 		kanwa.setBounds(10, 11, 422, 219);
 		contentPane.add(kanwa);
 		SwingUtilities.invokeLater(new Runnable() {
-			
 			@Override
 			public void run() {
 				kanwa.initialize();
@@ -76,7 +73,17 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
-		
+
+
+		JButton reset = new JButton("Reset");
+		reset.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				kanwa.initialize();
+			}
+		});
+		reset.setBounds(190,239,80,23);
+		contentPane.add(reset);
 	}
 
 }
