@@ -25,6 +25,8 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private int delay = 70;
 
+	private int i =0;
+
 	private Timer timer;
 
 	private static int numer = 0;
@@ -47,8 +49,11 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+
+			Figura fig = shape();
+				//Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
+				//: new Elipsa(buffer, delay, getWidth(), getHeight());
+				//: new Polygon(buffer, delay, getWidth(), getHeight());
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
@@ -61,9 +66,41 @@ public class AnimPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	void SetColor(){
+		if(buffer.getBackground() == Color.WHITE)
+		{
+			buffer.setBackground(Color.BLUE);
+		}else
+			if(buffer.getBackground()==Color.GREEN)
+			{
+				buffer.setBackground(Color.WHITE);
+			}else buffer.setBackground(Color.GREEN);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
+	}
+
+	Figura shape()
+	{
+		Figura fig;
+
+		if(i==0)
+		{
+			fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+			i++;
+		}else if (i==1)
+		{
+			fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+			i++;
+		}else
+		{
+			fig = new Prostokat(buffer, delay, getWidth(), getHeight());
+			i=0;
+		}
+
+		return fig;
 	}
 }
