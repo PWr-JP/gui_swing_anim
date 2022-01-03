@@ -40,6 +40,7 @@ public class AnimatorApp extends JFrame {
 	 * @param delay 
 	 */
 	public AnimatorApp() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int ww = 450, wh = 300;
@@ -65,7 +66,7 @@ public class AnimatorApp extends JFrame {
 				kanwa.addFig();
 			}
 		});
-		btnAdd.setBounds(10, 239, 80, 23);
+		btnAdd.setBounds(10, 235, 80, 23);
 		contentPane.add(btnAdd);
 		
 		JButton btnAnimate = new JButton("Animate");
@@ -74,7 +75,7 @@ public class AnimatorApp extends JFrame {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(350, 235, 80, 23);
 		contentPane.add(btnAnimate);
 		
 	}
