@@ -14,7 +14,7 @@ import java.awt.event.ComponentEvent;
 public class AnimatorApp extends JFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -37,7 +37,7 @@ public class AnimatorApp extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param delay 
+	 * @param delay
 	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,11 +49,13 @@ public class AnimatorApp extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+
 		AnimPanel kanwa = new AnimPanel();
 		kanwa.setBounds(10, 11, 422, 219);
 		contentPane.add(kanwa);
+
 		SwingUtilities.invokeLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				kanwa.initialize();
@@ -68,7 +70,7 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAdd.setBounds(10, 239, 80, 23);
 		contentPane.add(btnAdd);
-		
+
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -78,11 +80,10 @@ public class AnimatorApp extends JFrame {
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
 
-			addComponentListener(new ComponentAdapter() {
+		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				int w = contentPane.getWidth(), h = contentPane.getHeight();
-			//		kanwa.setSize(w-20,h-20);
 				btnAdd.setLocation(10,h-30);
 				btnAnimate.setLocation(w-100,h-30);
 			}
