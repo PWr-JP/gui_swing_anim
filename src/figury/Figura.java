@@ -20,10 +20,10 @@ import java.util.Random;
 public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 	// wspolny bufor
-	protected Graphics2D buffer;
-	protected Area area;
+	protected Graphics2D buffer; //kopiar bufora kanwy
+	protected Area area;  // prywatny obszar - przeksztalcenie dziala na arera a nie na obrazie, trzeba nadpisac w dziedziczacym konstruktorze
 	// do wykreslania
-	protected Shape shape;
+	protected Shape shape; // azamiast implementacji shape
 	// przeksztalcenie obiektu
 	protected AffineTransform aft;
 
@@ -54,6 +54,8 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 		// reszta musi być zawarta w realizacji klasy Figure
 		// (tworzenie figury i przygotowanie transformacji)
+		//w konstruktorze najpierw supper a potem rysowanie - shape = new ...;  aft = new AffineTransform(); area = new Area(shape)
+
 
 	}
 
@@ -61,10 +63,10 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	public void run() {
 		// przesuniecie na srodek
 		aft.translate(100, 100);
-		area.transform(aft);
+		area.transform(aft); //wczesniej przygotowana rtransformata
 		shape = area;
 
-		while (true) {
+		while (true) { //nieskonczona petla, asynchronicznie
 			// przygotowanie nastepnego kadru
 			shape = nextFrame();
 			try {
@@ -77,8 +79,8 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	protected Shape nextFrame() {
 		// zapamietanie na zmiennej tymczasowej
 		// aby nie przeszkadzalo w wykreslaniu
-		area = new Area(area);
-		aft = new AffineTransform();
+		area = new Area(area); //nowy obszar bazujay na obecnym
+		aft = new AffineTransform(); //nowa transformata
 		Rectangle bounds = area.getBounds();
 		int cx = bounds.x + bounds.width / 2;
 		int cy = bounds.y + bounds.height / 2;
@@ -102,7 +104,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent evt) {
+	public void actionPerformed(ActionEvent evt) { //gdy przychodzi takt zegara
 		// wypelnienie obiektu
 		buffer.setColor(clr.brighter());
 		buffer.fill(shape);

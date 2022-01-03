@@ -31,18 +31,18 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	public AnimPanel() {
 		super();
-		setBackground(Color.WHITE);
-		timer = new Timer(delay, this);
+		setBackground(Color.WHITE); // zrobic cos z tłem
+		timer = new Timer(delay, this); //wystartowanie timera swingowego
 	}
 
 	public void initialize() {
-		int width = getWidth();
-		int height = getHeight();
+		int width = getWidth();   //
+		int height = getHeight();// aby obraz mial takie same rozmiary co kanwa na ktorej rysujeemy
 
-		image = createImage(width, height);
-		buffer = (Graphics2D) image.getGraphics();
-		buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		device = (Graphics2D) getGraphics();
+		image = createImage(width, height); // na tym rysujemy
+		buffer = (Graphics2D) image.getGraphics(); //graphics to narzedzia za pomoca których rysujemy, buffer okreslia narzedzia
+		buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //antyaliasing zeby krawedzie lepiej wygladały
+		device = (Graphics2D) getGraphics(); // narzedzia do rysowania po ekranie, ale my nie rysujemyy po ekranie, tylko rzutujemyna ekran
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
@@ -50,7 +50,8 @@ public class AnimPanel extends JPanel implements ActionListener {
 		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
 				: new Elipsa(buffer, delay, getWidth(), getHeight());
 		timer.addActionListener(fig);
-		new Thread(fig).start();
+		new Thread(fig).start(); // start nowego watku
+		//System.out.println("dodano figure");
 	}
 
 	void animate() {
@@ -62,8 +63,10 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) { // wydarzy sie gdy przyjdzie takt zegara
+		//System.out.println("takt zegara");
 		device.drawImage(image, 0, 0, null);
-		buffer.clearRect(0, 0, getWidth(), getHeight());
+		buffer.clearRect(0, 0, getWidth(), getHeight()); //czyscimy buffor - znika kolor tła
+		//rysowanie powinno odbywać sie asynchronicznie - gdy nie resetujemy bufora, w odstepach miedzy taktami zegara
 	}
 }
