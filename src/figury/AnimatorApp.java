@@ -35,7 +35,7 @@ public class AnimatorApp extends JFrame {
 		});
 	}
 
-	/**
+	/*
 	 * Create the frame.
 	 * @param delay 
 	 */
