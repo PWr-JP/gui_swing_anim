@@ -29,6 +29,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private static int numer = 0;
 
+
 	public AnimPanel() {
 		super();
 		setBackground(Color.WHITE); // zrobic cos z tłem
@@ -76,5 +77,10 @@ public class AnimPanel extends JPanel implements ActionListener {
 		buffer.clearRect(0, 0, getWidth(), getHeight());//czyscimy buffor - znika kolor tła
 		buffer.setBackground(Color.white);
 		//rysowanie powinno odbywać sie asynchronicznie - gdy nie resetujemy bufora, w odstepach miedzy taktami zegara
+	}
+
+	public void setSize(int w, int h){
+		setBounds(getX(),getY(),w,h);
+		initialize();
 	}
 }

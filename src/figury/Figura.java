@@ -51,6 +51,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		sf = 1 + 0.05 * rand.nextDouble();
 		an = 0.1 * rand.nextDouble();
 
+		//clr = Color.MAGENTA;
 		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 		// reszta musi być zawarta w realizacji klasy Figure
 		// (tworzenie figury i przygotowanie transformacji)
