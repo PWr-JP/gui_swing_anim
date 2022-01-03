@@ -23,7 +23,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	// wykreslacz bufora
 	Graphics2D buffer;
 
-	private int delay = 140;
+	private int delay = 45;
 
 	private Timer timer;
 
@@ -46,11 +46,32 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
+
+	// Dodane: opcja rysowania trzech figur
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+		switch(numer++ % 3){
+			case 0:
+			{
+				Figura fig = new Elipsa(buffer, delay, getWidth(),getHeight());
+				timer.addActionListener(fig);
+				new Thread(fig).start();
+				break;
+			}
+			case 1:
+			{
+				Figura fig = new Kwadrat(buffer,delay, getWidth(),getHeight());
+				timer.addActionListener(fig);
+				new Thread(fig).start();
+				break;
+			}
+			case 2:
+			{
+				Figura fig = new Trojkat(buffer, delay, getWidth(),getHeight());
+				timer.addActionListener(fig);
+				new Thread(fig).start();
+				break;
+			}
+		}
 	}
 
 	void animate() {

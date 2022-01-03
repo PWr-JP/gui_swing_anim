@@ -1,16 +1,15 @@
-// Dodane: kształt elipsa
+// Dodane: kształt trójkąt
 
 package figury;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
 
-public class Elipsa extends Figura {
-    public Elipsa(Graphics2D buf, int del, int w, int h) {
+public class Trojkat extends Figura {
+    public Trojkat(Graphics2D buf, int del, int w, int h) {
         super(buf,del,w,h);
-        shape = new Ellipse2D.Float(0,0,30,15);
+        shape = new Polygon(new int[]{20,30,20}, new int[]{20,10,5}, 3);
         aft = new AffineTransform();
         area = new Area(shape);
     }

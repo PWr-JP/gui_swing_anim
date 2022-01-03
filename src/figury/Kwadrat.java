@@ -1,3 +1,5 @@
+// Dodane: kształt kwadrat
+
 package figury;
 
 import java.awt.*;
