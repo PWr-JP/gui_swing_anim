@@ -33,6 +33,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	private double sf;
 	// kat obrotu
 	private double an;
+	
 	private int delay;
 	private int width;
 	private int height;
