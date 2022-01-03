@@ -28,7 +28,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	private Timer timer;
 
 	private static int numer = 0;
-
+	private static boolean trojkat = true;
 	public AnimPanel() {
 		super();
 		setBackground(Color.WHITE);
@@ -48,7 +48,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	void addFig() {
 		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+				:  (trojkat = !trojkat) ? new Trojkat(buffer, delay, getWidth(), getHeight()) :new Elipsa(buffer, delay, getWidth(), getHeight());
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
