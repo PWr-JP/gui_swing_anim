@@ -59,13 +59,13 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 
-		JButton btnAdd = new JButton("Add");
+		JButton btnAdd = new JButton("Kwadrat");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kanwa.addFig();
 			}
 		});
-		btnAdd.setBounds(10, 239, 80, 23);
+		btnAdd.setBounds(90, 239, 80, 23);
 		contentPane.add(btnAdd);
 		
 		JButton btnAnimate = new JButton("Animate");
@@ -74,8 +74,32 @@ public class AnimatorApp extends JFrame {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(10, 239, 80, 23);
 		contentPane.add(btnAnimate);
+
+		JButton third = new JButton("Elipsa");
+		third.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {kanwa.makeKwadrat();
+			}
+		});
+		third.setBounds(180, 239, 80, 23);
+		contentPane.add(third);
+
+		JButton oval = new JButton("Owal");
+		oval.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {kanwa.makeOval();
+			}
+		});
+		oval.setBounds(270, 239, 80, 23);
+		contentPane.add(oval);
+
+		JButton prost = new JButton("Prostokąt");
+		prost.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {kanwa.makeProstokat();
+			}
+		});
+		prost.setBounds(350, 239, 100, 23);
+		contentPane.add(prost);
 		
 	}
 
