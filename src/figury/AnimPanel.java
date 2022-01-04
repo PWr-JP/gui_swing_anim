@@ -6,16 +6,13 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class AnimPanel extends JPanel implements ActionListener {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
 	// bufor
 	Image image;
 	// wykreslacz ekranowy
@@ -24,10 +21,10 @@ public class AnimPanel extends JPanel implements ActionListener {
 	Graphics2D buffer;
 
 	private int delay = 70;
-
 	private Timer timer;
-
 	private static int numer = 0;
+
+	ArrayList<Figura> listOfFigures = new ArrayList<>();
 
 	public AnimPanel() {
 		super();
@@ -50,7 +47,14 @@ public class AnimPanel extends JPanel implements ActionListener {
 		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
 				: new Elipsa(buffer, delay, getWidth(), getHeight());
 		timer.addActionListener(fig);
+		listOfFigures.add(fig);
 		new Thread(fig).start();
+	}
+
+	void changeFigureColors() {
+		for (Figura fig : this.listOfFigures) {
+			fig.randomizeColor();
+		}
 	}
 
 	void animate() {

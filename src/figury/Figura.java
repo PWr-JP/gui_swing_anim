@@ -111,4 +111,12 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		buffer.draw(shape);
 	}
 
+	public void randomizeColor() {
+		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+		buffer.setColor(clr.brighter());
+		buffer.fill(shape);
+		buffer.setColor(clr.darker());
+		buffer.draw(shape);
+	}
+
 }

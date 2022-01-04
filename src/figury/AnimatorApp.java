@@ -76,7 +76,16 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
-		
+
+		JButton btnChangeColor = new JButton("Change color");
+		btnChangeColor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				kanwa.changeFigureColors();
+			}
+		});
+		btnChangeColor.setBounds(190, 239, 80, 23);
+		contentPane.add(btnChangeColor);
 	}
 
 }
