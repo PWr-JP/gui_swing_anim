@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -31,8 +33,11 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	public AnimPanel() {
 		super();
+		setFocusable(true);
 		setBackground(Color.WHITE);
 		timer = new Timer(delay, this);
+
+
 	}
 
 	public void initialize() {
@@ -46,11 +51,27 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+	void addFig(int numer) {
+		switch (numer){
+			case 0:
+				Figura fig = new Kwadrat(buffer,delay,getWidth(),getHeight());
+				numer++;
+				timer.addActionListener(fig);
+				new Thread(fig).start();
+				break;
+			case 1:
+				Figura fig1 = new Elipsa(buffer, delay, getWidth(), getHeight());
+				numer++;
+				timer.addActionListener(fig1);
+				new Thread(fig1).start();
+				break;
+			case 2:
+				Figura fig2 = new Prostokat(buffer,delay,getWidth(),getHeight());
+				numer=0;
+				timer.addActionListener(fig2);
+				new Thread(fig2).start();
+				break;
+		}
 	}
 
 	void animate() {
@@ -65,5 +86,6 @@ public class AnimPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
+
 	}
 }
