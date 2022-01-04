@@ -8,9 +8,9 @@ import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 
 public class Kwadrat extends Figura {
-    public Kwadrat(Graphics2D buf, int del, int w, int h) {
+    public Kwadrat(Graphics2D buf, int del, int w, int h, int x, int y) {
         super(buf,del,w,h);
-        shape = new Rectangle2D.Float(0,0,10,20);
+        shape = new Rectangle2D.Float(x-105,y-105,10,20);
         aft = new AffineTransform();
         area = new Area(shape);
     }

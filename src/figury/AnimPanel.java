@@ -48,25 +48,25 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 
 	// Dodane: opcja rysowania trzech figur
-	void addFig() {
+	void addFig(int x, int y) {
 		switch(numer++ % 3){
 			case 0:
 			{
-				Figura fig = new Elipsa(buffer, delay, getWidth(),getHeight());
+				Figura fig = new Elipsa(buffer, delay, getWidth(),getHeight(),x,y);
 				timer.addActionListener(fig);
 				new Thread(fig).start();
 				break;
 			}
 			case 1:
 			{
-				Figura fig = new Kwadrat(buffer,delay, getWidth(),getHeight());
+				Figura fig = new Kwadrat(buffer,delay, getWidth(),getHeight(),x,y);
 				timer.addActionListener(fig);
 				new Thread(fig).start();
 				break;
 			}
 			case 2:
 			{
-				Figura fig = new Trojkat(buffer, delay, getWidth(),getHeight());
+				Figura fig = new Trojkat(buffer, delay, getWidth(),getHeight(),x,y);
 				timer.addActionListener(fig);
 				new Thread(fig).start();
 				break;
@@ -80,6 +80,11 @@ public class AnimPanel extends JPanel implements ActionListener {
 		} else {
 			timer.start();
 		}
+	}
+
+	// metoda zmieniająca opóźnienie
+	void changeDelay(int delay){
+		this.delay=delay;
 	}
 
 	@Override

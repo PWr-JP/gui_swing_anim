@@ -3,15 +3,11 @@ package figury;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.*;
 
 public class AnimatorApp extends JFrame {
 
@@ -48,7 +44,16 @@ public class AnimatorApp extends JFrame {
 
 		AnimPanel kanwa = new AnimPanel();
 		kanwa.setBounds(10, 11, 422, 219);
+
+		// Dodane: poprzez klikniecie myszki na kanwie, mozna wybrac gdzie ma byc narysowana figura
+		kanwa.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				kanwa.addFig(e.getX(),e.getY());
+			}
+		});
 		contentPane.add(kanwa);
+
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override
@@ -60,7 +65,7 @@ public class AnimatorApp extends JFrame {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
+				kanwa.addFig(100,100);
 			}
 		});
 		btnAdd.setBounds(10, 239, 80, 23);
@@ -74,6 +79,22 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
+
+		// Dodane: suwak zmieniający wartość prędkości animacji dla nowo dodanego kształtu
+		// (skala suwaka jest lepiej widoczna przy powiększeniu okienka)
+		JSlider slider = new JSlider();
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		slider.setMajorTickSpacing(5);
+		slider.setOrientation(SwingConstants.HORIZONTAL);
+		slider.setMinimum(1);
+		slider.setMaximum(151);
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				kanwa.changeDelay(slider.getValue());
+			}
+		});
+		contentPane.add(slider);
 
 
 		// Dodane: resizowanie okienka
@@ -89,6 +110,7 @@ public class AnimatorApp extends JFrame {
 				kanwa.setBounds( 10, 11, contentPane.getWidth() - 30, contentPane.getHeight() - 60);
 				kanwa.initialize();
 
+				slider.setBounds(100, height-45, width-210, 43);
 				btnAdd.setBounds(10, height-30, 90, 20);
 				btnAnimate.setBounds(width-100, height-30, 90, 20);
 			}
