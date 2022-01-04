@@ -8,6 +8,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AnimatorApp extends JFrame {
 
@@ -74,16 +76,22 @@ public class AnimatorApp extends JFrame {
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
 
-
-		JButton reset = new JButton("Reset");
-		reset.addActionListener(new ActionListener() {
-			@Override
+		JButton btnSlow = new JButton("Slow");
+		btnSlow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.initialize();
+				kanwa.slow();
 			}
 		});
-		reset.setBounds(190,239,80,23);
-		contentPane.add(reset);
+		btnSlow.setBounds(190, 239, 80, 23);
+		contentPane.add(btnSlow);
+
+		kanwa.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				kanwa.addTriangle();
+			}
+		});
 	}
 
 }
