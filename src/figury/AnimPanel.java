@@ -25,7 +25,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private final int delay = 70;
 
-	private Timer timer;
+	private final Timer timer;
 
 	private static int numer = 0;
 
