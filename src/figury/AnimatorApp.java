@@ -3,10 +3,7 @@ package figury;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -60,10 +57,16 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 
+		String[] figures = {"Kwadrat", "Kolo","Elipsa","Trojkat"};
+		JComboBox chooseFigure = new JComboBox(figures);
+		chooseFigure.setBounds(200,235,100,23);
+		chooseFigure.setVisible(true);
+		contentPane.add(chooseFigure);
+
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
+				kanwa.addFig((String) chooseFigure.getSelectedItem());
 			}
 		});
 		btnAdd.setBounds(10, 235, 80, 23);
@@ -77,6 +80,13 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(350, 235, 80, 23);
 		contentPane.add(btnAnimate);
+
+		JLabel figureName = new JLabel("Figura:");
+		figureName.setBounds(150,235,50,23);
+		figureName.setVisible(true);
+		contentPane.add(figureName);
+
+
 		
 	}
 
