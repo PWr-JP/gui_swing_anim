@@ -76,6 +76,24 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
+
+		JButton btnSlow = new JButton("-");
+		btnSlow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.slowDown();
+			}
+		});
+		btnSlow.setBounds(200, 239, 80, 23);
+		contentPane.add(btnSlow);
+
+		JButton btnFaster = new JButton("+");
+		btnFaster.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.speedUp();
+			}
+		});
+		btnFaster.setBounds(300, 239, 80, 23);
+		contentPane.add(btnFaster);
 		
 	}
 

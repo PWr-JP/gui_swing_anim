@@ -78,4 +78,12 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
 	}
+
+	public void slowDown(){
+		this.delay+=10;
+	}
+
+	public void speedUp(){
+		if(this.delay>10) this.delay-=10;
+	}
 }
