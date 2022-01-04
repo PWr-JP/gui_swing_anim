@@ -7,8 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class AnimPanel extends JPanel implements ActionListener {
 	/**
@@ -27,7 +26,6 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private Timer timer;
 
-	private static int numer = 0;
 
 	public AnimPanel() {
 		super();
@@ -46,12 +44,33 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+	void addElipse() {
+		Figura fig;
+
+		fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
+
+	void addSquare() {
+		Figura fig;
+
+		fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+
+		timer.addActionListener(fig);
+		new Thread(fig).start();
+	}
+
+	void addRsquare() {
+		Figura fig;
+
+		fig = new Okwadrat(buffer, delay, getWidth(), getHeight());
+
+		timer.addActionListener(fig);
+		new Thread(fig).start();
+	}
+
 
 	void animate() {
 		if (timer.isRunning()) {

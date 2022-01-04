@@ -1,15 +1,12 @@
 package figury;
 
-import java.awt.EventQueue;
-import java.awt.Toolkit;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
-import java.awt.Dimension;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class AnimatorApp extends JFrame {
 
@@ -41,7 +38,9 @@ public class AnimatorApp extends JFrame {
 	 */
 	public AnimatorApp() {
 		setTitle("Animacja");
+		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(null);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int ww = 460, wh = 310;
 		setBounds((screen.width-ww)/2, (screen.height-wh)/2, ww, wh);
@@ -60,24 +59,48 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
+		JButton btnElipse = new JButton("Elipse");
+		btnElipse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
+				kanwa.addElipse();
 			}
 		});
-		btnAdd.setBounds(10, 239, 100, 23);
-		contentPane.add(btnAdd);
-		
+		contentPane.add(btnElipse);
+
+		JButton btnSquare = new JButton("Square");
+		btnSquare.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.addSquare();
+			}
+		});
+		contentPane.add(btnSquare);
+
+		JButton btnRsquare = new JButton("R. square");
+		btnRsquare.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.addRsquare();
+			}
+		});
+		contentPane.add(btnRsquare);
+
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(120, 239, 100, 23);
 		contentPane.add(btnAnimate);
-		
+
+		addComponentListener(new ComponentAdapter(){
+			public void componentResized(ComponentEvent ce) {
+
+				int height = contentPane.getHeight();
+				btnElipse.setBounds(10, height-30, 90, 20);
+				btnSquare.setBounds(120, height-30, 90, 20);
+				btnRsquare.setBounds(230, height-30, 90, 20);
+				btnAnimate.setBounds(340, height-30, 90, 20);
+			}
+		});
 	}
 
 }

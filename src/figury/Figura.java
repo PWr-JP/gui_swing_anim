@@ -19,6 +19,7 @@ import java.util.Random;
  */
 public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
+
 	// wspolny bufor
 	protected Graphics2D buffer;
 	protected Area area;
@@ -75,6 +76,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	}
 
 	protected Shape nextFrame() {
+
 		// zapamietanie na zmiennej tymczasowej
 		// aby nie przeszkadzalo w wykreslaniu
 		area = new Area(area);
