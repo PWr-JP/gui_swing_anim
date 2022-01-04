@@ -23,14 +23,12 @@ public class AnimatorApp extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					final AnimatorApp frame = new AnimatorApp();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		EventQueue.invokeLater(() -> {
+			try {
+				final AnimatorApp frame = new AnimatorApp();
+				frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		});
 	}
@@ -51,29 +49,15 @@ public class AnimatorApp extends JFrame {
 		AnimPanel kanwa = new AnimPanel();
 		kanwa.setBounds(10, 11, 422, 219);
 		contentPane.add(kanwa);
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				kanwa.initialize();
-			}
-		});
+		SwingUtilities.invokeLater(kanwa::initialize);
 
 		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
-			}
-		});
+		btnAdd.addActionListener(e -> kanwa.addFig());
 		btnAdd.setBounds(10, 239, 80, 23);
 		contentPane.add(btnAdd);
 		
 		JButton btnAnimate = new JButton("Animate");
-		btnAnimate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				kanwa.animate();
-			}
-		});
+		btnAnimate.addActionListener(e -> kanwa.animate());
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
 		
