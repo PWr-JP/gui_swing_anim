@@ -1,18 +1,13 @@
 package figury;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class AnimPanel extends JPanel implements ActionListener {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -47,11 +42,19 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		numer++;
+		Figura fig;
+		if(numer % 3 == 1){
+			fig =  new Kwadrat(buffer, delay, getWidth(), getHeight());
+		} else if (numer % 3 == 2){
+			fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+		} else {
+			fig = new Prostokat(buffer, delay, getWidth(), getHeight());
+		}
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
+
 
 	void animate() {
 		if (timer.isRunning()) {
