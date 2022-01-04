@@ -1,15 +1,11 @@
 package figury;
 
-import java.awt.EventQueue;
-import java.awt.Toolkit;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class AnimatorApp extends JFrame {
 
@@ -49,8 +45,9 @@ public class AnimatorApp extends JFrame {
 		contentPane.setLayout(null);
 
 		AnimPanel kanwa = new AnimPanel();
-		kanwa.setBounds(10, 11, 422, 219);
+		kanwa.setBounds(10, 11, this.getWidth() - 50, this.getHeight() - 100);
 		contentPane.add(kanwa);
+		contentPane.setBackground(Color.WHITE);
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override
@@ -65,7 +62,7 @@ public class AnimatorApp extends JFrame {
 				kanwa.addFig();
 			}
 		});
-		btnAdd.setBounds(10, 239, 80, 23);
+		btnAdd.setBounds(10, getContentPane().getHeight() - 30, 80, 23);
 		contentPane.add(btnAdd);
 		
 		JButton btnAnimate = new JButton("Animate");
@@ -74,9 +71,20 @@ public class AnimatorApp extends JFrame {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(getContentPane().getWidth()-100, getContentPane().getHeight() - 30, 80, 23);
 		contentPane.add(btnAnimate);
-		
+
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				super.componentResized(e);
+				btnAnimate.setBounds(getContentPane().getWidth()-100, getContentPane().getHeight() - 30, 80, 23);
+				btnAdd.setBounds(10, getContentPane().getHeight() - 30, 80, 23);
+				kanwa.setBounds(10, 11, getContentPane().getWidth() - 50, getContentPane().getHeight() - 100);
+				kanwa.initialize();
+
+			}
+		});
 	}
 
 }

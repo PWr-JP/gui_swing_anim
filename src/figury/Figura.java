@@ -3,10 +3,7 @@
  */
 package figury;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
@@ -17,12 +14,11 @@ import java.util.Random;
  * @author tb
  *
  */
-public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
+public abstract class Figura implements Runnable, ActionListener{
 
 	// wspolny bufor
 	protected Graphics2D buffer;
 	protected Area area;
-	// do wykreslania
 	protected Shape shape;
 	// przeksztalcenie obiektu
 	protected AffineTransform aft;
@@ -37,6 +33,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	private int width;
 	private int height;
 	private Color clr;
+	public static volatile boolean shouldContinue = true;
 
 	protected static final Random rand = new Random();
 
@@ -63,8 +60,9 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		aft.translate(100, 100);
 		area.transform(aft);
 		shape = area;
+		shouldContinue = true;
 
-		while (true) {
+		while (shouldContinue) {
 			// przygotowanie nastepnego kadru
 			shape = nextFrame();
 			try {
