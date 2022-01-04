@@ -43,7 +43,8 @@ public class AnimatorApp extends JFrame {
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		setBackground(Color.GREEN);
+		Color lightBlueColor = new Color(176, 196, 222);
+		setBackground(lightBlueColor);
 
 		AnimPanel kanwa = new AnimPanel();
 		kanwa.setBounds(10, 11, 422, 219);

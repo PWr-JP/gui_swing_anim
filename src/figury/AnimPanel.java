@@ -31,7 +31,8 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	public AnimPanel() {
 		super();
-		setBackground(Color.GREEN);
+		Color lightBlueColor = new Color(176, 196, 222);
+		setBackground(lightBlueColor);
 		timer = new Timer(delay, this);
 	}
 
