@@ -35,10 +35,6 @@ public class AnimatorApp extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @param delay 
-	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -59,22 +55,49 @@ public class AnimatorApp extends JFrame {
 			}
 		});
 
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
+		JButton btnAddSquare = new JButton("Add Square");
+		btnAddSquare.setFocusable(false);
+		btnAddSquare.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
+				kanwa.addSquare();
 			}
 		});
-		btnAdd.setBounds(10, 239, 80, 23);
-		contentPane.add(btnAdd);
-		
+		btnAddSquare.setBounds(10, 239, 100, 23);
+		contentPane.add(btnAddSquare);
+
+		JButton btnAddOval = new JButton("Add Oval");
+		btnAddOval.setFocusable(false);
+		btnAddOval.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				kanwa.addOval();
+			}
+		});
+
+		btnAddOval.setBounds(120,239,100,23);
+		contentPane.add(btnAddOval);
+
+		JButton btnAddRectangle = new JButton("Add Rectangle");
+		btnAddRectangle.setFocusable(false);
+		btnAddRectangle.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				kanwa.addRectangle();
+			}
+		});
+
+		btnAddRectangle.setBounds(230, 239, 120, 23);
+		contentPane.add(btnAddRectangle);
+
+
 		JButton btnAnimate = new JButton("Animate");
+		btnAnimate.setFocusable(false);
 		btnAnimate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				kanwa.animate();
 			}
 		});
-		btnAnimate.setBounds(100, 239, 80, 23);
+		btnAnimate.setBounds(360, 239, 80, 23);
 		contentPane.add(btnAnimate);
 		
 	}

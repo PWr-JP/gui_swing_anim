@@ -46,12 +46,24 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+	void addSquare() {
+		Figure fig = new Square(buffer, delay, getWidth(), getHeight());
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
+
+	void addOval() {
+		Figure fig = new Oval(buffer, delay, getWidth(), getHeight());
+		timer.addActionListener(fig);
+		new Thread(fig).start();
+	}
+
+	void addRectangle() {
+		Figure fig = new Rectangle(buffer, delay, getWidth(), getHeight());
+		timer.addActionListener(fig);
+		new Thread(fig).start();
+	}
+
 
 	void animate() {
 		if (timer.isRunning()) {
@@ -65,5 +77,6 @@ public class AnimPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
+		buffer.setBackground(Color.WHITE);
 	}
 }
