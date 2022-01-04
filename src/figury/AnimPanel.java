@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -27,8 +28,6 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private Timer timer;
 
-	private static int numer = 0;
-
 	public AnimPanel() {
 		super();
 		setBackground(Color.WHITE);
@@ -47,8 +46,19 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		Figura fig = null;
+		Random rand = new Random();
+		int n = rand.nextInt(100);
+		switch(n % 3){
+			case 0: fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+				break;
+
+			case 1: fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+				break;
+
+			case 2: fig = new Trojkat(buffer, delay, getWidth(), getHeight());
+				break;
+		}
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
@@ -65,5 +75,21 @@ public class AnimPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
+	}
+
+	public void addAll(int choise){
+		Figura fig = null;
+		switch(choise){
+			case 0: fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+				break;
+
+			case 1: fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+				break;
+
+			case 2: fig = new Trojkat(buffer, delay, getWidth(), getHeight());
+				break;
+		}
+		timer.addActionListener(fig);
+		new Thread(fig).start();
 	}
 }
