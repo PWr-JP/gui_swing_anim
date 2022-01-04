@@ -1,16 +1,15 @@
 package figury;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
+import javax.swing.*;
+import javax.swing.event.MouseInputListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
 
-public class AnimPanel extends JPanel implements ActionListener {
+
+public class AnimPanel extends JPanel implements ActionListener, MouseInputListener {
 	/**
 	 * 
 	 */
@@ -29,10 +28,18 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private static int numer = 0;
 
+	public int xPos = 0;
+	public int yPos = 0;
+
+	public int shapeNum = 0;
+	public Color shapeCol = Color.BLUE;
+	boolean isCreated = false;
+
 	public AnimPanel() {
 		super();
-		setBackground(Color.WHITE);
+
 		timer = new Timer(delay, this);
+		addMouseListener(this);
 	}
 
 	public void initialize() {
@@ -46,9 +53,14 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
+	void setParameters(int shapeNumber, Color shapeColor) {
+		shapeNum = shapeNumber;
+		shapeCol = shapeColor;
+	}
+
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		Figura fig = (shapeNum == 0) ? new Kwadrat(xPos, yPos,shapeCol,buffer, delay, getWidth(), getHeight()) :
+		(shapeNum == 1) ? new Elipsa(xPos, yPos,shapeCol,buffer, delay, getWidth(), getHeight()) : new RoundRect(xPos, yPos,shapeCol,buffer, delay, getWidth(), getHeight());
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
@@ -61,9 +73,53 @@ public class AnimPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	void changeSpeed(int speedVal) {
+		if(isCreated == false)
+		delay = (speedVal == 0) ? 140 : (speedVal == 1) ? 70 : 35;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		xPos = e.getX() - 120;
+		yPos = e.getY() - 110;
+		addFig();
+		isCreated = true;
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+
 	}
 }

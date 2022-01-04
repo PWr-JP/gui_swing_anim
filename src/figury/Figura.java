@@ -40,7 +40,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 	protected static final Random rand = new Random();
 
-	public Figura(Graphics2D buf, int del, int w, int h) {
+	public Figura(Color shapeColor,Graphics2D buf, int del, int w, int h) {
 		delay = del;
 		buffer = buf;
 		width = w;
@@ -51,7 +51,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		sf = 1 + 0.05 * rand.nextDouble();
 		an = 0.1 * rand.nextDouble();
 
-		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+		clr = shapeColor;
 		// reszta musi być zawarta w realizacji klasy Figure
 		// (tworzenie figury i przygotowanie transformacji)
 
