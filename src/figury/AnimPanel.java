@@ -51,7 +51,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 		Figura fig = null;
 		Random random = new Random();
 
-		switch(numer++ % 3) {
+		switch(numer++ % 4) {
 			case 0:
 				fig = new Kwadrat(buffer, random.nextInt(70)+10, getWidth(), getHeight());
 				break;
@@ -60,6 +60,9 @@ public class AnimPanel extends JPanel implements ActionListener {
 				break;
 			case 2:
 				fig = new Trojkat(buffer, random.nextInt(70)+10, getWidth(), getHeight());
+				break;
+			case 3:
+				fig = new ZaokraglonyKwadrat(buffer, random.nextInt(70)+10, getWidth(), getHeight());
 				break;
 		}
 
