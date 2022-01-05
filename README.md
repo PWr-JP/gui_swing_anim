@@ -1,2 +1,2 @@
 # gui_swing_anim
-Repozytorium startowe do animacji
++kwadraty i elipsy o losowych wymiarach
