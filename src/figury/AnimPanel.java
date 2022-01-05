@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -31,8 +32,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	public AnimPanel() {
 		super();
-		Color lightBlueColor = new Color(176, 196, 222);
-		setBackground(lightBlueColor);
+		setBackground(new Color(176, 196, 222));
 		timer = new Timer(delay, this);
 	}
 
@@ -49,16 +49,17 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	void addFig() {
 		Figura fig = null;
+		Random random = new Random();
 
 		switch(numer++ % 3) {
 			case 0:
-				fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+				fig = new Kwadrat(buffer, random.nextInt(70)+10, getWidth(), getHeight());
 				break;
 			case 1:
-				fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+				fig = new Elipsa(buffer, random.nextInt(70)+10, getWidth(), getHeight());
 				break;
 			case 2:
-				fig = new Trojkat(buffer, delay, getWidth(), getHeight());
+				fig = new Trojkat(buffer, random.nextInt(70)+10, getWidth(), getHeight());
 				break;
 		}
 
