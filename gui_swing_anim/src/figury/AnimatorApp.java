@@ -19,6 +19,10 @@ public class AnimatorApp extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
+	private static int nr=0;
+	public static boolean toStart=false;
+
+
 	/**
 	 * Launch the application.
 	 */
@@ -37,7 +41,7 @@ public class AnimatorApp extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param delay 
+	 * @paramdelay
 	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,6 +80,22 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
+
+		JButton btnLowFPS = new JButton("Low FPS");
+		btnLowFPS.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(nr++ % 2==0){
+					toStart=true;
+					kanwa.LowFPS();
+				}else{
+					toStart=false;
+					kanwa.LowFPS();
+				}
+			}
+		});
+		btnLowFPS.setBounds(210,239,130,23);
+		contentPane.add(btnLowFPS);
 		
 	}
 

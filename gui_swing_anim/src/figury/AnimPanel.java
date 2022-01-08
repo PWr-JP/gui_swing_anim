@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import static figury.AnimatorApp.toStart;
+
 public class AnimPanel extends JPanel implements ActionListener {
 	/**
 	 * 
@@ -28,6 +30,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	private Timer timer;
 
 	private static int numer = 0;
+	private static int numer3=0;
 
 	public AnimPanel() {
 		super();
@@ -47,10 +50,14 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+		if(numer3++ % 3==0){
+			//Figura fig = new Triangle(buffer, delay, getWidth(), getHeight()); jeszcze nie ma klasy Triangle
+		}else{
+			Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
+					: new Elipsa(buffer, delay, getWidth(), getHeight());
+			timer.addActionListener(fig);
+			new Thread(fig).start();
+		}
 	}
 
 	void animate() {
@@ -61,8 +68,17 @@ public class AnimPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	void LowFPS(){
+		if(toStart) {
+			timer.setDelay(500);
+		}else{
+			timer.setDelay(delay);
+		}
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		buffer.setBackground(Color.WHITE);
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
 	}
