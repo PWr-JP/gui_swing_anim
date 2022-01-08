@@ -1,6 +1,3 @@
-/**
- * 
- */
 package figury;
 
 import java.awt.Color;
@@ -11,13 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
-/**
- * @author tb
- *
- */
 public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 	// wspolny bufor
@@ -33,29 +25,28 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	// rozciaganie
 	private double sf;
 	// kat obrotu
-	private double an;
-	private int delay;
-	private int width;
-	private int height;
-	private Color clr;
+	private final double an;
+	private final int delay;
+	private final int width;
+	private final int height;
+	private final Color color;
 
 	protected static final Random rand = new Random();
 
-	public Figura(Graphics2D buf, int del, int w, int h) {
+	public Figura(Graphics2D buf, int del, int w, int h, Color c) {
 		delay = del;
 		buffer = buf;
 		width = w;
 		height = h;
+		color = c;
 
 		dx = 1 + rand.nextInt(5);
 		dy = 1 + rand.nextInt(5);
 		sf = 1 + 0.05 * rand.nextDouble();
-		an = 0.1 * rand.nextDouble();
+		an = 0.1 * rand.nextDouble();;
 
-		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 		// reszta musi być zawarta w realizacji klasy Figure
 		// (tworzenie figury i przygotowanie transformacji)
-
 	}
 
 	@Override
@@ -105,10 +96,10 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		// wypelnienie obiektu
-		buffer.setColor(clr.brighter());
+		buffer.setColor(color.brighter());
 		buffer.fill(shape);
 		// wykreslenie ramki
-		buffer.setColor(clr.darker());
+		buffer.setColor(color.darker());
 		buffer.draw(shape);
 	}
 }

@@ -1,19 +1,12 @@
 package figury;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class AnimPanel extends JPanel implements ActionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	// bufor
@@ -23,15 +16,21 @@ public class AnimPanel extends JPanel implements ActionListener {
 	// wykreslacz bufora
 	Graphics2D buffer;
 
-	private final int delay = 70;
+	private int delay = 70;
 
 	private Timer timer;
 
 	private static int numer = 0;
 
+	private Color color;
+	private int R = 191;
+	private int G = 168;
+	private int B = 229;
+
+
 	public AnimPanel() {
 		super();
-		setBackground(Color.WHITE);
+		color = new Color(R,G,B);
 		timer = new Timer(delay, this);
 	}
 
@@ -47,10 +46,12 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		color = new Color(R,G,B);
+		numer++;
+		Figura fig = (numer % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight(), color)
+				: new Elipsa(buffer, delay, getWidth(), getHeight(), color);
 		timer.addActionListener(fig);
-		new Thread(fig).start();
+		new Thread(fig, 'i'+String.valueOf(numer)).start();
 	}
 
 	void animate() {
@@ -65,5 +66,18 @@ public class AnimPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
+	}
+
+	protected void setDelay(int delay)
+	{
+		this.delay = delay;
+	}
+
+	protected void setColor(String color, int value) {
+		switch (color) {
+			case "red": {this.R = value;break;}
+			case "green": {this.G = value;break;}
+			case "blue": {this.B = value;break;}
+		}
 	}
 }
