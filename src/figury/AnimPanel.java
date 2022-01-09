@@ -42,6 +42,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 		image = createImage(width, height);
 		buffer = (Graphics2D) image.getGraphics();
 		buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		buffer.setBackground(Color.WHITE);
 		device = (Graphics2D) getGraphics();
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
