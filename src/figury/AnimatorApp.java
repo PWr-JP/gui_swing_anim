@@ -10,6 +10,9 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.geom.Area;
 
 public class AnimatorApp extends JFrame {
 
@@ -76,7 +79,32 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
-		
+
+		addComponentListener(new ComponentListener() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				int w = contentPane.getWidth();
+				int h = contentPane.getHeight();
+
+				btnAdd.setLocation(10, h-30);
+				btnAnimate.setLocation(w-100, h-30);
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent e) {
+
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+
+			}
+		});
 	}
 
 }
