@@ -6,8 +6,8 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 
 public class Elipsa extends Figura{
-    public Elipsa(Graphics2D buf, int del, int w, int h){
-        super(buf, del, w, h);
+    public Elipsa(Graphics2D buf, int del, int w, int h, Color color){
+        super(buf, del, w, h, color);
         shape = new Ellipse2D.Float(0,0,30,15);
         aft = new AffineTransform();
         area = new Area(shape);

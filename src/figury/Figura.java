@@ -37,10 +37,11 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	private int width;
 	private int height;
 	private Color clr;
+	private volatile boolean dead = false;
 
 	protected static final Random rand = new Random();
 
-	public Figura(Graphics2D buf, int del, int w, int h) {
+	public Figura(Graphics2D buf, int del, int w, int h, Color color) {
 		delay = del;
 		buffer = buf;
 		width = w;
@@ -51,7 +52,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		sf = 1 + 0.05 * rand.nextDouble();
 		an = 0.1 * rand.nextDouble();
 
-		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+		clr = color;
 		// reszta musi być zawarta w realizacji klasy Figure
 		// (tworzenie figury i przygotowanie transformacji)
 
@@ -64,7 +65,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		area.transform(aft);
 		shape = area;
 
-		while (true) {
+		while (!dead) {
 			// przygotowanie nastepnego kadru
 			shape = nextFrame();
 			try {
@@ -72,6 +73,8 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 			} catch (InterruptedException e) {
 			}
 		}
+		this.clr = new Color(0,0,0,0);
+		shape = nextFrame();
 	}
 
 	protected Shape nextFrame() {
@@ -111,4 +114,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		buffer.draw(shape);
 	}
 
+	public void stop(){
+		dead = true;
+	}
 }

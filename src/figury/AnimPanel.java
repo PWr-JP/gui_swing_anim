@@ -6,6 +6,9 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Random;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -29,10 +32,19 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private static int numer = 0;
 
+	private Color color;
+	private int alpha;
+
+	private boolean isColRandom = true;
+
+	protected static final Random rand = new Random();
+
 	public AnimPanel() {
 		super();
 		setBackground(Color.WHITE);
-		timer = new Timer(delay, this);
+		this.color = Color.BLACK;
+		this.alpha = 255;
+		this.timer = new Timer(delay, this);
 	}
 
 	public void initialize() {
@@ -47,10 +59,17 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		Figura fig;
+
+		if(isColRandom)
+			fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight(),new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)))
+					: new Elipsa(buffer, delay, getWidth(), getHeight(),new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)));
+		else
+			fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight(), new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha))
+					: new Elipsa(buffer, delay, getWidth(), getHeight(), new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha));
 		timer.addActionListener(fig);
 		new Thread(fig).start();
+		threads.add(fig);
 	}
 
 	void animate() {
@@ -66,4 +85,41 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
 	}
+
+	public void setDelay(int delay) {
+		this.delay = delay;
+	}
+
+	public void setColor(Color col){
+		this.color = col;
+	}
+
+	public void setColRandom(boolean isOn){
+		this.isColRandom = isOn;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public int getAlpha() {
+		return alpha;
+	}
+
+	public void setAlpha(int alpha){
+		this.alpha = alpha;
+	}
+
+	public int getDelay(){
+		return delay;
+	}
+
+	public void killLast(){
+		if(!threads.isEmpty()){
+			threads.get(threads.size()-1).stop();
+			threads.remove(threads.size()-1);
+		}
+	}
+
+	private ArrayList<Figura> threads = new ArrayList<>();
 }
