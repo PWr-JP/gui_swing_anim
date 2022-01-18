@@ -65,30 +65,43 @@ public class AnimatorApp extends JFrame {
 
 	private void animFrameInit(){
 
-
-
-		JButton btnAdd = SwingFactory.createButton("Add", 100, 23);
-		btnAdd.setLocation(10, kanwa.getY() + kanwa.getHeight() + 5);
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				kanwa.addFig();
-			}
-		});
-
-		JButton btnAnimate = SwingFactory.createButton("Animate", 100, 23);
-		btnAnimate.setLocation(btnAdd.getX() + btnAdd.getWidth() + 10, kanwa.getY() + kanwa.getHeight() + 5);
-		btnAnimate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				kanwa.animate();
-			}
-		});
-
 		JButton btnColor = SwingFactory.createButton("Pick color", 100, 23);
 		JPanel colorSquare = new JPanel();
 		JSlider alphaSlider = SwingFactory.createSlider(1, 255, 255);
 		JLabel alphaVal = new JLabel("Alpha: " + kanwa.getAlpha());
 		JSlider delaySlider = SwingFactory.createSlider(10,200,70);
 		JLabel delayVal = new JLabel("Delay: " + kanwa.getDelay());
+		JButton btnAddSqr = SwingFactory.createButton("Add square",100, 23);
+		btnAddSqr.addActionListener(e -> {
+			kanwa.addFig("SQUARE");
+		});
+		JButton btnAddElipse = SwingFactory.createButton("Add ellipse",100,23);
+		btnAddElipse.addActionListener(e -> {
+			kanwa.addFig("ELLIPSE");
+		});
+
+
+
+		JButton btnAdd = SwingFactory.createButton("Add", 100, 23);
+		btnAdd.setLocation(10, kanwa.getY() + kanwa.getHeight() + 5);
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.addFig("NULL");
+			}
+		});
+
+		btnAddSqr.setLocation(btnAdd.getX() + btnAdd.getWidth() + 10, btnAdd.getY());
+		btnAddElipse.setLocation(btnAddSqr.getX() + btnAddSqr.getWidth() + 10, btnAddSqr.getY());
+
+		JButton btnAnimate = SwingFactory.createButton("Animate", 100, 23);
+		btnAnimate.setLocation(btnAddElipse.getX() + btnAdd.getWidth() + 10, kanwa.getY() + kanwa.getHeight() + 5);
+		btnAnimate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				kanwa.animate();
+			}
+		});
+
+
 
 		JButton deleteLast = SwingFactory.createButton("Delete last",100,23);
 		deleteLast.setLocation(kanwa.getX()+kanwa.getWidth()-deleteLast.getWidth(),btnAdd.getY());
@@ -121,12 +134,14 @@ public class AnimatorApp extends JFrame {
 				btnColor.setEnabled(false);
 				colorSquare.setOpaque(false);
 				colorSquare.setBackground(null);
+				alphaSlider.setEnabled(false);
 			}
 			else {
 				kanwa.setColRandom(false);
 				btnColor.setEnabled(true);
 				colorSquare.setOpaque(true);
 				colorSquare.setBackground(kanwa.getColor());
+				alphaSlider.setEnabled(true);
 			}
 		});
 
@@ -138,6 +153,7 @@ public class AnimatorApp extends JFrame {
 					alphaVal.setText("Alpha : " + kanwa.getAlpha());
 					alphaVal.setBounds(alphaSlider.getX() + alphaSlider.getWidth() + 5,alphaSlider.getY()+(alphaSlider.getHeight()/2) - (alphaVal.getHeight()/2), (int)alphaVal.getPreferredSize().getWidth(), (int)alphaVal.getPreferredSize().getHeight());
 				});
+		alphaSlider.setEnabled(false);
 
 		delaySlider.setLocation(alphaSlider.getX(), alphaSlider.getY()+alphaSlider.getHeight()-10);
 		delaySlider.addChangeListener(
@@ -153,7 +169,8 @@ public class AnimatorApp extends JFrame {
 		delayVal.setBounds(0,0,(int)delayVal.getPreferredSize().getWidth(), (int)delayVal.getPreferredSize().getHeight());
 		delayVal.setLocation(delaySlider.getX() + delaySlider.getWidth() + 5,delaySlider.getY()+(delaySlider.getHeight()/2) - (delayVal.getHeight()/2));
 
-
+		contentPane.add(btnAddSqr);
+		contentPane.add(btnAddElipse);
 		contentPane.add(delaySlider);
 		contentPane.add(delayVal);
 		contentPane.add(alphaVal);

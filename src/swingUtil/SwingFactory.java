@@ -4,7 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SwingFactory {
-
+    /*=================================================*/
+    /*                                                 */
+    /* Static class created for ease of use of Swing   */
+    /* elements.                                       */
+    /*                                                 */
+    /*=================================================*/
     public static JFrame createFrame(String title){
         JFrame frame = new JFrame(title);
 

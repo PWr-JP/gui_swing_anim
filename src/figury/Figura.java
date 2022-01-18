@@ -74,7 +74,6 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 			}
 		}
 		this.clr = new Color(0,0,0,0);
-		shape = nextFrame();
 	}
 
 	protected Shape nextFrame() {

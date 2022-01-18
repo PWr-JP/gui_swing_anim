@@ -58,15 +58,30 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
+	void addFig(String shapeType){
 		Figura fig;
-
-		if(isColRandom)
-			fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight(),new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)))
-					: new Elipsa(buffer, delay, getWidth(), getHeight(),new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)));
-		else
-			fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight(), new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha))
-					: new Elipsa(buffer, delay, getWidth(), getHeight(), new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha));
+		switch(shapeType){
+			case "ELLIPSE":
+				if(isColRandom)
+					fig = new Elipsa(buffer, delay, getWidth(), getHeight(),new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)));
+				else
+					fig = new Elipsa(buffer, delay, getWidth(), getHeight(), new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha));
+				break;
+			case "SQUARE":
+				if(isColRandom)
+					fig = new Kwadrat(buffer, delay, getWidth(), getHeight(),new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)));
+				else
+					fig = new Kwadrat(buffer, delay, getWidth(), getHeight(), new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha));
+			break;
+			default:
+				if(isColRandom)
+					fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight(),new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)))
+							: new Elipsa(buffer, delay, getWidth(), getHeight(),new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)));
+				else
+					fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight(), new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha))
+							: new Elipsa(buffer, delay, getWidth(), getHeight(), new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha));
+				break;
+		}
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 		threads.add(fig);
