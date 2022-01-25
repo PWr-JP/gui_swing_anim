@@ -1,2 +1,4 @@
 # gui_swing_anim
-Repozytorium startowe do animacji
+Program został rozszerzony o dodatkowe funkcje:
+> Rysowanie kwadratu we wskazanym kolorze
+> Dodanie kształtu trojkata do możliwych figur
