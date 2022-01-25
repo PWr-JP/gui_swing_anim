@@ -23,11 +23,11 @@ public class AnimPanel extends JPanel implements ActionListener {
 	// wykreslacz bufora
 	Graphics2D buffer;
 
-	private int delay = 70;
+	private final int delay = 70;
 
-	private Timer timer;
+	private final Timer timer;
 
-	private static int numer = 0;
+	private int numer = 0;
 
 	public AnimPanel() {
 		super();
@@ -45,20 +45,39 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device = (Graphics2D) getGraphics();
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
-
+//Program dodaje figury w sekwencji kwadrat-elipsa-trojkat
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+		switch(numer++%3) {
+			case 0: {
+				Figura fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+				timer.addActionListener(fig);
+				new Thread(fig).start();
+				break;
+			}
+			case 1: {
+				Figura fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+				timer.addActionListener(fig);
+				new Thread(fig).start();
+				break;
+			}
+			case 2: {
+				Figura fig = new Trojkat(buffer, delay, getWidth(), getHeight());
+				timer.addActionListener(fig);
+				new Thread(fig).start();
+				break;
+			}
+		}
+
 	}
 
 	void animate() {
-		if (timer.isRunning()) {
-			timer.stop();
-		} else {
-			timer.start();
-		}
+		if (timer.isRunning()) timer.stop();
+		else timer.start();
+	}
+	void colorSet(int red, int green, int blue) {
+		KwadratKolor fig =  new KwadratKolor(buffer, delay, getWidth(), getHeight(), red, green, blue);
+		timer.addActionListener(fig);
+		new Thread(fig).start();
 	}
 
 	@Override
@@ -66,4 +85,6 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
 	}
+
+
 }

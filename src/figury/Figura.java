@@ -1,22 +1,13 @@
-/**
- * 
- */
 package figury;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.Random;
 
-/**
- * @author tb
- *
- */
+
 public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 	// wspolny bufor
@@ -32,11 +23,11 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	// rozciaganie
 	private double sf;
 	// kat obrotu
-	private double an;
-	private int delay;
-	private int width;
-	private int height;
-	private Color clr;
+	private final double an;
+	private final int delay;
+	private final int width;
+	private final int height;
+	private final Color clr;
 
 	protected static final Random rand = new Random();
 
@@ -50,12 +41,27 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		dy = 1 + rand.nextInt(5);
 		sf = 1 + 0.05 * rand.nextDouble();
 		an = 0.1 * rand.nextDouble();
-
 		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 		// reszta musi być zawarta w realizacji klasy Figure
 		// (tworzenie figury i przygotowanie transformacji)
 
 	}
+	public Figura(Graphics2D buf, int del, int w, int h, int r, int g, int b) {
+		delay = del;
+		buffer = buf;
+		width = w;
+		height = h;
+
+		dx = 1 + rand.nextInt(5);
+		dy = 1 + rand.nextInt(5);
+		sf = 1 + 0.05 * rand.nextDouble();
+		an = 0.1 * rand.nextDouble();
+		clr = new Color(r, g, b, rand.nextInt(255));
+		// reszta musi być zawarta w realizacji klasy Figure
+		// (tworzenie figury i przygotowanie transformacji)
+
+	}
+
 
 	@Override
 	public void run() {
@@ -69,7 +75,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 			shape = nextFrame();
 			try {
 				Thread.sleep(delay);
-			} catch (InterruptedException e) {
+			} catch (InterruptedException ignored) {
 			}
 		}
 	}
