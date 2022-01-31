@@ -36,6 +36,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	public void initialize() {
+		setBounds(10, 11, AnimatorApp.WIDTH-40, AnimatorApp.HEIGHT-100);
 		int width = getWidth();
 		int height = getHeight();
 
@@ -47,8 +48,16 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+		numer++;
+		Figura fig;
+		if(numer %3 == 0){
+			fig = new Kwadrat(buffer, delay, getWidth(), getHeight());
+		} else if(numer %3 == 1){
+			fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+		} else {
+			fig = new Arc(buffer,delay, getWidth(),getHeight());
+		}
+
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}

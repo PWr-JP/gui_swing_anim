@@ -17,7 +17,7 @@ import java.util.Random;
  * @author tb
  *
  */
-public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
+public abstract class Figura implements Runnable, ActionListener, Shape {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
@@ -28,14 +28,14 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	protected AffineTransform aft;
 
 	// przesuniecie
-	private int dx, dy;
+	protected int dx, dy;
 	// rozciaganie
-	private double sf;
+	protected double sf;
 	// kat obrotu
-	private double an;
+	protected double an;
 	private int delay;
-	private int width;
-	private int height;
+	protected int width;
+	protected int height;
 	private Color clr;
 
 	protected static final Random rand = new Random();
