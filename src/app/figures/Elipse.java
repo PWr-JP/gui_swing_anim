@@ -1,26 +1,23 @@
-package app.figury;
+package app.figures;
 
 import java.awt.*;
 import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 
-public class Prostokat extends Figura{
-    public Prostokat(Graphics2D buffer, int delay, int width, int heigth) {
-        super(buffer, delay, width, heigth);
-    }
+public class Elipse extends Figure {
+    public Elipse() {}
 
     @Override
     public void run() {
-        // przesuniecie na srodek
         aft.translate(100, 100);
         if(area == null) {
-            Rectangle a = new Rectangle(rand.nextInt(100),rand.nextInt(100));
+            Ellipse2D.Float a = new Ellipse2D.Float(rand.nextInt(100),rand.nextInt(100), rand.nextInt(100), rand.nextInt(100));
             area = new Area(a);
         }
         area.transform(aft);
         shape = area;
 
         while (true) {
-            // przygotowanie nastepnego kadru
             shape = nextFrame();
             try {
                 Thread.sleep(delay);

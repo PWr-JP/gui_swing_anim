@@ -1,6 +1,6 @@
 package app;
 
-import app.figury.*;
+import app.figures.*;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -13,9 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class AnimPanel extends JPanel implements ActionListener {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	// bufor
@@ -48,11 +45,15 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Prostokat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
-		timer.addActionListener(fig);
-		new Thread(fig).start();
+	void addFig(Figure figure) {
+		figure.setBuffer(this.buffer);
+		figure.setDelay(this.delay);
+		figure.setWidth(getWidth());
+		figure.setHeight(getHeight());
+		figure.setParameters();
+
+		timer.addActionListener(figure);
+		new Thread(figure).start();
 	}
 
 	void animate() {

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package app.figury;
+package app.figures;
 
 import app.FigureParameters;
 
@@ -19,7 +19,7 @@ import java.util.Random;
  * @author tb
  *
  */
-public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
+public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
@@ -42,12 +42,9 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 	protected static final Random rand = new Random();
 
-	public Figura(Graphics2D buffer, int delay, int width, int height) {
-		this.delay = delay;
-		this.buffer = buffer;
-		this.width = width;
-		this.height = height;
+	public Figure() {}
 
+	public void setParameters() {
 		dx = 1 + rand.nextInt(5);
 		dy = 1 + rand.nextInt(5);
 		streching = 1 + 0.05 * rand.nextDouble();
@@ -56,20 +53,20 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		aft = new AffineTransform(1,0,0,1,0,0);
 
 		color = FigureParameters.color;
-		// reszta musi być zawarta w realizacji klasy Figure
-		// (tworzenie app.figury i przygotowanie transformacji)
-
 	}
+
+	public void setBuffer(Graphics2D buffer) { this.buffer = buffer; }
+	public void setDelay(int delay) { this.delay = delay; }
+	public void setWidth(int width) { this.width = width; }
+	public void setHeight(int height) { this.height = height; }
 
 	@Override
 	public void run() {
-		// przesuniecie na srodek
 		aft.translate(100, 100);
 		area.transform(aft);
 		shape = area;
 
 		while (true) {
-			// przygotowanie nastepnego kadru
 			shape = nextFrame();
 			try {
 				Thread.sleep(delay);
@@ -79,38 +76,35 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	}
 
 	protected Shape nextFrame() {
-		// zapamietanie na zmiennej tymczasowej
-		// aby nie przeszkadzalo w wykreslaniu
 		area = new Area(area);
 		aft = new AffineTransform();
 		Rectangle bounds = area.getBounds();
 		int cx = bounds.x + bounds.width / 2;
 		int cy = bounds.y + bounds.height / 2;
-		// odbicie
+
 		if (cx < 0 || cx > width)
 			dx = -dx;
 		if (cy < 0 || cy > height)
 			dy = -dy;
-		// zwiekszenie lub zmniejszenie
+
 		if (bounds.height > height / 3 || bounds.height < 10)
 			streching = 1 / streching;
-		// konstrukcja przeksztalcenia
+
 		aft.translate(cx, cy);
 		aft.scale(streching, streching);
 		aft.rotate(rotateAngle);
 		aft.translate(-cx, -cy);
 		aft.translate(dx, dy);
-		// przeksztalcenie obiektu
+
 		area.transform(aft);
 		return area;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		// wypelnienie obiektu
 		buffer.setColor(color.brighter());
 		buffer.fill(shape);
-		// wykreslenie ramki
+
 		buffer.setColor(color.darker());
 		buffer.draw(shape);
 	}

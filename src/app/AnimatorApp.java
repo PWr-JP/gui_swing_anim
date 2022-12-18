@@ -1,5 +1,9 @@
 package app;
 
+import app.figures.Elipse;
+import app.figures.Figure;
+import app.figures.Rectangle;
+
 import java.awt.*;
 
 import javax.swing.*;
@@ -15,7 +19,12 @@ public class AnimatorApp extends JFrame {
 	private static final JTextField red = new JTextField("255");
 	private static final JTextField green = new JTextField("255");
 	private static final JTextField blue = new JTextField("255");
-	private static final JLabel rgb = new JLabel("Kolor w formacie RGB");
+	private static final JLabel rgbLabel = new JLabel("Color in RGB");
+
+	private static final JLabel shapeLabel = new JLabel("Shape");
+	private static final JRadioButton rectangleRadioBtn = new JRadioButton("Rectangle");
+	private static final JRadioButton elipseRadioBtn = new JRadioButton("Elipse");
+	private static final ButtonGroup shapeGroup = new ButtonGroup();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -60,7 +69,17 @@ public class AnimatorApp extends JFrame {
 						Integer.parseInt( red.getText() ),
 						Integer.parseInt( green.getText() ),
 						Integer.parseInt( blue.getText() ));
-				kanwa.addFig();
+
+				Figure figure;
+
+				System.out.println(rectangleRadioBtn.isSelected() + " " + elipseRadioBtn.isSelected());
+
+				if (rectangleRadioBtn.isSelected())
+					figure = new Rectangle();
+				else
+					figure = new Elipse();
+
+				kanwa.addFig(figure);
 			}
 		});
 		btnAdd.setBounds(10, 239, 80, 23);
@@ -75,21 +94,39 @@ public class AnimatorApp extends JFrame {
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
 
-		rgb.setBounds(147, 290, 200, 25);
-		rgb.setVisible(true);
-		this.add(rgb);
 
-		red.setBounds(65, 315, 80, 25);
+		rgbLabel.setBounds(170, 280, 200, 25);
+		rgbLabel.setVisible(true);
+		this.add(rgbLabel);
+
+		red.setBounds(65, 305, 80, 25);
 		red.setVisible(true);
 		this.add(red);
 
-		green.setBounds(170, 315, 80, 25);
+		green.setBounds(170, 305, 80, 25);
 		green.setVisible(true);
 		this.add(green);
 
-		blue.setBounds(275, 315, 80, 25);
+		blue.setBounds(275, 305, 80, 25);
 		blue.setVisible(true);
 		this.add(blue);
+
+
+		shapeLabel.setBounds(190, 340, 200, 25);
+		shapeLabel.setVisible(true);
+		this.add(shapeLabel);
+
+		rectangleRadioBtn.setVisible(true);
+		rectangleRadioBtn.setSelected(true);
+		elipseRadioBtn.setVisible(true);
+		elipseRadioBtn.setSelected(false);
+		shapeGroup.add(rectangleRadioBtn);
+		shapeGroup.add(elipseRadioBtn);
+		this.add(rectangleRadioBtn);
+		this.add(elipseRadioBtn);
+
+		rectangleRadioBtn.setBounds(125, 365, 100, 25);
+		elipseRadioBtn.setBounds(235, 365, 100, 25);
 	}
 
 }
