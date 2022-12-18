@@ -45,7 +45,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig(Figure figure) {
+	public void addFig(Figure figure) {
 		figure.setBuffer(this.buffer);
 		figure.setDelay(this.delay);
 		figure.setWidth(getWidth());

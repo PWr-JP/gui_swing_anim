@@ -13,13 +13,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
  * @author tb
  *
  */
-public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
+public abstract class Figure implements Runnable, ActionListener, Cloneable/*, Shape*/ {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
@@ -43,6 +45,10 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 	protected static final Random rand = new Random();
 
 	public Figure() {}
+
+    protected Figure getNewFigure() {
+        return this;
+    }
 
 	public void initializeParameters() {
 		dx = 1 + rand.nextInt(5);

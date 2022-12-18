@@ -1,9 +1,7 @@
 package app;
 
-import app.figures.Elipse;
-import app.figures.Figure;
+import app.figures.*;
 import app.figures.Rectangle;
-import app.figures.RoundRectangle;
 
 import java.awt.*;
 
@@ -51,6 +49,8 @@ public class AnimatorApp extends JFrame {
 		contentPane.setLayout(null);
 
 		AnimPanel canva = new AnimPanel();
+		PanelHolder.setPanel(canva);
+
 		canva.setBounds(10, 11, 422, 219);
 		contentPane.add(canva);
 		SwingUtilities.invokeLater(new Runnable() {
