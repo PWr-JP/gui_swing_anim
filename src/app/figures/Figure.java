@@ -82,10 +82,19 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 		int cx = bounds.x + bounds.width / 2;
 		int cy = bounds.y + bounds.height / 2;
 
-		if (cx <= 0 || cx >= width)
+		boolean isBouncedHorizontally = (cx < 0 || cx > width);
+		boolean isBouncedVertically = (cy < 0 || cy > height);
+
+		if (isBouncedHorizontally)
 			dx = -dx;
-		if (cy <= 0 || cy >= height)
+		if (isBouncedVertically)
 			dy = -dy;
+		if (isBouncedHorizontally || isBouncedVertically) {
+			int red = this.color.getRed();
+			int green = this.color.getGreen();
+			int blue = this.color.getBlue();
+			this.color = new Color(255 - red, 255 - green, 255 - blue);
+		}
 
 		if (bounds.height > height / 3 || bounds.height < 10)
 			streching = 1 / streching;
