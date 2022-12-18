@@ -2,11 +2,10 @@ package app.figury;
 
 import java.awt.*;
 import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
 
-public class Elipsa extends Figura{
-    public Elipsa(Graphics2D buffer, int delay, int width, int height) {
-        super(buffer, delay, width, height);
+public class Prostokat extends Figura{
+    public Prostokat(Graphics2D buffer, int delay, int width, int heigth) {
+        super(buffer, delay, width, heigth);
     }
 
     @Override
@@ -14,7 +13,7 @@ public class Elipsa extends Figura{
         // przesuniecie na srodek
         aft.translate(100, 100);
         if(area == null) {
-            Ellipse2D.Float a = new Ellipse2D.Float(rand.nextInt(100),rand.nextInt(100), rand.nextInt(100), rand.nextInt(100));
+            Rectangle a = new Rectangle(rand.nextInt(100),rand.nextInt(100));
             area = new Area(a);
         }
         area.transform(aft);

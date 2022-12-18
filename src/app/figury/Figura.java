@@ -3,6 +3,8 @@
  */
 package app.figury;
 
+import app.FigureParameters;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -28,30 +30,32 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	protected AffineTransform aft;
 
 	// przesuniecie
-	private int dx, dy;
+	protected int dx, dy;
 	// rozciaganie
-	private double sf;
+	protected double streching;
 	// kat obrotu
-	private double an;
-	private int delay;
-	private int width;
-	private int height;
-	private Color clr;
+	protected double rotateAngle;
+	protected int delay;
+	protected int width;
+	protected int height;
+	protected Color color;
 
 	protected static final Random rand = new Random();
 
-	public Figura(Graphics2D buf, int del, int w, int h) {
-		delay = del;
-		buffer = buf;
-		width = w;
-		height = h;
+	public Figura(Graphics2D buffer, int delay, int width, int height) {
+		this.delay = delay;
+		this.buffer = buffer;
+		this.width = width;
+		this.height = height;
 
 		dx = 1 + rand.nextInt(5);
 		dy = 1 + rand.nextInt(5);
-		sf = 1 + 0.05 * rand.nextDouble();
-		an = 0.1 * rand.nextDouble();
+		streching = 1 + 0.05 * rand.nextDouble();
+		rotateAngle = 0.1 * rand.nextDouble();
 
-		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+		aft = new AffineTransform(1,0,0,1,0,0);
+
+		color = FigureParameters.color;
 		// reszta musi być zawarta w realizacji klasy Figure
 		// (tworzenie app.figury i przygotowanie transformacji)
 
@@ -89,11 +93,11 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 			dy = -dy;
 		// zwiekszenie lub zmniejszenie
 		if (bounds.height > height / 3 || bounds.height < 10)
-			sf = 1 / sf;
+			streching = 1 / streching;
 		// konstrukcja przeksztalcenia
 		aft.translate(cx, cy);
-		aft.scale(sf, sf);
-		aft.rotate(an);
+		aft.scale(streching, streching);
+		aft.rotate(rotateAngle);
 		aft.translate(-cx, -cy);
 		aft.translate(dx, dy);
 		// przeksztalcenie obiektu
@@ -104,10 +108,10 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		// wypelnienie obiektu
-		buffer.setColor(clr.brighter());
+		buffer.setColor(color.brighter());
 		buffer.fill(shape);
 		// wykreslenie ramki
-		buffer.setColor(clr.darker());
+		buffer.setColor(color.darker());
 		buffer.draw(shape);
 	}
 
