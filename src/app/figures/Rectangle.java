@@ -7,10 +7,9 @@ public class Rectangle extends Figure {
     @Override
     public void run() {
         aft.translate(100, 100);
-        if(area == null) {
-            java.awt.Rectangle a = new java.awt.Rectangle(rand.nextInt(100), rand.nextInt(100));
-            area = new Area(a);
-        }
+        java.awt.Rectangle a = new java.awt.Rectangle(rand.nextInt(100), rand.nextInt(100));
+
+        area = new Area(a);
         area.transform(aft);
         shape = area;
 
