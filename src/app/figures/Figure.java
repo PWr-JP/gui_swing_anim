@@ -82,9 +82,9 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 		int cx = bounds.x + bounds.width / 2;
 		int cy = bounds.y + bounds.height / 2;
 
-		if (cx < 0 || cx > width)
+		if (cx <= 0 || cx >= width)
 			dx = -dx;
-		if (cy < 0 || cy > height)
+		if (cy <= 0 || cy >= height)
 			dy = -dy;
 
 		if (bounds.height > height / 3 || bounds.height < 10)
