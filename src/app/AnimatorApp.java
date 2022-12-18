@@ -1,4 +1,4 @@
-package figury;
+package app;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;

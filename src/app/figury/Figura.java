@@ -1,7 +1,7 @@
 /**
  * 
  */
-package figury;
+package app.figury;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -53,7 +53,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 		// reszta musi być zawarta w realizacji klasy Figure
-		// (tworzenie figury i przygotowanie transformacji)
+		// (tworzenie app.figury i przygotowanie transformacji)
 
 	}
 

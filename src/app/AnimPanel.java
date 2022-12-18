@@ -1,4 +1,6 @@
-package figury;
+package app;
+
+import app.figury.*;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
