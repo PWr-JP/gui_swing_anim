@@ -44,7 +44,7 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 
 	public Figure() {}
 
-	public void setParameters() {
+	public void initializeParameters() {
 		dx = 1 + rand.nextInt(5);
 		dy = 1 + rand.nextInt(5);
 		streching = 1 + 0.05 * rand.nextDouble();

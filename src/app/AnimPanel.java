@@ -50,7 +50,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 		figure.setDelay(this.delay);
 		figure.setWidth(getWidth());
 		figure.setHeight(getHeight());
-		figure.setParameters();
+		figure.initializeParameters();
 
 		timer.addActionListener(figure);
 		new Thread(figure).start();
