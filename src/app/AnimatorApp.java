@@ -66,13 +66,13 @@ public class AnimatorApp extends JFrame {
 		});
 
 		Border blackLine = BorderFactory.createLineBorder(Color.black);
-		canva.setBorder(blackLine);
-		canva.setBackground(PANEL_COLOR);
+		//canva.setBorder(blackLine);
+		//canva.setBackground(PANEL_COLOR);
 
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FigureParametersHolder.color = new Color(
+				ColorHolder.color = new Color(
 						Integer.parseInt( red.getText() ),
 						Integer.parseInt( green.getText() ),
 						Integer.parseInt( blue.getText() ));
@@ -91,7 +91,6 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAdd.setBounds(10, 239, 80, 23);
 		contentPane.add(btnAdd);
-		
 		JButton btnAnimate = new JButton("Animate");
 		btnAnimate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -100,6 +99,7 @@ public class AnimatorApp extends JFrame {
 		});
 		btnAnimate.setBounds(100, 239, 80, 23);
 		contentPane.add(btnAnimate);
+
 
 		rgbLabel.setBounds(170, 280, 200, 25);
 		rgbLabel.setVisible(true);

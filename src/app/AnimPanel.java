@@ -2,10 +2,7 @@ package app;
 
 import app.figures.*;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -62,20 +59,23 @@ public class AnimPanel extends JPanel implements ActionListener {
 		threads.add(thread);
 	}
 
-	public void deleteFig(Figure figure) {
-		int index = figures.indexOf(figure);
-
-		threads.get(index).stop();
-		threads.remove(index);
-		figures.remove(index);
-	}
-
 	void animate() {
 		if (timer.isRunning()) {
 			timer.stop();
 		} else {
 			timer.start();
 		}
+	}
+
+	public void deleteFig(Figure figure, Shape shape) {
+		int index = figures.indexOf(figure);
+		Thread thread = threads.get(index);
+
+		thread.stop();
+		threads.remove(index);
+		figures.remove(index);
+
+		this.repaint();
 	}
 
 	@Override

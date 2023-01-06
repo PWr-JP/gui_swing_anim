@@ -1,7 +1,6 @@
 package app.figures;
 
 import java.awt.*;
-import java.awt.geom.Area;
 import java.awt.geom.RoundRectangle2D;
 
 public class RoundRectangle extends Figure{

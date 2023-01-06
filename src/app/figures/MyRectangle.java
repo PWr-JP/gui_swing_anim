@@ -1,7 +1,6 @@
 package app.figures;
 
 import java.awt.*;
-import java.awt.geom.Area;
 
 public class MyRectangle extends Figure {
     @Override

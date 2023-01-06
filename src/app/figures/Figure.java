@@ -3,7 +3,7 @@
  */
 package app.figures;
 
-import app.FigureParametersHolder;
+import app.ColorHolder;
 import app.PanelHolder;
 
 import java.awt.Color;
@@ -75,7 +75,7 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 
 		aft = new AffineTransform(1,0,0,1,0,0);
 
-		color = FigureParametersHolder.color;
+		color = ColorHolder.color;
 	}
 
 	public void setBuffer(Graphics2D buffer) { this.buffer = buffer; }
@@ -98,11 +98,6 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 
 		while (true) {
 			shape = nextFrame();
-			if (timesBounced >= bounceLimit) {
-				aft.translate(100000, 100000);
-				PanelHolder.getPanel().deleteFig(this);
-			}
-
 			try {
 				Thread.sleep(delay);
 			} catch (InterruptedException e) {
@@ -110,7 +105,7 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 		}
 	}
 
-	protected Shape nextFrame() {
+	private Shape nextFrame() {
 		area = new Area(area);
 		aft = new AffineTransform();
 		Rectangle bounds = area.getBounds();
@@ -129,7 +124,7 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 			timesBounced++;
 		}
 		if (timesBounced >= bounceLimit)
-			PanelHolder.getPanel().deleteFig(this);
+			PanelHolder.getPanel().deleteFig(this, shape);
 
 		if (isBouncedHorizontally || isBouncedVertically) {
 			int red = this.color.getRed();
