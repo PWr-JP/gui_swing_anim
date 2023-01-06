@@ -46,11 +46,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	}
 
 	public void addFig(Figure figure) {
-		figure.setBuffer(this.buffer);
-		figure.setDelay(this.delay);
-		figure.setWidth(getWidth());
-		figure.setHeight(getHeight());
-		figure.initializeParameters();
+		figure.initializeParameters(this.buffer, this.delay, this.getWidth(), this.getHeight(), this);
 
 		timer.addActionListener(figure);
 		Thread thread = new Thread(figure);
@@ -59,7 +55,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 		threads.add(thread);
 	}
 
-	void animate() {
+	 void animate() {
 		if (timer.isRunning()) {
 			timer.stop();
 		} else {
@@ -67,11 +63,11 @@ public class AnimPanel extends JPanel implements ActionListener {
 		}
 	}
 
-	public void deleteFig(Figure figure, Shape shape) {
+	public void deleteFig(Figure figure) {
 		int index = figures.indexOf(figure);
-		Thread thread = threads.get(index);
 
-		thread.stop();
+		timer.removeActionListener(figure);
+		threads.get(index).stop();
 		threads.remove(index);
 		figures.remove(index);
 

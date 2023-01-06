@@ -3,8 +3,8 @@
  */
 package app.figures;
 
+import app.AnimPanel;
 import app.ColorHolder;
-import app.PanelHolder;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -18,6 +18,7 @@ import java.util.Random;
 
 public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 
+	private AnimPanel panel;
 	// wspolny bufor
 	protected Graphics2D buffer;
 	protected Area area;
@@ -26,7 +27,7 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 	// przeksztalcenie obiektu
 	protected AffineTransform aft;
 
-	private final int bounceLimit = 3;
+	private int bounceLimit;
 	private int timesBounced = 0;
 	// przesuniecie
 	protected int dx, dy;
@@ -41,33 +42,15 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 
 	protected static final Random rand = new Random();
 
-	public Figure() {}
+	public void initializeParameters(Graphics2D buffer, int delay, int width, int height, AnimPanel panel) {
+		this.buffer = buffer;
+		this.delay = delay;
+		this.width = width;
+		this.height = height;
+		this.panel = panel;
 
-	public void setColor(Color color) {
-		this.color = color;
-	}
+		bounceLimit = rand.nextInt(8) + 3;
 
-	public Graphics2D getBuffer() {
-		return buffer;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public int getDx() {
-		return dx;
-	}
-
-	public int getDy() {
-		return dy;
-	}
-
-	public void initializeParameters() {
 		dx = 1 + rand.nextInt(5);
 		dy = 1 + rand.nextInt(5);
 		streching = 1 + 0.05 * rand.nextDouble();
@@ -77,11 +60,6 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 
 		color = ColorHolder.color;
 	}
-
-	public void setBuffer(Graphics2D buffer) { this.buffer = buffer; }
-	public void setDelay(int delay) { this.delay = delay; }
-	public void setWidth(int width) { this.width = width; }
-	public void setHeight(int height) { this.height = height; }
 
 	public Shape initializeShape() {
 		return null;
@@ -124,7 +102,7 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 			timesBounced++;
 		}
 		if (timesBounced >= bounceLimit)
-			PanelHolder.getPanel().deleteFig(this, shape);
+			panel.deleteFig(this);
 
 		if (isBouncedHorizontally || isBouncedVertically) {
 			int red = this.color.getRed();
