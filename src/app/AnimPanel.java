@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -15,6 +16,8 @@ import javax.swing.Timer;
 public class AnimPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
+	ArrayList<Figure> figures = new ArrayList<>();
+	ArrayList<Thread> threads = new ArrayList<>();
 	// bufor
 	Image image;
 	// wykreslacz ekranowy
@@ -53,7 +56,18 @@ public class AnimPanel extends JPanel implements ActionListener {
 		figure.initializeParameters();
 
 		timer.addActionListener(figure);
-		new Thread(figure).start();
+		Thread thread = new Thread(figure);
+		thread.start();
+		figures.add(figure);
+		threads.add(thread);
+	}
+
+	public void deleteFig(Figure figure) {
+		int index = figures.indexOf(figure);
+
+		threads.get(index).stop();
+		threads.remove(index);
+		figures.remove(index);
 	}
 
 	void animate() {

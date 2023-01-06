@@ -1,6 +1,4 @@
-package app.figures;
-
-import app.AnimPanel;
+package app;
 
 public class PanelHolder {
     private PanelHolder() {}

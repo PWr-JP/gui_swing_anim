@@ -1,7 +1,7 @@
 package app;
 
 import app.figures.*;
-import app.figures.Rectangle;
+import app.figures.MyRectangle;
 
 import java.awt.*;
 
@@ -63,7 +63,7 @@ public class AnimatorApp extends JFrame {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FigureParameters.color = new Color(
+				FigureParametersHolder.color = new Color(
 						Integer.parseInt( red.getText() ),
 						Integer.parseInt( green.getText() ),
 						Integer.parseInt( blue.getText() ));
@@ -71,7 +71,7 @@ public class AnimatorApp extends JFrame {
 				Figure figure;
 
 				if (rectangleRadioBtn.isSelected())
-					figure = new Rectangle();
+					figure = new MyRectangle();
 				else if (elipseRadioBtn.isSelected())
 					figure = new Elipse();
 				else

@@ -3,7 +3,8 @@
  */
 package app.figures;
 
-import app.FigureParameters;
+import app.FigureParametersHolder;
+import app.PanelHolder;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -13,15 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
-/**
- * @author tb
- *
- */
-public abstract class Figure implements Runnable, ActionListener, Cloneable/*, Shape*/ {
+public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
@@ -31,6 +26,8 @@ public abstract class Figure implements Runnable, ActionListener, Cloneable/*, S
 	// przeksztalcenie obiektu
 	protected AffineTransform aft;
 
+	private final int bounceLimit = 3;
+	private int timesBounced = 0;
 	// przesuniecie
 	protected int dx, dy;
 	// rozciaganie
@@ -46,9 +43,29 @@ public abstract class Figure implements Runnable, ActionListener, Cloneable/*, S
 
 	public Figure() {}
 
-    protected Figure getNewFigure() {
-        return this;
-    }
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public Graphics2D getBuffer() {
+		return buffer;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getDx() {
+		return dx;
+	}
+
+	public int getDy() {
+		return dy;
+	}
 
 	public void initializeParameters() {
 		dx = 1 + rand.nextInt(5);
@@ -58,7 +75,7 @@ public abstract class Figure implements Runnable, ActionListener, Cloneable/*, S
 
 		aft = new AffineTransform(1,0,0,1,0,0);
 
-		color = FigureParameters.color;
+		color = FigureParametersHolder.color;
 	}
 
 	public void setBuffer(Graphics2D buffer) { this.buffer = buffer; }
@@ -66,14 +83,26 @@ public abstract class Figure implements Runnable, ActionListener, Cloneable/*, S
 	public void setWidth(int width) { this.width = width; }
 	public void setHeight(int height) { this.height = height; }
 
+	public Shape initializeShape() {
+		return null;
+	}
+
 	@Override
 	public void run() {
 		aft.translate(100, 100);
+		Shape a = initializeShape();
+
+		area = new Area(a);
 		area.transform(aft);
 		shape = area;
 
 		while (true) {
 			shape = nextFrame();
+			if (timesBounced >= bounceLimit) {
+				aft.translate(100000, 100000);
+				PanelHolder.getPanel().deleteFig(this);
+			}
+
 			try {
 				Thread.sleep(delay);
 			} catch (InterruptedException e) {
@@ -91,10 +120,17 @@ public abstract class Figure implements Runnable, ActionListener, Cloneable/*, S
 		boolean isBouncedHorizontally = (cx < 0 || cx > width);
 		boolean isBouncedVertically = (cy < 0 || cy > height);
 
-		if (isBouncedHorizontally)
+		if (isBouncedHorizontally) {
 			dx = -dx;
-		if (isBouncedVertically)
+			timesBounced++;
+		}
+		if (isBouncedVertically) {
 			dy = -dy;
+			timesBounced++;
+		}
+		if (timesBounced >= bounceLimit)
+			PanelHolder.getPanel().deleteFig(this);
+
 		if (isBouncedHorizontally || isBouncedVertically) {
 			int red = this.color.getRed();
 			int green = this.color.getGreen();
@@ -112,6 +148,7 @@ public abstract class Figure implements Runnable, ActionListener, Cloneable/*, S
 		aft.translate(dx, dy);
 
 		area.transform(aft);
+
 		return area;
 	}
 
@@ -123,5 +160,4 @@ public abstract class Figure implements Runnable, ActionListener, Cloneable/*, S
 		buffer.setColor(color.darker());
 		buffer.draw(shape);
 	}
-
 }
