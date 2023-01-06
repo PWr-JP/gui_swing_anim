@@ -6,6 +6,7 @@ import app.figures.MyRectangle;
 import java.awt.*;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -23,12 +24,14 @@ public class AnimatorApp extends JFrame {
 	private static final JRadioButton elipseRadioBtn = new JRadioButton("Elipse");
 	private static final ButtonGroup shapeGroup = new ButtonGroup();
 
+	private static final Color BACKGROUND_COLOR = new Color(251, 251, 240);
+	private static final Color PANEL_COLOR = Color.WHITE;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					final AnimatorApp frame = new AnimatorApp();
-					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,6 +50,8 @@ public class AnimatorApp extends JFrame {
 		setBounds((screen.width-windowWidth)/2, (screen.height-windowHeigth)/2, windowWidth, windowHeigth);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setVisible(true);
+		getContentPane().setBackground(BACKGROUND_COLOR);
 
 		AnimPanel canva = new AnimPanel();
 		PanelHolder.setPanel(canva);
@@ -59,6 +64,10 @@ public class AnimatorApp extends JFrame {
 				canva.initialize();
 			}
 		});
+
+		Border blackLine = BorderFactory.createLineBorder(Color.black);
+		canva.setBorder(blackLine);
+		canva.setBackground(PANEL_COLOR);
 
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
@@ -113,13 +122,10 @@ public class AnimatorApp extends JFrame {
 		shapeLabel.setVisible(true);
 		this.add(shapeLabel);
 
-		rectangleRadioBtn.setVisible(true);
 		rectangleRadioBtn.setSelected(false);
 
-		elipseRadioBtn.setVisible(true);
 		elipseRadioBtn.setSelected(true);
 
-		roundRectRadioBtn.setVisible(true);
 		roundRectRadioBtn.setSelected(false);
 
 		shapeGroup.add(rectangleRadioBtn);
@@ -132,6 +138,12 @@ public class AnimatorApp extends JFrame {
 		elipseRadioBtn.setBounds(70, 365, 90, 25);
 		rectangleRadioBtn.setBounds(165, 365, 90, 25);
 		roundRectRadioBtn.setBounds(265, 365, 119, 25);
+
+		rectangleRadioBtn.setBackground(BACKGROUND_COLOR);
+		elipseRadioBtn.setBackground(BACKGROUND_COLOR);
+		roundRectRadioBtn.setBackground(BACKGROUND_COLOR);
+
+		this.repaint();
 	}
 
 }
