@@ -43,10 +43,6 @@ public class AnimatorApp extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @param delay 
-	 */
 	public AnimatorApp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -64,13 +60,13 @@ public class AnimatorApp extends JFrame {
 		SwingUtilities.invokeLater(canva::initialize);
 
 
-
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(e -> {
-			ColorHolder.color = new Color(
+			ColorHolder.setColor(new Color(
 					Integer.parseInt( red.getText() ),
 					Integer.parseInt( green.getText() ),
-					Integer.parseInt( blue.getText() ));
+					Integer.parseInt( blue.getText() ))
+			);
 
 			Figure figure;
 

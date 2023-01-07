@@ -58,7 +58,7 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 
 		aft = new AffineTransform(1,0,0,1,0,0);
 
-		color = ColorHolder.color;
+		color = ColorHolder.getColor();
 	}
 
 	public Shape initializeShape() {
