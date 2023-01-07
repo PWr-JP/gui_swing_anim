@@ -18,27 +18,30 @@ import java.util.Random;
 
 public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 
-	private AnimPanel panel;
 	// wspolny bufor
-	protected Graphics2D buffer;
-	protected Area area;
+	private Graphics2D buffer;
+	private Area area;
 	// do wykreslania
-	protected Shape shape;
+	private Shape shape;
 	// przeksztalcenie obiektu
-	protected AffineTransform aft;
+	private AffineTransform aft;
+
+	// przesuniecie
+	private int dx, dy;
+	// rozciaganie
+	private double streching;
+	// kat obrotu
+	private double rotateAngle;
+
+	private int delay;
+	private int width;
+	private int height;
+	private Color color;
+
+	private AnimPanel panel;
 
 	private int bounceLimit;
 	private int timesBounced = 0;
-	// przesuniecie
-	protected int dx, dy;
-	// rozciaganie
-	protected double streching;
-	// kat obrotu
-	protected double rotateAngle;
-	protected int delay;
-	protected int width;
-	protected int height;
-	protected Color color;
 
 	protected static final Random rand = new Random();
 
