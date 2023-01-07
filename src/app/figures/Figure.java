@@ -64,9 +64,7 @@ public abstract class Figure implements Runnable, ActionListener/*, Shape*/ {
 		color = ColorHolder.getColor();
 	}
 
-	public Shape initializeShape() {
-		return null;
-	}
+	public abstract Shape initializeShape();
 
 	@Override
 	public void run() {
