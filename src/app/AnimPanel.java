@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -13,20 +14,17 @@ import javax.swing.Timer;
 public class AnimPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
-	ArrayList<Figure> figures = new ArrayList<>();
-	ArrayList<Thread> threads = new ArrayList<>();
+	private static final HashMap<Figure, Thread> figureThreadHashMap= new HashMap<>();
 	// bufor
-	Image image;
+	private Image image;
 	// wykreslacz ekranowy
-	Graphics2D device;
+	private Graphics2D device;
 	// wykreslacz bufora
-	Graphics2D buffer;
+	private Graphics2D buffer;
 
-	private int delay = 70;
+	private final int delay = 70;
 
 	private Timer timer;
-
-	private static int numer = 0;
 
 	public AnimPanel() {
 		super();
@@ -51,27 +49,25 @@ public class AnimPanel extends JPanel implements ActionListener {
 		timer.addActionListener(figure);
 		Thread thread = new Thread(figure);
 		thread.start();
-		figures.add(figure);
-		threads.add(thread);
+
+		figureThreadHashMap.put(figure, thread);
 	}
 
-	 void animate() {
+	public void deleteFig(Figure figure) {
+		timer.removeActionListener(figure);
+		Thread thread = figureThreadHashMap.get(figure);
+		thread.stop();
+		figureThreadHashMap.remove(figure, thread);
+
+		this.repaint();
+	}
+
+	 public void animate() {
 		if (timer.isRunning()) {
 			timer.stop();
 		} else {
 			timer.start();
 		}
-	}
-
-	public void deleteFig(Figure figure) {
-		int index = figures.indexOf(figure);
-
-		timer.removeActionListener(figure);
-		threads.get(index).stop();
-		threads.remove(index);
-		figures.remove(index);
-
-		this.repaint();
 	}
 
 	@Override
