@@ -5,11 +5,8 @@ import figury.Kwadrat;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class AnimPanel extends JPanel implements ActionListener {
 	/**
@@ -24,42 +21,17 @@ public class AnimPanel extends JPanel implements ActionListener {
 	// wykreslacz bufora
 	Graphics2D buffer;
 
-	private int delay = 70;
+	private final int delay = 70;
 
-	private Timer timer;
+	private final Timer timer;
 
 	private static int numer = 0;
 
 	public AnimPanel() {
 		super();
-		setBackground(Color.WHITE);
 		timer = new Timer(delay, this);
-		addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println(e.getX() + " " + e.getY());
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-
-			}
-		});
+		setBackground(Color.WHITE);
+		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 	}
 
 	public void initialize() {

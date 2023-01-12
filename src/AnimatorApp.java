@@ -1,11 +1,9 @@
-import java.awt.EventQueue;
-import java.awt.Toolkit;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -37,13 +35,16 @@ public class AnimatorApp extends JFrame {
 	 * Create the frame.
 	 */
 	public AnimatorApp() {
+		setTitle("Animacja");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		int ww = 450, wh = 300;
+		int ww = 460, wh = 300;
 		setBounds((screen.width-ww)/2, (screen.height-wh)/2, ww, wh);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		getContentPane().setBackground(Color.black);
+
 
 		AnimPanel kanwa = new AnimPanel();
 		kanwa.setBounds(10, 11, 422, 219);

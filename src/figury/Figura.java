@@ -3,6 +3,7 @@
  */
 package figury;
 
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -21,7 +22,6 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
-	protected String a;
 	protected Area area;
 	// do wykreslania
 	protected Shape shape;
@@ -33,11 +33,18 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	// rozciaganie
 	private double sf;
 	// kat obrotu
-	private double an;
-	private int delay;
-	private int width;
-	private int height;
-	private Color clr;
+	private final double an;
+	private final int delay;
+	private final int width;
+	private final int height;
+	private final Color clr;
+	Timer vTimer;
+	int vCounter = 0;
+	Timer hTimer;
+	int hCounter = 0;
+	Timer sTimer;
+	int sCounter;
+
 
 	protected static final Random rand = new Random();
 
@@ -53,9 +60,42 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		an = 0.1 * rand.nextDouble();
 
 		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
-		// reszta musi być zawarta w realizacji klasy Figure
-		// (tworzenie figury i przygotowanie transformacji)
+		createTimers();
+	}
 
+	private void createTimers(){
+		// timer do odbijania
+		vTimer = new Timer(2000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (vTimer.isRunning()) {
+					vCounter = 0;
+				}
+			}
+		});
+
+		hTimer = new Timer(2000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (hTimer.isRunning()) {
+					hCounter = 0;
+				}
+			}
+		});
+
+		//Timer do zmiany wielkości
+		sTimer = new Timer(1000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (sTimer.isRunning()) {
+					sCounter = 0;
+					sTimer.stop();
+				}
+			}
+		});
+
+		vTimer.start();
+		hTimer.start();
 	}
 
 	@Override
@@ -74,6 +114,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	}
 
 	protected Shape nextFrame() {
+
 		// zapamietanie na zmiennej tymczasowej
 		// aby nie przeszkadzalo w wykreslaniu
 		area = new Area(area);
@@ -82,13 +123,43 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		int cx = bounds.x + bounds.width / 2;
 		int cy = bounds.y + bounds.height / 2;
 		// odbicie
-		if (cx < 0 || cx > width)
-			dx = -dx;
-		if (cy < 0 || cy > height)
-			dy = -dy;
+		if (cx < bounds.width/2 || cx > width-bounds.width/2){
+			vCounter++;
+			if (vCounter < 2)
+				dx = -dx;
+			else if (vCounter == 2){
+				if (cx < 200){
+					if (dx < 0)
+						dx = -dx;
+				} else {
+					if (dx > 0)
+						dx = -dx;
+				}
+			}
+
+		}
+
+		if (cy < bounds.height/2 || cy > height-bounds.height/2) {
+			hCounter++;
+			if (hCounter < 3)
+				dy = -dy;
+			else if (hCounter == 3) {
+				if (cy < 100) {
+					if (dy < 0)
+						dy = -dy;
+				} else {
+					if (dy > 0)
+						dy = -dy;
+				}
+			}
+		}
+
 		// zwiekszenie lub zmniejszenie
-		if (bounds.height > height/2 || bounds.height < 10)
+		if ((bounds.height + bounds.width > width/2+height/2 || bounds.width + bounds.height < 20) && sCounter == 0) {
+			sCounter++;
+			sTimer.start();
 			sf = 1 / sf;
+		}
 		// konstrukcja przeksztalcenia
 		aft.translate(cx, cy);
 		aft.scale(sf, sf);
@@ -98,6 +169,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		// przeksztalcenie obiektu
 		area.transform(aft);
 		return area;
+
 	}
 
 	@Override
