@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package figury;
 
@@ -21,6 +21,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 	// wspolny bufor
 	protected Graphics2D buffer;
+	protected String a;
 	protected Area area;
 	// do wykreslania
 	protected Shape shape;
@@ -59,8 +60,6 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 	@Override
 	public void run() {
-		// przesuniecie na srodek
-		aft.translate(100, 100);
 		area.transform(aft);
 		shape = area;
 
@@ -88,7 +87,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		if (cy < 0 || cy > height)
 			dy = -dy;
 		// zwiekszenie lub zmniejszenie
-		if (bounds.height > height / 3 || bounds.height < 10)
+		if (bounds.height > height/2 || bounds.height < 10)
 			sf = 1 / sf;
 		// konstrukcja przeksztalcenia
 		aft.translate(cx, cy);

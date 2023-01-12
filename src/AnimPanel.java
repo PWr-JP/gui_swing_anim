@@ -1,18 +1,19 @@
-package figury;
+import figury.Elipsa;
+import figury.Figura;
+import figury.Kwadrat;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class AnimPanel extends JPanel implements ActionListener {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -33,11 +34,38 @@ public class AnimPanel extends JPanel implements ActionListener {
 		super();
 		setBackground(Color.WHITE);
 		timer = new Timer(delay, this);
+		addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(e.getX() + " " + e.getY());
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+
+			}
+		});
 	}
 
 	public void initialize() {
 		int width = getWidth();
 		int height = getHeight();
+		System.out.println(width + " " + height);
 
 		image = createImage(width, height);
 		buffer = (Graphics2D) image.getGraphics();
@@ -66,4 +94,5 @@ public class AnimPanel extends JPanel implements ActionListener {
 		device.drawImage(image, 0, 0, null);
 		buffer.clearRect(0, 0, getWidth(), getHeight());
 	}
+
 }
