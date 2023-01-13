@@ -38,7 +38,6 @@ public class AnimPanel extends JPanel implements ActionListener {
 	public void initialize() {
 		int width = getWidth();
 		int height = getHeight();
-		System.out.println(width + " " + height);
 
 		image = createImage(width, height);
 		buffer = (Graphics2D) image.getGraphics();
