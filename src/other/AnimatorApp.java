@@ -128,7 +128,6 @@ public class AnimatorApp extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GetSetHelper.setBounceColorChange(!GetSetHelper.getBounceColorChange());
-				System.out.println("xd");
 			}
 		});
 		contentPane.add(checkBox);
