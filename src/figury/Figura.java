@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.Random;
+import other.GetSetHelper;
 
 /**
  * @author tb
@@ -37,7 +38,8 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	private final int delay;
 	private final int width;
 	private final int height;
-	private final Color clr;
+	private final boolean bounceColorChange;
+	private Color clr;
 	Timer vTimer;
 	int vCounter = 0;
 	Timer hTimer;
@@ -53,13 +55,31 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		buffer = buf;
 		width = w;
 		height = h;
+		bounceColorChange = GetSetHelper.getBounceColorChange();
 
 		dx = 1 + rand.nextInt(5);
 		dy = 1 + rand.nextInt(5);
 		sf = 1 + 0.05 * rand.nextDouble();
 		an = 0.1 * rand.nextDouble();
 
-		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255),
+				rand.nextInt(235)+20);
+		createTimers();
+	}
+
+	public Figura(Graphics2D buf, int del, int w, int h, Color color) {
+		delay = del;
+		buffer = buf;
+		width = w;
+		height = h;
+		bounceColorChange = GetSetHelper.getBounceColorChange();
+
+		dx = 1 + rand.nextInt(5);
+		dy = 1 + rand.nextInt(5);
+		sf = 1 + 0.05 * rand.nextDouble();
+		an = 0.1 * rand.nextDouble();
+
+		clr = new Color(color.getRed(),color.getGreen(),color.getBlue(),rand.nextInt(235)+20);
 		createTimers();
 	}
 
@@ -125,6 +145,10 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		// odbicie
 		if (cx < bounds.width/2 || cx > width-bounds.width/2){
 			vCounter++;
+			if (vCounter == 1 && bounceColorChange){
+				clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255),
+						rand.nextInt(235)+20);
+			}
 			if (vCounter < 2)
 				dx = -dx;
 			else if (vCounter == 2){
@@ -141,9 +165,13 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 
 		if (cy < bounds.height/2 || cy > height-bounds.height/2) {
 			hCounter++;
-			if (hCounter < 3)
+			if (hCounter == 1 && bounceColorChange){
+				clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255),
+						rand.nextInt(235)+20);
+			}
+			if (hCounter < 2)
 				dy = -dy;
-			else if (hCounter == 3) {
+			else if (hCounter == 2) {
 				if (cy < 100) {
 					if (dy < 0)
 						dy = -dy;

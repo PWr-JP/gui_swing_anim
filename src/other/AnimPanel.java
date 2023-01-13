@@ -1,10 +1,13 @@
+package other;
+
 import figury.Elipsa;
 import figury.Figura;
-import figury.Kwadrat;
+import figury.Prostokat;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 import javax.swing.*;
 
@@ -25,13 +28,11 @@ public class AnimPanel extends JPanel implements ActionListener {
 
 	private final Timer timer;
 
-	private static int numer = 0;
 
 	public AnimPanel() {
 		super();
 		timer = new Timer(delay, this);
 		setBackground(Color.WHITE);
-		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 	}
 
 	public void initialize() {
@@ -42,13 +43,23 @@ public class AnimPanel extends JPanel implements ActionListener {
 		image = createImage(width, height);
 		buffer = (Graphics2D) image.getGraphics();
 		buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		buffer.setBackground(Color.WHITE);
 		device = (Graphics2D) getGraphics();
 		device.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	void addFig() {
-		Figura fig = (numer++ % 2 == 0) ? new Kwadrat(buffer, delay, getWidth(), getHeight())
-				: new Elipsa(buffer, delay, getWidth(), getHeight());
+	void addFig(int x) {
+		Figura fig = null;
+		if (x == 1) {
+			if (GetSetHelper.getColor() == null){
+				fig = new Prostokat(buffer, delay, getWidth(), getHeight());
+			} else fig = new Prostokat(buffer, delay, getWidth(), getHeight(), GetSetHelper.getColor());
+		} else if (x == 2){
+			if (GetSetHelper.getColor() == null){
+				fig = new Elipsa(buffer, delay, getWidth(), getHeight());
+			} else fig = new Elipsa(buffer, delay, getWidth(), getHeight(), GetSetHelper.getColor());
+		}
+
 		timer.addActionListener(fig);
 		new Thread(fig).start();
 	}
@@ -56,6 +67,7 @@ public class AnimPanel extends JPanel implements ActionListener {
 	void animate() {
 		if (timer.isRunning()) {
 			timer.stop();
+
 		} else {
 			timer.start();
 		}
