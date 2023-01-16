@@ -1,8 +1,9 @@
 /**
- * 
+ *
  */
 package figury;
 
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.Random;
+import other.GetSetHelper;
 
 /**
  * @author tb
@@ -32,11 +34,19 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	// rozciaganie
 	private double sf;
 	// kat obrotu
-	private double an;
-	private int delay;
-	private int width;
-	private int height;
+	private final double an;
+	private final int delay;
+	private final int width;
+	private final int height;
+	private final boolean bounceColorChange;
 	private Color clr;
+	Timer vTimer;
+	int vCounter = 0;
+	Timer hTimer;
+	int hCounter = 0;
+	Timer sTimer;
+	int sCounter;
+
 
 	protected static final Random rand = new Random();
 
@@ -45,22 +55,71 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		buffer = buf;
 		width = w;
 		height = h;
+		bounceColorChange = GetSetHelper.getBounceColorChange();
 
 		dx = 1 + rand.nextInt(5);
 		dy = 1 + rand.nextInt(5);
 		sf = 1 + 0.05 * rand.nextDouble();
 		an = 0.1 * rand.nextDouble();
 
-		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
-		// reszta musi być zawarta w realizacji klasy Figure
-		// (tworzenie figury i przygotowanie transformacji)
+		clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255),
+				rand.nextInt(235)+20);
+		createTimers();
+	}
 
+	public Figura(Graphics2D buf, int del, int w, int h, Color color) {
+		delay = del;
+		buffer = buf;
+		width = w;
+		height = h;
+		bounceColorChange = GetSetHelper.getBounceColorChange();
+
+		dx = 1 + rand.nextInt(5);
+		dy = 1 + rand.nextInt(5);
+		sf = 1 + 0.05 * rand.nextDouble();
+		an = 0.1 * rand.nextDouble();
+
+		clr = new Color(color.getRed(),color.getGreen(),color.getBlue(),rand.nextInt(235)+20);
+		createTimers();
+	}
+
+	private void createTimers(){
+		// timer do odbijania
+		vTimer = new Timer(2000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (vTimer.isRunning()) {
+					vCounter = 0;
+				}
+			}
+		});
+
+		hTimer = new Timer(2000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (hTimer.isRunning()) {
+					hCounter = 0;
+				}
+			}
+		});
+
+		//Timer do zmiany wielkości
+		sTimer = new Timer(1000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (sTimer.isRunning()) {
+					sCounter = 0;
+					sTimer.stop();
+				}
+			}
+		});
+
+		vTimer.start();
+		hTimer.start();
 	}
 
 	@Override
 	public void run() {
-		// przesuniecie na srodek
-		aft.translate(100, 100);
 		area.transform(aft);
 		shape = area;
 
@@ -75,6 +134,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 	}
 
 	protected Shape nextFrame() {
+
 		// zapamietanie na zmiennej tymczasowej
 		// aby nie przeszkadzalo w wykreslaniu
 		area = new Area(area);
@@ -83,13 +143,51 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		int cx = bounds.x + bounds.width / 2;
 		int cy = bounds.y + bounds.height / 2;
 		// odbicie
-		if (cx < 0 || cx > width)
-			dx = -dx;
-		if (cy < 0 || cy > height)
-			dy = -dy;
+		if (cx < bounds.width/2 || cx > width-bounds.width/2){
+			vCounter++;
+			if (vCounter == 1 && bounceColorChange){
+				clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255),
+						rand.nextInt(235)+20);
+			}
+			if (vCounter < 2)
+				dx = -dx;
+			else if (vCounter == 2){
+				if (cx < 200){
+					if (dx < 0)
+						dx = -dx;
+				} else {
+					if (dx > 0)
+						dx = -dx;
+				}
+			}
+
+		}
+
+		if (cy < bounds.height/2 || cy > height-bounds.height/2) {
+			hCounter++;
+			if (hCounter == 1 && bounceColorChange){
+				clr = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255),
+						rand.nextInt(235)+20);
+			}
+			if (hCounter < 2)
+				dy = -dy;
+			else if (hCounter == 2) {
+				if (cy < 100) {
+					if (dy < 0)
+						dy = -dy;
+				} else {
+					if (dy > 0)
+						dy = -dy;
+				}
+			}
+		}
+
 		// zwiekszenie lub zmniejszenie
-		if (bounds.height > height / 3 || bounds.height < 10)
+		if ((bounds.height + bounds.width > width/2+height/2 || bounds.width + bounds.height < 20) && sCounter == 0) {
+			sCounter++;
+			sTimer.start();
 			sf = 1 / sf;
+		}
 		// konstrukcja przeksztalcenia
 		aft.translate(cx, cy);
 		aft.scale(sf, sf);
@@ -99,6 +197,7 @@ public abstract class Figura implements Runnable, ActionListener/*, Shape*/ {
 		// przeksztalcenie obiektu
 		area.transform(aft);
 		return area;
+
 	}
 
 	@Override
